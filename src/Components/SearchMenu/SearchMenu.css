@@ -1,0 +1,20 @@
+.search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 1130px;
+}
+
+.s1, .s2 {
+    width: 125px;
+    height: 30px;
+    padding: 8px 12px;
+    border: 2px solid hotpink;
+}
+
+.s3, .s4 {
+    width: 229px;
+    height: 30px;
+    padding: 8px 12px;
+    border: 2px solid hotpink;
+}
