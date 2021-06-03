@@ -23,8 +23,6 @@ function KakaoLogin() {
     const [isLogin, setisLogin] = useState(false)
 
     const Login = () => {
-        try{
-            return new Promise((resolve, reject) => {
                 kakao.Auth.login({
                     success: function(authObj) {
                     //콘솔로 토큰값이 잘 출력되면 로그인은 끝입니다.
@@ -34,31 +32,29 @@ function KakaoLogin() {
                     console.log("로그인 하였습니다.");
                     setisLogin(true);
                     },
+
                     fail: function(err) {
                         console.log(JSON.stringify(err));
                     }
 
-                });
-                
-            })
-        }
-        catch(err){
-            console.log(err);
-        }
-        
+                }); 
     }
 
     const Logout = () => {
         if(kakao.Auth.getAccessToken()){
-            kakao.Auth.logout(() => {
-                kakao.Auth.setAccessToken(undefined);
-                console.log("로그아웃 하였습니다.");
-                setisLogin(false);
-                console.log(kakao.Auth.getAccessToken());
-                window.sessionStorage.clear();
-                window.localStorage.clear();
-            });
-            
+            kakao.API.request({
+                url: '/v1/user/unlink',
+                success: function (response) {
+                    console.log(response)
+                    console.log("로그아웃 하였습니다.");
+                    setisLogin(false);
+                },
+                fail: function (error) {
+                    console.log(error)
+                },
+            })
+            kakao.Auth.setAccessToken(undefined);
+            window.localStorage.clear();
         }
     }
 
