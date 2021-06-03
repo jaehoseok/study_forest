@@ -2,12 +2,16 @@ import React from 'react'
 import './Header.css';
 
 import Right from './RightMenu/RightMenu'
+import KakaoLogin from '../KakaoLogin/KakaoLogin';
 
 function Header() {
     return (
         <div className="header">
-            <div className="logo">Logo</div>
-            <Right className='right' />
+            <div className="logo">Study Forest</div>
+            <div className="loginBtn">
+                <KakaoLogin/>
+            </div>
+            
         </div>
     )
 }

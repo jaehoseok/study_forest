@@ -1,20 +1,40 @@
 .search {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     width: 1130px;
+    flex-flow: wrap;
 }
 
-.s1, .s2 {
+.parent-category, .child-category {
     width: 125px;
-    height: 30px;
+    height: 20px;
     padding: 8px 12px;
-    border: 2px solid hotpink;
+    border-radius: 5px;
+    border: 2px solid green;
 }
 
-.s3, .s4 {
+.study-name, .hashtag {
     width: 229px;
-    height: 30px;
+    height: 20px;
     padding: 8px 12px;
-    border: 2px solid hotpink;
+    border-radius: 5px;
+    border: 2px solid green;
+}
+
+input {
+    border: 0px;
+}
+
+input:focus {
+    outline: none;
+}
+
+.addBtn {
+    float: right;
+}
+
+.tags {
+    width: 1130px;
+    height: 40px;
 }

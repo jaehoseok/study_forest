@@ -1,0 +1,11 @@
+.mainView {
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.mainView > a {
+    width: 140px;
+    border: 2px solid green;
+    border-radius: 5px;
+}
