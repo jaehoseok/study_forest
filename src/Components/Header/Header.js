@@ -1,15 +1,15 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './Header.css';
 
-import Right from './RightMenu/RightMenu'
 import KakaoLogin from '../KakaoLogin/KakaoLogin';
 
-function Header() {
+function Header(props) {
+
     return (
         <div className="header">
-            <div className="logo">Study Forest</div>
+            <a className="logo" href="/">Study Forest</a>
             <div className="loginBtn">
-                <KakaoLogin/>
+                <KakaoLogin isLogin={props.isLogin} setisLogin={props.setisLogin}/>
             </div>
             
         </div>

@@ -1,26 +1,24 @@
 import React, {useEffect, useState} from 'react'
 
-import axios from 'axios'
 
 import './KakaoLogin.css';
 
 import kakao from 'kakaojs'
 import kakaLoginButton from './kakao_login_medium_narrow.png'
 
-function KakaoLogin() {
+function KakaoLogin(props) {
 
     useEffect(() => {
         kakao.init('6b2d30e7d44d413e6b0bf591686fdf2a'); //javascript sdk key
         if(kakao.Auth.getAccessToken()){
             console.log("토큰 존재, 세션 유지");
-            setisLogin(true)
+            props.setisLogin(true)
         }
         else{
             console.log("토큰 없음");
         }
     }, [])
 
-    const [isLogin, setisLogin] = useState(false)
 
     const Login = () => {
                 kakao.Auth.login({
@@ -30,7 +28,7 @@ function KakaoLogin() {
                     const AccessToken = JSON.stringify(authObj["access_token"]);
                     console.log(AccessToken);
                     console.log("로그인 하였습니다.");
-                    setisLogin(true);
+                    props.setisLogin(true);
                     },
 
                     fail: function(err) {
@@ -47,7 +45,7 @@ function KakaoLogin() {
                 success: function (response) {
                     console.log(response)
                     console.log("로그아웃 하였습니다.");
-                    setisLogin(false);
+                    props.setisLogin(false);
                 },
                 fail: function (error) {
                     console.log(error)
@@ -66,14 +64,15 @@ function KakaoLogin() {
 
     const mainView = (
         <div className="mainView">
-            <a>내정보</a>
+            <a href="/MyPage">내정보</a>
             <a onClick={Logout}>로그아웃</a>
         </div>
     )
 
     return (
         <div>
-            {isLogin ? mainView : loginView}
+            {props.isLogin ? mainView : loginView}
+            
         </div>
     )
 }

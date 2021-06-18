@@ -10,8 +10,11 @@
     margin: 40px;
     color: green;
     font-size: 20px;
+    text-decoration:none;
 }
 
 .loginBtn {
     margin-right: 20px;
 }
+.logo:link {color: green;}
+.logo:visited { color: green; }
