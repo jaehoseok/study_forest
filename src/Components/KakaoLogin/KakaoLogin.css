@@ -6,7 +6,7 @@
 
 .mainView > a {
     width: 140px;
-    border: 2px solid green;
+    border: 2px solid #D7EAA3;
     border-radius: 5px;
     text-decoration:none;
 }

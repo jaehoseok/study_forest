@@ -8,13 +8,14 @@
 
 .logo {
     margin: 40px;
-    color: green;
-    font-size: 20px;
+    color: #D7EAA3;
+    font-size: 35px;
     text-decoration:none;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .loginBtn {
     margin-right: 20px;
 }
-.logo:link {color: green;}
-.logo:visited { color: green; }
+.logo:link {color: #D7EAA3;}
+.logo:visited { color: #D7EAA3; }

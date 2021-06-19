@@ -41,7 +41,6 @@ function App() {
 
           <BrowserRouter>
             <Switch>
-              //todo 로그인이 필요한 경우: true, 로그인을 안해야 하는경우: false, 상관없는 경우: null
               <Route exact path="/" component={LandingPage} />
               <Route exact path="/MakeStudy" component={MakeStudy} />
               <Route exact path="/MyPage" component={MyPage} />

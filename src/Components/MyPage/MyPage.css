@@ -1,0 +1,64 @@
+.MyPage {
+    width: 690px;
+    height: 550px;
+    background-color: #D7EAA3;
+    margin: 0 200px;
+    padding: 0 20px;
+    border-radius: 5px;
+    padding-top: 30px;
+    flex-wrap: wrap;
+}
+
+.MyPageTop {
+    display: flex;
+    justify-content: space-around;
+}
+
+.friends {
+    margin-top: 50px;
+    width: 690px;
+    height: 400px;
+    background-color: white;
+    overflow-x: auto;
+}
+
+.image {
+    width: 60px;
+    height: 60px;
+    border: black;
+    border-radius: 90px;
+    background-color: white;
+}
+
+.profile {
+    width: 400px;
+    display: flex;
+}
+
+.info {
+    width: 270px;
+    margin-left: 20px;
+    text-align: left;
+}
+
+.requestBtn {
+    width: 200px;
+    height: 30px;
+    line-height: 30px;
+    border: 2px solid black;
+    border-radius: 5px;
+    display: block;
+    text-align: center;
+    background-color: white;
+}
+
+.friendsTitle {
+    background-color: #9ebf44;
+    border: 1px solid black;
+    padding: 5px 0;
+}
+
+.imgTitle {
+    width: 40px;
+    height: 40px;
+}

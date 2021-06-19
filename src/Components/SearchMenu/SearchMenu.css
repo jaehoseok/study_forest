@@ -11,7 +11,7 @@
     height: 20px;
     padding: 8px 12px;
     border-radius: 5px;
-    border: 2px solid green;
+    border: 2px solid #D7EAA3;
 }
 
 .study-name, .hashtag {
@@ -19,7 +19,7 @@
     height: 20px;
     padding: 8px 12px;
     border-radius: 5px;
-    border: 2px solid green;
+    border: 2px solid #D7EAA3;
 }
 
 input {
