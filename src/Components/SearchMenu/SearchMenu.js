@@ -29,7 +29,7 @@ function LeftMenu() {
                 <input type="text" placeholder="#해시태그" onChange={onChange}/>
             </div>
 
-            <button>검색</button>
+            <p className="searchBtn">검색</p>
 
             <div className="tag" className="tags">{hashTags}</div>
 

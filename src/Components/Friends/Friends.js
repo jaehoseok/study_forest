@@ -1,4 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+
+import axios from 'axios';
+
+
+import FriendsTable from './FriendsTable';
 
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -6,67 +11,65 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import { withStyles } from '@material-ui/core/styles';
 
-import FriendsTable from './FriendsTable';
+import './Friends.css';
 
 
-const styles = theme => ({
-    root: {
-    width: "690px",
-    marginTop: theme.spacing.unit * 3,
-    overflowX: "auto"
-    },
-    table: {
-    minWidth: "690px"
-    }
-    });
 
     const customers = [
         {
         'image': 'https://placeimg.com/48/48/1',
         'name': '홍길동',
+        'interest' : '주제이름'
         },
         {
+
         'image': 'https://placeimg.com/48/48/2',
         'name': '나동빈',
+        'interest' : ['주제이름']
         },
         {
         'image': 'https://placeimg.com/48/48/3',
         'name': '이순신',
+        'interest' : ['주제1', '주제2', '주제3']
         },
         {
         'image': 'https://placeimg.com/48/48/1',
         'name': '홍길동',
+        'interest' : ['주제이름']
         },
         {
         'image': 'https://placeimg.com/48/48/2',
         'name': '나동빈',
+        'interest' : ['주제이름']
         },
         {
         'image': 'https://placeimg.com/48/48/2',
         'name': '나동빈',
+        'interest' : ['주제이름']
         },
     ]
 
-function Friends(props) {
+function Friends() {
     return (
-        <Paper className={{styles}.root}>
-                <div className="friendsTitle">친구목록</div>
-                <Table className={styles.table}>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>프로필 사진</TableCell>
-                            <TableCell>이름</TableCell>
-                            <TableCell>관심사</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {customers.map(c=> {return ( <FriendsTable image={c.image} name={c.name}></FriendsTable>)})}
-                    </TableBody>
-                </Table>
-            </Paper>
+        <Paper className="TableBox">
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>프로필 사진</TableCell>
+                        <TableCell>이름</TableCell>
+                        <TableCell>관심주제</TableCell>
+                    </TableRow>
+                </TableHead>
+
+                <TableBody>
+                    {customers.map(c => {
+                    return <FriendsTable image={c.image} name={c.name} interest={c.interest}/>
+                    })}
+                </TableBody>
+            </Table>
+        </Paper>
     )
 }
 
-export default withStyles(styles)(Friends);
+export default Friends;
