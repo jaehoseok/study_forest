@@ -6,7 +6,7 @@ import './KakaoLogin.css';
 import axios from 'axios'
 
 import kakao from 'kakaojs'
-import kakaLoginButton from './kakao_login_medium_narrow.png'
+import kakaoLoginButton from './kakao_login_medium_narrow.png'
 
 function KakaoLogin(props) {
 
@@ -26,15 +26,14 @@ function KakaoLogin(props) {
                 kakao.Auth.login({
                     success: function(authObj) {
                         //콘솔로 토큰값이 잘 출력되면 로그인은 끝입니다.
-                        console.log(JSON.stringify(authObj));
                         const AccessToken = JSON.stringify(authObj["access_token"]);
                         console.log(AccessToken);
                         console.log("로그인 하였습니다.");
 
                         axios.defaults.headers.post = null
-                        axios.post('localhost:8000/auth-service/auth', {
+                        axios.post('http://localhost:8000/auth-service/auth', {
                             headers: {
-                                kakaoToken: kakao.Auth.getAccessToken()
+                                kakaoToken: AccessToken
                             }
                         })
                         .then(res => { // headers: {…} 로 들어감.
@@ -59,14 +58,14 @@ function KakaoLogin(props) {
                 success: function (response) {
                     console.log(response)
                     console.log("로그아웃 하였습니다.");
-                    axios.delete('localhost:8000/auth-service/auth', {
+                    axios.delete('http://localhost:8000/auth-service/auth', {
                         headers: {
                             Authorization: 'Bearer ' + localStorage.getItem('accessToken')
                         }
                     })
                     .then(res => {
                         if(res.status === 401){
-                            axios.post('localhost:8000/auth-service/auth/refresh', {
+                            axios.post('http://localhost:8000/auth-service/auth/refresh', {
                                 headers: {
                                     Authorization: 'Bearer ' + localStorage.getItem('refreshToken')
                                 }
@@ -88,7 +87,7 @@ function KakaoLogin(props) {
 
     const loginView = (
         <div>
-            <img src={kakaLoginButton} onClick={Login}/>
+            <img src={kakaoLoginButton} onClick={Login}/>
         </div>
     )
 

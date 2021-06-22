@@ -2,8 +2,11 @@ import axios from 'axios';
 import React, {useEffect} from 'react'
 
 import './KakaoMap.css';
+import Kakao from 'kakaojs'
 
 const { kakao }  = window
+
+
 
 
 function KakaoMap() {
@@ -28,12 +31,19 @@ function KakaoMap() {
         // 맵 클릭시 이벤트 처리
         kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
             searchAddrFromCoords(mouseEvent.latLng, function(result, status){
-                    var addr;
+                    var addr; //주소
+                    var Hcode; //행정동코드
+                    var Bcode; //법정동코드
+
                     for(var i = 0; i < result.length; i++) {
                         // 행정동의 region_type 값은 'H' 이므로
                         if (result[i].region_type === 'H') {
                             addr = result[i].address_name;
+                            Hcode = result[i].code;
                             break;
+                        }
+                        if( (result[i].region_type === 'B')){
+                            Bcode = result[i].code;
                         }
                     }
 
@@ -47,23 +57,11 @@ function KakaoMap() {
                     infowindow.setContent(content);
                     infowindow.open(map, marker);
 
-                    // //TODO 서버로 보내줄 좌표
-                    // const locationForm = {
-                    //     'x' : mouseEvent.latLng.la
-                    //     'y' : mouseEvent.latLng
-                    // }
-                    // kakao.API.request({
-                    //     url: '/v2/local/geo/coord2regioncode.{format}',
-                    //     success: function (response) {
-                            
-                            
-                    //     },
-                    //     fail: function (error) {
-                    //         console.log(error)
-                    //     },
-                    // })
+                    //TODO 서버로 보내줄 좌표
+                    
                     console.log(mouseEvent.latLng);
-                
+                    console.log('행정동 코드 :' + Hcode);
+                    console.log('법정동 코드 :' + Bcode);
             })
             
         });

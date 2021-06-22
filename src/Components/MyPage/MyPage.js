@@ -1,6 +1,9 @@
-import React from 'react'
+import axios from 'axios';
+import React, {useState, useEffect} from 'react'
 
 import Friends from '../Friends/Friends'
+
+import InfoUpdate from '../InfoUpdate/InfoUpdate'
 
 
 import "./MyPage.css";
@@ -13,7 +16,29 @@ const Myinfo = {
     MyInterest : 'React'
 }
 
+
 function MyPage() {
+    
+    useEffect(() => {
+        axios.get('http://localhost:8000/user-service', {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('accessToken')
+            }
+        })
+        .then(res => {
+            console.log(res);
+        })
+    }, [])
+
+    const [isModalOpen, setisModalOpen] = useState(false)
+
+    const openModal = () => {
+        setisModalOpen(true)
+    };
+    
+    const closeModal = () => {
+        setisModalOpen(false)
+    };
 
     return (
         <div className ="MyPage">
@@ -31,7 +56,14 @@ function MyPage() {
                     스터디 가입요청
                 </div>
             </div>
-            <p className="friendsTitle">친구목록</p>
+            <p className="updateBtn" onClick={openModal}>수정하기</p>
+            <InfoUpdate isOpen={isModalOpen} close={closeModal}/>
+
+            <div className="friendsTitle">
+                <p>친구목록</p>
+                <p className="re">동기화</p>
+            </div>
+            
 
             <Friends/>
 

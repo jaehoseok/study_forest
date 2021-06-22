@@ -1,8 +1,7 @@
 import React from 'react'
 
-import './ModalLocation.css'
+import './InfoUpdate.css'
 
-import KakaoMap from '../KakaoMap/KakaoMap';
 
 function ModalLocation(props) {
     return (
@@ -16,8 +15,9 @@ function ModalLocation(props) {
                             </span>
 
                             <div className="modalContents" onClick={props.isOpen}>
-                                지도
-                                <KakaoMap/>
+                                <div>이름</div>
+                                <div>동네정보</div>
+                                <div>주제</div>
                             </div>
                         </div>
                     </div>

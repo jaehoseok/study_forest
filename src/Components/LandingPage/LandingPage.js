@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import './LandingPage.css';
 
-import ModalLocation from '../ModalLocation/ModalLocation';
 
 function LandingPage() {
 
@@ -18,8 +17,6 @@ function LandingPage() {
     return (
         <div className='landingPage'>
             <a className="addBtn" href="/MakeStudy">스터디 추가하기</a>
-            <button onClick={openModal}>테스트버튼</button>
-            <ModalLocation isOpen={isModalOpen} close={closeModal}/>
         </div>
     )
 }
