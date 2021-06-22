@@ -11,7 +11,7 @@ import kakaLoginButton from './kakao_login_medium_narrow.png'
 function KakaoLogin(props) {
 
     useEffect(() => {
-        kakao.init('6b2d30e7d44d413e6b0bf591686fdf2a'); //javascript sdk key
+        kakao.init('e8c8772f05d1f53a6041323e0c8f2c9d'); //javascript sdk key
         if(kakao.Auth.getAccessToken()){
             console.log("토큰 존재, 세션 유지");
             props.setisLogin(true)
