@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, {useEffect} from 'react'
 
 import './KakaoMap.css';
@@ -46,7 +47,21 @@ function KakaoMap() {
                     infowindow.setContent(content);
                     infowindow.open(map, marker);
 
-                    //TODO 서버로 보내줄 좌표
+                    // //TODO 서버로 보내줄 좌표
+                    // const locationForm = {
+                    //     'x' : mouseEvent.latLng.la
+                    //     'y' : mouseEvent.latLng
+                    // }
+                    // kakao.API.request({
+                    //     url: '/v2/local/geo/coord2regioncode.{format}',
+                    //     success: function (response) {
+                            
+                            
+                    //     },
+                    //     fail: function (error) {
+                    //         console.log(error)
+                    //     },
+                    // })
                     console.log(mouseEvent.latLng);
                 
             })
