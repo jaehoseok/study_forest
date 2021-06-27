@@ -15,7 +15,9 @@
     box-sizing: border-box;
     margin: 50px auto;
     padding: 20px;
+    padding-top: 0px;
     background: #fff;
+    border-radius: 5px;
 }
 
 .close {
@@ -26,10 +28,30 @@
 .modalContents {
     margin: 0 auto;
     width: 100%;
+    height: 450px;
+    background-color: #D7EAA3;
     position: relative;
-    padding: 0 20px 32px;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
     flex-direction: column;
+    border-radius: 5px;
 }
+
+.inputUpdate {
+    width: 125px;
+    height: 20px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 2px solid black;
+    margin: 10px auto;
+}
+
+input {
+    border: 0px;
+}
+
+input:focus {
+    outline: none;
+}
+

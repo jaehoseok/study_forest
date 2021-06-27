@@ -2,6 +2,8 @@ import React from 'react'
 
 import './InfoUpdate.css'
 
+import Interest from '../Interest/Interest'
+
 
 function ModalLocation(props) {
     return (
@@ -15,9 +17,11 @@ function ModalLocation(props) {
                             </span>
 
                             <div className="modalContents" onClick={props.isOpen}>
-                                <div>이름</div>
-                                <div>동네정보</div>
-                                <div>주제</div>
+                                <div>내 정보 수정</div>
+                                <input type="text" className="inputUpdate" placeholder={props.Myinfo.MyName}/>
+                                <input type="text" className="inputUpdate" placeholder={props.Myinfo.MyLocation}/>
+                                <input type="text" className="inputUpdate" placeholder='관심주제'/>
+                                <Interest interest={props.Myinfo.MyInterest}/>
                             </div>
                         </div>
                     </div>

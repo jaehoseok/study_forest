@@ -2,31 +2,40 @@ import axios from 'axios';
 import React, {useState, useEffect} from 'react'
 
 import Friends from '../Friends/Friends'
-
 import InfoUpdate from '../InfoUpdate/InfoUpdate'
+import Interest from '../Interest/Interest'
 
 
 import "./MyPage.css";
 
-const profileImg = 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20150427_195%2Fninevincent_1430122792465QuPeq_JPEG%2Fkakao_5.jpg&type=a340'
-
 const Myinfo = {
     MyName : '석재호',
     MyLocation : '경기도 시흥시',
-    MyInterest : 'React'
+    MyInterest : ['react', 'spring'],
+    MyProfileImage: '',
+    MyThumbnailImage: '',
+    MyNumberOfStudyApply: 0
 }
 
 
 function MyPage() {
     
     useEffect(() => {
-        axios.get('http://localhost:8000/user-service', {
+        axios({
+            //로그인 회원 조회
+            method: 'get',
+            url: 'http://localhost:8000/user-service/users/profile',
             headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('accessToken')
+                Authorization: 'Bearer ' + localStorage.getItem('accesstoken')
             }
         })
         .then(res => {
-            console.log(res);
+            console.log(res.data);
+            Myinfo.MyName = res.data.nickName;
+            Myinfo.MyLocation = res.data.locationId;
+            Myinfo.MyProfileImage = res.data.image.profileImage;
+            Myinfo.MyThumbnailImage = res.data.image.thumbnailImage;
+            Myinfo.MyNumberOfStudyApply = res.data.numberOfStudyApply;
         })
     }, [])
 
@@ -44,7 +53,7 @@ function MyPage() {
         <div className ="MyPage">
             <div className="MyPageTop">
                 <div className="profile">
-                        <img className="image" src={profileImg}/>
+                        <img className="image" src={Myinfo.MyThumbnailImage}/>
 
                     <div className="info">
                         <div>이름 : {Myinfo.MyName}</div>
@@ -53,11 +62,11 @@ function MyPage() {
                     </div>
                 </div>
                 <div className="requestBtn">
-                    스터디 가입요청
+                    스터디 가입요청 <p>{Myinfo.MyNumberOfStudyApply}</p>
                 </div>
             </div>
             <p className="updateBtn" onClick={openModal}>수정하기</p>
-            <InfoUpdate isOpen={isModalOpen} close={closeModal}/>
+            <InfoUpdate isOpen={isModalOpen} close={closeModal} Myinfo={Myinfo}/>
 
             <div className="friendsTitle">
                 <p>친구목록</p>

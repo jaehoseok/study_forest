@@ -27,7 +27,6 @@ function KakaoLogin(props) {
                     success: function(authObj) {
                         //콘솔로 토큰값이 잘 출력되면 로그인은 끝입니다.
                         const AccessToken = JSON.stringify(authObj["access_token"]);
-                        console.log(kakao.Auth.getAccessToken().toString());
                         console.log(AccessToken);
                         console.log("로그인 하였습니다.");
 
@@ -39,9 +38,9 @@ function KakaoLogin(props) {
                             }
                         })
                         .then(res => { // headers: {…} 로 들어감.
-                            console.log('send ok', res.data)
-                            localStorage.setItem('accessToken', res.headers.accessToken)
-                            localStorage.setItem('refreshToken', res.headers.refreshToken)
+                            console.log('send ok', res)
+                            localStorage.setItem('accessToken', res.headers.accesstoken)
+                            localStorage.setItem('refreshToken', res.headers.refreshtoken)
                         })
                         props.setisLogin(true);
                     },

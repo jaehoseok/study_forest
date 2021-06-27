@@ -45,6 +45,22 @@
     background-color: white;
 }
 
+.requestBtn > p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: right;
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    border-radius: 90px;
+    background-color: #ff0000;
+    margin: auto 0px;
+    margin-top: -10px;
+    margin-right: -10px;
+    text-align: center;
+}
+
 .friendsTitle {
     background-color: #9ebf44;
     border: 1px solid black;
@@ -62,4 +78,9 @@
 
 .updateBtn {
     margin-bottom: 50px;
+    width: 100px;
+    margin: 20px auto;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: white;
 }
