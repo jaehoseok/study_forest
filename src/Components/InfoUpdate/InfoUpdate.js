@@ -3,6 +3,7 @@ import React from 'react'
 import './InfoUpdate.css'
 
 import Interest from '../Interest/Interest'
+import KakaoMap from '../KakaoMap/KakaoMap'
 
 
 function ModalLocation(props) {
@@ -18,13 +19,17 @@ function ModalLocation(props) {
 
                             <div className="modalContents" onClick={props.isOpen}>
                                 <div>내 정보 수정</div>
-                                <input type="file" className="fileUpdate"/>
-                                <input type="text" className="inputUpdate" placeholder={props.Myinfo.MyName}/>
-                                <input type="text" className="inputUpdate" placeholder={props.Myinfo.MyLocation}/>
-                                <div className="tagBox">
+                                <div>
+                                    <div>
+                                        프로필 사진 : <input type="file" className="fileUpdate"/>
+                                    </div>
+                                        
+                                    <input type="text" className="inputUpdate" placeholder={props.Myinfo.MyName}/>
                                     <input type="text" className="inputUpdate" placeholder='관심주제'/>
-                                    <Interest interest={props.Myinfo.MyInterest}/>
+                                    <div className="modalTag">{props.Myinfo.MyInterest}</div>
                                 </div>
+                                    
+                                    <KakaoMap className="modalMap"/>
                                 
                                 <p className="updateBtn">수정</p>
                                 
