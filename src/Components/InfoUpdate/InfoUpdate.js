@@ -18,10 +18,16 @@ function ModalLocation(props) {
 
                             <div className="modalContents" onClick={props.isOpen}>
                                 <div>내 정보 수정</div>
+                                <input type="file" className="fileUpdate"/>
                                 <input type="text" className="inputUpdate" placeholder={props.Myinfo.MyName}/>
                                 <input type="text" className="inputUpdate" placeholder={props.Myinfo.MyLocation}/>
-                                <input type="text" className="inputUpdate" placeholder='관심주제'/>
-                                <Interest interest={props.Myinfo.MyInterest}/>
+                                <div className="tagBox">
+                                    <input type="text" className="inputUpdate" placeholder='관심주제'/>
+                                    <Interest interest={props.Myinfo.MyInterest}/>
+                                </div>
+                                
+                                <p className="updateBtn">수정</p>
+                                
                             </div>
                         </div>
                     </div>
