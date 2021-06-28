@@ -8,17 +8,30 @@ import Interest from '../Interest/Interest'
 
 import "./MyPage.css";
 
-const Myinfo = {
-    MyName : '석재호',
-    MyLocation : '경기도 시흥시',
-    MyInterest : ['react', 'spring'],
-    MyProfileImage: '',
-    MyThumbnailImage: '',
-    MyNumberOfStudyApply: 0
-}
+
 
 
 function MyPage() {
+    const [Myinfo, setMyinfo] = useState({
+        MyName : '석재호',
+        MyLocation : '경기도 시흥시',
+        MyInterest : ['react', 'spring'],
+        MyProfileImage: '',
+        MyThumbnailImage: '',
+        MyNumberOfStudyApply: 0
+    })
+
+    const infoPush = (data) => {
+        let info = {
+            MyName : data.nickName,
+            MyLocation : data.locationId,
+            MyInterest : ['react', 'spring'],
+            MyProfileImage: data.image.profileImage,
+            MyThumbnailImage: data.image.thumbnailImage,
+            MyNumberOfStudyApply: data.numberOfStudyApply
+        }
+        setMyinfo(info)
+    }
     
     useEffect(() => {
         axios({
@@ -26,16 +39,12 @@ function MyPage() {
             method: 'get',
             url: 'http://localhost:8000/user-service/users/profile',
             headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('accesstoken')
+                Authorization: 'Bearer ' + localStorage.getItem('accessToken')
             }
         })
         .then(res => {
             console.log(res.data);
-            Myinfo.MyName = res.data.nickName;
-            Myinfo.MyLocation = res.data.locationId;
-            Myinfo.MyProfileImage = res.data.image.profileImage;
-            Myinfo.MyThumbnailImage = res.data.image.thumbnailImage;
-            Myinfo.MyNumberOfStudyApply = res.data.numberOfStudyApply;
+            infoPush(res.data);
         })
     }, [])
 
