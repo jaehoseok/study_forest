@@ -21,3 +21,23 @@
     display: block;
 }
 
+.ss {
+    border: 1px solid black;
+}
+
+.maplist {
+    width: 500px;
+    height: 500px;
+    background-color: white;
+    margin: auto;
+}
+
+.localName {
+    color: black;
+}
+
+.localName-box {
+    width: 500px;
+    height: 25px;
+    border: 1px solid black;
+}

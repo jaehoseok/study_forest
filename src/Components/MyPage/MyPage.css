@@ -16,8 +16,8 @@
 }
 
 .image {
-    width: 60px;
-    height: 60px;
+    width: 110px;
+    height: 110px;
     border: black;
     border-radius: 90px;
     background-color: white;
@@ -83,4 +83,21 @@
     border: 1px solid black;
     border-radius: 5px;
     background-color: white;
+}
+
+.h {
+    display: flex;
+    margin: 0 10px;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid black;
+    padding: auto;
+}
+
+.info > div > .tags {
+    display: flex;
+    width: 300px;
+    overflow-x: scroll;
+    margin: auto;
+    height: 50px;
 }

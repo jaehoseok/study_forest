@@ -1,38 +1,83 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import './InfoUpdate.css'
 
-import Interest from '../Interest/Interest'
 import KakaoMap from '../KakaoMap/KakaoMap'
+import axios from 'axios'
 
 
 function ModalLocation(props) {
+    
+    const [Img, setImg] = useState(null)
+    const [Name, setName] = useState(props.Myinfo.MyName)
+    const [isImgDelete, setisImgDelete] = useState(false)
+
+    let list = [];
+    let data = props.Myinfo.MyInterest;
+
+    if(data != null){
+        for(let i=0 ; i < data.length ; i++){
+            list.push(
+                <a className="h">{data[i]}<span className="tag-del"> &times;</span></a>
+            )
+        }
+    }
+    
+    const updateHandler = () => {
+        const req = {
+            'deleteImage': isImgDelete,
+            'nickName': Name
+        }
+
+        const formData = new FormData();
+        formData.append('image', Img);
+        formData.append('request', req)
+        
+        axios({
+            method: 'patch',
+            url: 'http://localhost:8000/user-service/users/profile',
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+                "content-type": "multipart/form-data"
+            },
+            data:formData
+        })
+        
+    }
+
     return (
         <div>
             {props.isOpen ? (
                 <div className="modal">
-                    <div onClick={props.close}>
+                    <div>
                         <div className="inModal">
                             <span className="close" onClick={props.close}>
                                 &times;
                             </span>
 
-                            <div className="modalContents" onClick={props.isOpen}>
+                            <div className="modalContents">
                                 <div>내 정보 수정</div>
                                 <div>
                                     <div>
-                                        프로필 사진 : <input type="file" className="fileUpdate"/>
+                                        프로필 사진 : <input type="file" className="fileUpdate"
+                                            onChange={function(e){
+                                                setImg(e.target.files[0])
+                                            }}
+                                        />
                                     </div>
                                         
-                                    <input type="text" className="inputUpdate" placeholder={props.Myinfo.MyName}/>
+                                    <input type="text" className="inputUpdate" placeholder="이름" value={Name}
+                                        onChange={function(e){
+                                            setName(e.target.value)
+                                        }}
+                                        />
                                     <input type="text" className="inputUpdate" placeholder='관심주제'/>
-                                    <div className="modalTag">{props.Myinfo.MyInterest}</div>
+                                    <div className="modalTag">{list}</div>
                                 </div>
                                     
-                                    <KakaoMap className="modalMap"/>
+                                {/* <KakaoMap className="modalMap"/> */}
                                 
-                                <p className="updateBtn">수정</p>
-                                
+                                <a className="updateBtn" onClick={updateHandler}>수정</a>
                             </div>
                         </div>
                     </div>

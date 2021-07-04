@@ -3,7 +3,6 @@ import React, {useState, useEffect} from 'react'
 
 import Friends from '../Friends/Friends'
 import InfoUpdate from '../InfoUpdate/InfoUpdate'
-import Interest from '../Interest/Interest'
 
 
 import "./MyPage.css";
@@ -12,12 +11,13 @@ import "./MyPage.css";
 
 
 function MyPage() {
+    
     const [Myinfo, setMyinfo] = useState({
         MyName : '석재호',
         MyLocation : '경기도 시흥시',
-        MyInterest : ['react', 'spring'],
-        MyProfileImage: '',
-        MyThumbnailImage: '',
+        MyInterest : ['react', 'spring', 'react', 'spring', 'react', 'spring', 'react', 'spring', 'react', 'spring'],
+        MyProfileImage: 'https://mblogthumb-phinf.pstatic.net/20150427_171/ninevincent_1430122791934m8cxB_JPEG/kakao_4.jpg?type=w2',
+        MyThumbnailImage: 'https://mblogthumb-phinf.pstatic.net/20150427_171/ninevincent_1430122791934m8cxB_JPEG/kakao_4.jpg?type=w2',
         MyNumberOfStudyApply: 0
     })
 
@@ -58,6 +58,16 @@ function MyPage() {
         setisModalOpen(false)
     };
 
+    let list = [];
+    let data = Myinfo.MyInterest;
+    if(data != null){
+        for(let i=0 ; i < data.length ; i++){
+            list.push(
+                <a className="h">{data[i]}</a>
+            )
+        }
+    }
+
     return (
         <div className ="MyPage">
             <div className="MyPageTop">
@@ -67,7 +77,7 @@ function MyPage() {
                     <div className="info">
                         <div>이름 : {Myinfo.MyName}</div>
                         <div>내 동네 : {Myinfo.MyLocation}</div>
-                        <div>관심주제 : {Myinfo.MyInterest}</div>
+                        <div >관심주제 : <div className="tags">{list}</div></div>
                     </div>
                 </div>
                 <div className="requestBtn">
