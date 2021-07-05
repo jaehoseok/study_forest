@@ -29,6 +29,21 @@ function ModalLocation(props) {
             )
         }
     }
+
+    useEffect(() => {
+        axios({
+            //로그인 회원 조회
+            method: 'get',
+            url: 'http://localhost:8000/user-service/users/profile',
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('accessToken')
+            }
+        })
+        .then(res => {
+            console.log(res.data);
+            setName(data.nickName)
+        })
+    }, [])
     
     const updateHandler = () => {
         const req = {

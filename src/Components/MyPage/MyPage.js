@@ -34,6 +34,10 @@ function MyPage() {
         setMyinfo(info)
     }
 
+    useEffect(() => {
+        infoPush()
+    }, [infoPush])
+
     const [StudyApply, setStudyApply] = useState([])
     
     useEffect(() => {
