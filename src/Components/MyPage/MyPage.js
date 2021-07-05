@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react'
 
 import Friends from '../Friends/Friends'
 import InfoUpdate from '../InfoUpdate/InfoUpdate'
+import StudyReq from '../StudyReq/StudyReq'
 
 
 import "./MyPage.css";
@@ -32,6 +33,8 @@ function MyPage() {
         }
         setMyinfo(info)
     }
+
+    const [StudyApply, setStudyApply] = useState([])
     
     useEffect(() => {
         axios({
@@ -46,6 +49,17 @@ function MyPage() {
             console.log(res.data);
             infoPush(res.data);
         })
+
+        axios({
+            method:'GET',
+            url: 'http://localhost:8000/user-service/users/studyApply',
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('accessToken')
+            }
+        })
+        .then(res => {
+            setStudyApply(res.data)
+        })
     }, [])
 
     const [isModalOpen, setisModalOpen] = useState(false)
@@ -57,6 +71,16 @@ function MyPage() {
     const closeModal = () => {
         setisModalOpen(false)
     };
+
+    const [isReqOpen, setisReqOpen] = useState(false)
+
+    const openReq = () => {
+        setisReqOpen(true)
+    }
+
+    const closeReq = () => {
+        setisReqOpen(false)
+    }
 
     let list = [];
     let data = Myinfo.MyInterest;
@@ -80,9 +104,10 @@ function MyPage() {
                         <div >관심주제 : <div className="tags">{list}</div></div>
                     </div>
                 </div>
-                <div className="requestBtn">
+                <div className="requestBtn" onClick={openReq}>
                     스터디 가입요청 <p>{Myinfo.MyNumberOfStudyApply}</p>
                 </div>
+                <StudyReq isOpen={isReqOpen} close={closeReq} StudyApply={StudyApply}/>
             </div>
             <p className="updateBtn" onClick={openModal}>수정하기</p>
             <InfoUpdate isOpen={isModalOpen} close={closeModal} Myinfo={Myinfo}/>
