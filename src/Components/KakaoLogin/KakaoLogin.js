@@ -1,9 +1,12 @@
 import React, {useEffect, useState} from 'react'
+import {Link} from 'react-router-dom'
 
 
 import './KakaoLogin.css';
 
 import axios from 'axios'
+
+import api from '../../API'
 
 import kakao from 'kakaojs'
 import kakaoLoginButton from './kakao_login_medium_narrow.png'
@@ -29,19 +32,7 @@ function KakaoLogin(props) {
                         const AccessToken = JSON.stringify(authObj["access_token"]);
                         console.log(AccessToken);
                         console.log("로그인 하였습니다.");
-
-                        axios({
-                            method: 'post',
-                            url: 'http://localhost:8000/auth-service/auth',
-                            headers: {
-                                'kakaoToken': kakao.Auth.getAccessToken()
-                            }
-                        })
-                        .then(res => { // headers: {…} 로 들어감.
-                            console.log('send ok', res)
-                            localStorage.setItem('accessToken', res.headers.accesstoken)
-                            localStorage.setItem('refreshToken', res.headers.refreshtoken)
-                        })
+                        api.login(kakao.Auth.getAccessToken())
                         props.setisLogin(true);
                     },
 
@@ -59,23 +50,7 @@ function KakaoLogin(props) {
                 success: function (response) {
                     console.log(response)
                     console.log("로그아웃 하였습니다.");
-                    axios.delete('http://localhost:8000/auth-service/auth', {
-                        headers: {
-                            Authorization: 'Bearer ' + localStorage.getItem('accessToken')
-                        }
-                    })
-                    .then(res => {
-                        if(res.status === 401){
-                            axios.post('http://localhost:8000/auth-service/auth/refresh', {
-                                headers: {
-                                    Authorization: 'Bearer ' + localStorage.getItem('refreshToken')
-                                }
-                            })
-                            .then(res => {
-                                localStorage.setItem('accessToken', res.headers.get('accessToken'))
-                            })
-                        }
-                    })
+                    api.logout()
                     props.setisLogin(false);
                 },
                 fail: function (error) {
@@ -94,8 +69,8 @@ function KakaoLogin(props) {
 
     const mainView = (
         <div className="mainView">
-            <a href="/MyPage">내정보</a>
-            <a onClick={Logout}>로그아웃</a>
+            <Link to="/MyPage">내정보</Link>
+            <Link onClick={Logout} to='/'>로그아웃</Link>
         </div>
     )
 

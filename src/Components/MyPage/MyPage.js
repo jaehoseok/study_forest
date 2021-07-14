@@ -5,6 +5,7 @@ import Friends from '../Friends/Friends'
 import InfoUpdate from '../InfoUpdate/InfoUpdate'
 import StudyReq from '../StudyReq/StudyReq'
 
+import api from '../../API'
 
 import "./MyPage.css";
 
@@ -34,36 +35,11 @@ function MyPage() {
         setMyinfo(info)
     }
 
-    useEffect(() => {
-        infoPush()
-    }, [infoPush])
-
     const [StudyApply, setStudyApply] = useState([])
     
-    useEffect(() => {
-        axios({
-            //로그인 회원 조회
-            method: 'get',
-            url: 'http://localhost:8000/user-service/users/profile',
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('accessToken')
-            }
-        })
-        .then(res => {
-            console.log(res.data);
-            infoPush(res.data);
-        })
-
-        axios({
-            method:'GET',
-            url: 'http://localhost:8000/user-service/users/studyApply',
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('accessToken')
-            }
-        })
-        .then(res => {
-            setStudyApply(res.data)
-        })
+    useEffect( async () => {
+        let data = await api.profile()
+        await infoPush(data)
     }, [])
 
     const [isModalOpen, setisModalOpen] = useState(false)
@@ -94,13 +70,14 @@ function MyPage() {
                 <a className="h">{data[i]}</a>
             )
         }
+        // console.log(list);
     }
 
     return (
         <div className ="MyPage">
             <div className="MyPageTop">
                 <div className="profile">
-                        <img className="image" src={Myinfo.MyThumbnailImage}/>
+                        <img className="image" src={Myinfo.MyProfileImage}/>
 
                     <div className="info">
                         <div>이름 : {Myinfo.MyName}</div>

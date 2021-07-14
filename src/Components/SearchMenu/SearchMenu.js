@@ -25,10 +25,6 @@ function LeftMenu() {
 
             <input type="text" placeholder="스터디제목" className="study-name"/>
 
-            <div className="hashtag">
-                <input type="text" placeholder="#해시태그" onChange={onChange}/>
-            </div>
-
             <p className="searchBtn">검색</p>
 
             <div className="tag" className="tags">{hashTags}</div>

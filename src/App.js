@@ -1,11 +1,10 @@
 import react, {useState} from 'react'
 
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Switch,
   Route,
   Link,
-  BrowserRouter
 } from "react-router-dom";
 
 import './App.css';
@@ -25,33 +24,33 @@ function App() {
   const [isLogin, setisLogin] = useState(false)
 
   return (
-    <div className="App">
-      <div className="wrap">
+    <BrowserRouter>
+      <div className="App">
+        <div className="wrap">
 
-        <div className="header-box">
-          <Header isLogin={isLogin} setisLogin={setisLogin}/>
+          <div className="header-box">
+            <Header isLogin={isLogin} setisLogin={setisLogin}/>
+          </div>
+
+          <div className="search-box"><Search/></div>
+
+          <div className="container">
+            <SideBar isLogin={isLogin}/>
+            <NoticeBar/>
+
+              <Switch>
+                <Route exact path="/" component={LandingPage} />
+                <Route exact path="/MakeStudy" component={MakeStudy} />
+                <Route exact path="/MyPage" component={MyPage} />
+              </Switch>
+            
+          </div>
+
+          <div className="footer-box"><Footer/></div>
+
         </div>
-
-        <div className="search-box"><Search/></div>
-
-        <div className="container">
-          <SideBar isLogin={isLogin}/>
-          <NoticeBar/>
-          {/* <LandingPage className='main'/> */}
-
-          <BrowserRouter>
-            <Switch>
-              <Route exact path="/" component={LandingPage} />
-              <Route exact path="/MakeStudy" component={MakeStudy} />
-              <Route exact path="/MyPage" component={MyPage} />
-            </Switch>
-          </BrowserRouter>
-        </div>
-
-        <div className="footer-box"><Footer/></div>
-
       </div>
-    </div>
+    </BrowserRouter>
   );
 }
 

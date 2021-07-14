@@ -38,14 +38,25 @@
     border-radius: 5px;
 }
 
-.inputUpdate {
-    width: 125px;
+.inputUpdateName {
+    width: 300px;
     height: 20px;
     padding: 8px 12px;
     border-radius: 5px;
     border: 2px solid black;
     margin: 10px;
 }
+
+.inputUpdateTag {
+    width: 400px;
+    height: 20px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 2px solid black;
+    margin: 10px;
+    margin-bottom: 0px;
+}
+
 
 input {
     border: 0px;
@@ -61,20 +72,11 @@ input:focus {
     width: 200px;
 }
 
-.h {
-    display: flex;
-    margin: 0 10px;
-    border-radius: 5px;
-    background-color: white;
-    border: 1px solid black;
-    padding: 3px 10px;
-}
-
 .modalTag {
     display: flex;
-    width: 300px;
+    width: 500px;
     overflow-x: scroll;
-    margin: auto;
+    margin-left: 10px;
 }
 
 .tag-del {
@@ -82,11 +84,72 @@ input:focus {
 }
 
 .modal-updateBtn {
-    margin-bottom: 50px;
     width: 100px;
     margin: 20px auto;
+    margin-top: 50px;
+    margin-bottom: 10px;
     border: 1px solid black;
     border-radius: 5px;
     background-color: white;
     padding: 5px 10px;
+}
+
+.img {
+    width: 50px;
+    height: 50px;
+    margin: auto;
+    border: 1px solid black;
+    border-radius: 90px;
+    background-color: white;
+}
+
+.updateBtn {
+    margin-bottom: 10px;
+}
+
+.itemList {
+    height: 200px;
+    width: 400px;
+    margin: 10px;
+    margin-left: 0px;
+    margin-top: 0px;
+    padding: 8px 12px;
+    padding-top: 0px;
+    overflow-y: scroll;
+}
+
+.innerContent {
+    text-align: left;
+    margin-left: 10px;
+}
+
+.tagName {
+    border: 2px solid black;
+    background-color: white;
+    margin: 2px;
+    padding: 2px;
+}
+
+.modalTitle {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.askBtn {
+    background-color: black;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
+.tag {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-right: 4px;
+}
+
+.tag-name {
+    width: 60px;
+    margin: auto;
 }
