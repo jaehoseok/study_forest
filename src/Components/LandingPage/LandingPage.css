@@ -1,8 +1,12 @@
 .landingPage {
     width: 690px;
-    margin: 0 200px;
+    margin: 0 240px;
     padding: 0 20px;
-    flex-direction: column;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    
 }
 
 .landingPage > .addBtn {
@@ -16,3 +20,21 @@
 
 a:link { color: black; }
 a:visited { color: black; }
+
+.study {
+    width: 300px;
+    height: 80px;
+    border: 2px solid #D7EAA3;
+    margin: 0px 5px;
+    margin-bottom: 10px;
+    text-align: left;
+} 
+
+.study-img {
+    width: 50px;
+    float: left;
+}
+
+.title-box {
+    margin-left: 50px;
+}

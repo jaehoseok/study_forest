@@ -1,9 +1,18 @@
 import React, {useEffect, useState} from 'react'
 
+import api from '../../API';
+
 import './SideBar.css';
 
 
 function Sidebar(props) {
+
+
+
+    useEffect(async () => {
+        let temp = await api.MyStudy()
+        console.log(temp);
+    }, [])
 
     const LoginView = (
         <div>

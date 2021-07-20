@@ -1,36 +1,48 @@
 import React, {useEffect, useState} from 'react'
 import './LandingPage.css';
 
-import Searchapp from '../sear/Searapp'
-import KakaoMap from '../KakaoMap/KakaoMap';
-
+import api from '../../API'
 
 
 function LandingPage() {
+    const [studyList, setstudyList] = useState([])
 
-    const [isModalOpen, setisModalOpen] = useState(false)
+    useEffect(async () => {
+        let study = await api.searchStudy()
+        let studyList = [];
 
-    const openModal = () => {
-        setisModalOpen(true)
-    };
-    
-    const closeModal = () => {
-        setisModalOpen(false)
-    };
+        for(let i=0; i<study.length ;i++){
+            let img;
 
-    let list = [];
-    for (let i = 0; i < 4; i++) {
-        list.push(
-            "ddd"
-        )
-    }
+            if(study[i].image != null){
+                img=study[i].image.thumbnailImage
+            }
+            else{
+                img=null
+            }
+            studyList.push(
+                <div className='study'>
+                    <div className='img-box'>
+                        <img className='study-img' src={img}/>
+                    </div>
+                    
+                    <div className='title-box'>
+                        제목 : {study[i].name}
+                        <div>
+                            관심태그 : {study[i].studyTags}
+                        </div>
+                    </div>
+                    
+                </div>
+            )
+        }
+        setstudyList(studyList)
+    }, [])
+
     
     return (
         <div className='landingPage'>
-            <a className="addBtn" href="/MakeStudy">스터디 추가하기</a>
-            <Searchapp/>
-            <KakaoMap/>
-            {list}
+            {studyList}
         </div>
     )
 }

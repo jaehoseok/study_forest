@@ -1,18 +1,9 @@
 .MyPage {
     width: 690px;
-    height: 600px;
-    background-color: #D7EAA3;
     margin: 0 200px;
-    padding: 0 20px;
-    border-radius: 5px;
-    padding-top: 30px;
     flex-wrap: wrap;
-}
-
-.MyPageTop {
     display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
+    justify-content: center;
 }
 
 .image {
@@ -21,11 +12,6 @@
     border: black;
     border-radius: 90px;
     background-color: white;
-}
-
-.profile {
-    width: 400px;
-    display: flex;
 }
 
 .info {
@@ -43,6 +29,7 @@
     display: block;
     text-align: center;
     background-color: white;
+    float: right;
 }
 
 .requestBtn > p {
@@ -70,34 +57,74 @@
     padding: 0 10px;
     height: 40px;
     align-items: center;
-}
-
-.table {
-    min-width: 1080;
+    width: 690px;
 }
 
 .updateBtn {
     margin-bottom: 50px;
-    width: 100px;
-    margin: 20px auto;
+    width: 200px;
+    margin: 10px auto;
     border: 1px solid black;
     border-radius: 5px;
     background-color: white;
 }
 
-.h {
+.MyPageTag {
     display: flex;
     margin: 0 10px;
     border-radius: 5px;
     background-color: white;
     border: 1px solid black;
-    padding: auto;
+    padding: 3px 3px;
 }
 
 .info > div > .tags {
     display: flex;
-    width: 300px;
+    width: 250px;
     overflow-x: scroll;
     margin: auto;
     height: 50px;
+}
+
+.top {
+    display: inline;
+    width: 690px;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    margin-bottom: 20px;
+}
+
+.middle {
+    display: flex;
+    width: 690px;
+    height: 300px;
+    justify-content:space-between;
+    margin-bottom: 20px;
+}
+
+.MyPage > .middle > .profile-box{
+    width: 320px;
+    height: 300px;
+    background-color: #D7EAA3;
+    margin: 0;
+    border-radius: 5px;
+}
+
+.MyPage > .middle > .location-box{
+    width: 320px;
+    height: 300px;
+    background-color: #D7EAA3;
+    margin: 0;
+    border-radius: 5px;
+}
+
+.box-title {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.top-title {
+    font-weight: bold;
+    font-size: 30px;
 }

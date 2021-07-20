@@ -3,9 +3,6 @@ import {Link} from 'react-router-dom'
 
 
 import './KakaoLogin.css';
-
-import axios from 'axios'
-
 import api from '../../API'
 
 import kakao from 'kakaojs'
@@ -15,7 +12,7 @@ function KakaoLogin(props) {
 
     useEffect(() => {
         kakao.init('e8c8772f05d1f53a6041323e0c8f2c9d'); //javascript sdk key
-        if(kakao.Auth.getAccessToken()){
+        if(kakao.Auth.getAccessToken() && window.sessionStorage.getItem('accessToken')){
             console.log("토큰 존재, 세션 유지");
             props.setisLogin(true)
         }
@@ -62,7 +59,7 @@ function KakaoLogin(props) {
     }
 
     const loginView = (
-        <div>
+        <div className='mainView'>
             <img src={kakaoLoginButton} onClick={Login}/>
         </div>
     )

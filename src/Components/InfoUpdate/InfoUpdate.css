@@ -1,43 +1,15 @@
-.modal {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.6);
-}
-
-.inModal {
-    width: 700px;
-    height: 670px;
-    background-color: white;
-    position: relative;
-    box-sizing: border-box;
-    margin: 50px auto;
-    padding: 20px;
-    padding-top: 0px;
-    background: #fff;
-    border-radius: 5px;
-}
-
-.close {
-    float: right;
-    font-size: 25px;
-}
-
-.modalContents {
-    margin: 0 auto;
-    width: 100%;
-    height: 600px;
-    background-color: #D7EAA3;
-    position: relative;
-    box-sizing: border-box;
+.InfoUpdate {
+    width: 690px;
     display: flex;
+    flex-wrap: wrap;
+    margin: 0 240px;
+    padding: 0 20px;
+    align-items: center;
     justify-content: center;
-    flex-direction: column;
+    background-color: #D7EAA3;
     border-radius: 5px;
+    margin-top: 100px;
 }
-
 .inputUpdateName {
     width: 300px;
     height: 20px;
@@ -83,7 +55,7 @@ input:focus {
     margin-left: 10px;
 }
 
-.modal-updateBtn {
+.Info-updateBtn {
     width: 100px;
     margin: 20px auto;
     margin-top: 50px;

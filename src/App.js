@@ -18,6 +18,8 @@ import Search from './Components/SearchMenu/SearchMenu';
 import LandingPage from './Components/LandingPage/LandingPage';
 import MakeStudy from './Components/MakeStudy/MakeStudy';
 import MyPage from './Components/MyPage/MyPage';
+import InfoUpdate from './Components/InfoUpdate/InfoUpdate';
+import LocationUpdate from './Components/LocationUpdate/LocationUpdate';
 
 function App() {
 
@@ -32,8 +34,6 @@ function App() {
             <Header isLogin={isLogin} setisLogin={setisLogin}/>
           </div>
 
-          <div className="search-box"><Search/></div>
-
           <div className="container">
             <SideBar isLogin={isLogin}/>
             <NoticeBar/>
@@ -42,6 +42,8 @@ function App() {
                 <Route exact path="/" component={LandingPage} />
                 <Route exact path="/MakeStudy" component={MakeStudy} />
                 <Route exact path="/MyPage" component={MyPage} />
+                <Route exact path="/InfoUpdate" component={InfoUpdate} />
+                <Route exact path="/LocationUpdate" component={LocationUpdate} />
               </Switch>
             
           </div>
