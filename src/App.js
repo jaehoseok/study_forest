@@ -35,8 +35,8 @@ function App() {
           </div>
 
           <div className="container">
-            <SideBar isLogin={isLogin}/>
-            <NoticeBar/>
+            {/* <SideBar isLogin={isLogin}/> */}
+            {/* <NoticeBar/> */}
 
               <Switch>
                 <Route exact path="/" component={LandingPage} />

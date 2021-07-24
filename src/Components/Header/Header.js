@@ -9,7 +9,6 @@ function Header(props) {
     return (
         <div className="header">
             <a className="logo" href="/">Study Forest</a>
-            <SearchMenu/>
             <div className="loginBtn">
                 <KakaoLogin isLogin={props.isLogin} setisLogin={props.setisLogin}/>
             </div>

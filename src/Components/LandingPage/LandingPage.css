@@ -1,6 +1,5 @@
 .landingPage {
-    width: 690px;
-    margin: 0 240px;
+    width: 100%;
     padding: 0 20px;
     display: flex;
     flex-wrap: wrap;
@@ -22,19 +21,32 @@ a:link { color: black; }
 a:visited { color: black; }
 
 .study {
-    width: 300px;
+    width: 40%;
     height: 80px;
     border: 2px solid #D7EAA3;
     margin: 0px 5px;
     margin-bottom: 10px;
     text-align: left;
-} 
+    display: flex;
+}
+.img-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 76px;
+    background-color: wheat;
+}
 
 .study-img {
-    width: 50px;
+    width: 74px;
+    height: 74px;
     float: left;
 }
 
 .title-box {
     margin-left: 50px;
+}
+
+.page{
+    width: 100%;
 }

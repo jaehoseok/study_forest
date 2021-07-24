@@ -1,26 +1,26 @@
 .search {
-    display: inline;
+    display: flex;
     align-items: center;
     justify-content: space-around;
-    width: 500px;
+    width: 100%;
     flex-flow: wrap;
     height: 50px;
+    margin-bottom: 0;
 }
 
 .select-box {
-    width: 500px;
+    width: 50%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-bottom: 5px;
+    justify-content: space-around;
     padding: 0px 10px
 }
 
 .search-box {
-    width: 500px;
+    width: 50%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: 0px 10px;
 }
 

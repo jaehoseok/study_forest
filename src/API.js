@@ -2,6 +2,7 @@ import axios from 'axios'
 
 axios.defaults.baseURL="http://211.37.147.101:8000"
 
+
 export default{
     //로그인
     login(kakaoToken){
@@ -162,21 +163,22 @@ export default{
         })
     },
 
+    //스터디 검색
     searchStudy(){
         return axios({
             method: 'get',
-            url: '/study-service/studies?page=0&size=20&offline=true&online=true&',
+            url: '/study-service/studies?page=0&size=10&offline=true&online=true&',
         })
         .then(res => {
-            console.log(res.data.content);
-            return res.data.content
+            console.log(res.data);
+            return res.data
         })
     },
 
     searchStudy_options(form, child_id){
         return axios({
             method: 'get',
-            url: '/study-service/studies?page=0&size=20&offline='+form.off+'&online='+form.on+'&categoryId='+child_id,
+            url: '/study-service/studies?page=0&size=10&offline='+form.off+'&online='+form.on+'&categoryId='+child_id,
             headers: {
                 Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
             }
