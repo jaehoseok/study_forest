@@ -27,7 +27,7 @@ function SearchMenu() {
             control: (provided) => ({
                 ...provided,
                 width: '150px',
-                border: '2px solid #D7EAA3',
+                border: '2px solid black',
                 height: '38px'
             })
         })
@@ -77,38 +77,40 @@ function SearchMenu() {
 
     return (
         <div className="search">
-            <div className='select-box'>
-                <Select options={parentCategory} className='col-md-3' placeholder='큰카테고리'
-                    value={selected_parent}
-                    onChange={(e) => {
-                        setselected_parent(e.name)
-                        setparent_id(e.id)
-                    }}
-                    styles={customStyles}
-                />
-                <Select options={childCategory} className='col-md-3' placeholder='작은카테고리'
-                    value={selected_child}
-                    onChange={(e) => {
-                        setselected_child(e.name)
-                        setchild_id(e.id)
-                    }}
-                    styles={customStyles}
-                />
-                <Select options={study_form} className='col-md-3' placeholder='스터디형태'
-                    // value={child_id}
-                    onChange={(e) => {
-                        setform(e.value)
-                    }}
-                    styles={customStyles}
-                />
-            </div>
-            
-            <div className='search-box'>
-                <input type="text" placeholder="스터디제목" className="study-name"/>
+            <div className='search-wrap'>
+                <div className='select-box'>
+                    <Select options={parentCategory} className='col-md-3' placeholder='큰카테고리'
+                        value={selected_parent}
+                        onChange={(e) => {
+                            setselected_parent(e.name)
+                            setparent_id(e.id)
+                        }}
+                        styles={customStyles}
+                    />
+                    <Select options={childCategory} className='col-md-3' placeholder='작은카테고리'
+                        value={selected_child}
+                        onChange={(e) => {
+                            setselected_child(e.name)
+                            setchild_id(e.id)
+                        }}
+                        styles={customStyles}
+                    />
+                    <Select options={study_form} className='col-md-3' placeholder='스터디형태'
+                        // value={child_id}
+                        onChange={(e) => {
+                            setform(e.value)
+                        }}
+                        styles={customStyles}
+                    />
+                </div>
+                
+                <div className='search-box'>
+                    <input type="text" placeholder="스터디제목" className="study-name"/>
 
-                <p className="searchBtn" onClick={search}>검색</p>
+                    <p className="searchBtn" onClick={search}>검색</p>
+                </div>  
             </div>
-            
+
 
 
         </div>

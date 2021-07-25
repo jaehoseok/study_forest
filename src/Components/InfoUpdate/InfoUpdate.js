@@ -128,12 +128,12 @@ function InfoUpdate(props) {
                             </div>
                                 
                         <input type="text" className="inputUpdateName" placeholder="이름" value={Name}
-                            onChange={function(e){
-                            setName(e.target.value)
+                            onChange={(e) => {
+                                setName(e.target.value)
                         }}/>
 
                         <input type="text" className="inputUpdateTag" placeholder='관심주제'
-                            onChange={function(e){
+                            onChange={(e) => {
                                 setTagName(e.target.value)
                         }}/>
                                         

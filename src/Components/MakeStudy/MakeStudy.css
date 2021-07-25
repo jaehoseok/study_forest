@@ -1,6 +1,7 @@
 .makeStudy {
     width: 690px;
     margin: 0 200px;
+    margin-top: 30px;
     padding: 0 20px;
     background-color: #D7EAA3;
     border-radius: 5px;
@@ -16,27 +17,47 @@
     font-weight: bold;
 }
 
-.titleBox {
+.top-content {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.infoBox {
     text-align: left;
-    width: 450px;
+    width: 70%;
     height: 180px;
     display: block;
     margin-top: 20px;
 }
 
-.addBtn {
-    margin-left: 330px;
-    border: 2px solid black;
-    border-radius: 5px;
-    background-color: white;
-    width: 40px;
-    text-align: center;
+.studyNameInput {
+    width: 100%;
+}
+
+.hashtagNameInput {
+    width: 70%;
 }
 
 .hashBox {
     display: flex;
     width: 450px;
     margin-top: 40px;
+}
+
+.addBtn {
+    width: 30%;
+    float: right;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: white;
+    text-align: center;
+}
+
+.hashtagListBox {
+    display: flex;
+    width: 100%;
+    height: 40px;
+    overflow-x: scroll;
 }
 
 .count {
@@ -48,10 +69,6 @@
     justify-content: space-around;
     align-items: center;
     
-}
-
-.top {
-    display: flex;
 }
 
 .maxNumber {
@@ -69,15 +86,23 @@
     margin-left: 20px;
     height: 180px;
     margin-top: 20px;
+    width: 30%;
 }
 
 .contentBox {
+    width: 100%;
     margin: auto;
     margin-bottom: 30px;
 }
 
+.imgBox {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
 .content {
-    width: 650px;
+    width: 100%;
     height: 300px;
     background-color: white;
     border-radius: 5px;

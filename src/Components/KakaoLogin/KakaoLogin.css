@@ -7,7 +7,8 @@
 
 .mainView > a {
     width: 100px;
-    border: 2px solid #D7EAA3;
+    border: 2px solid black;
     border-radius: 5px;
     text-decoration:none;
+    background-color: white;
 }

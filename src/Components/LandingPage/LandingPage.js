@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react'
+import {Link} from 'react-router-dom'
+
 import './LandingPage.css';
 
 import SearchMenu from '../SearchMenu/SearchMenu'
-import Paging from '../Paging/Paging'
 
 import api from '../../API'
 
@@ -14,9 +15,15 @@ function LandingPage() {
     const [maxPage, setmaxPage] = useState(0)
 
     useEffect(async () => {
-        let res = await api.searchStudy()
-        let study = res.content
-        let studyList = [];
+        let res = await api.searchStudy(currPage)
+        handleContent(res.content)
+        setmaxPage(res.totalPages)
+    }, [currPage])
+
+
+    const handleContent = (content) => {
+        let study = content
+        let list = [];
 
         for(let i=0; i<study.length ;i++){
             let img;
@@ -27,8 +34,8 @@ function LandingPage() {
             else{
                 img=null
             }
-            studyList.push(
-                <div className='study'>
+            list.push(
+                <Link className='study' key={study[i].id} to={`/StudyDetail/${study[i].id}`}>
                     <div className='img-box'>
                         <img className='study-img' src={img}/>
                     </div>
@@ -40,12 +47,11 @@ function LandingPage() {
                         </div>
                     </div>
                     
-                </div>
+                </Link>
             )
         }
-        setstudyList(studyList)
-        setmaxPage(study.totalPages)
-    }, [])
+        setstudyList(list)
+    }
 
     let pageLimit='10'
 
@@ -90,8 +96,8 @@ function LandingPage() {
 
     const list = [];
     for(let i = pstart ; i <= pcount ; i++){
-        list.push(<div className='pageBtn' onClick={
-            () => {
+        list.push(<div className='pageBtn'onClick={
+            async (e) => {
                 setcurrPage(i)
             }
         }>{i}</div>)
@@ -100,13 +106,17 @@ function LandingPage() {
     return (
         <div className='landingPage'>
             <SearchMenu/>
+    
+            <div className='btn-space'>
+                <Link className='makeStudyBtn' to='/MakeStudy'>스터디 만들기</Link>
+            </div>
+
             {studyList}
             <div className='page'>
-                <h1>currPage: {currPage}</h1>
                 <div className='pageBtn-box'>
                     <div className='pageBtn' onClick={firstPage}>&lt;&lt;</div>
                     <div className='pageBtn' onClick={prevPage}>&lt;</div>
-                        {list}
+                    {list}
                     <div className='pageBtn' onClick={nextPage}>&gt;</div>
                     <div className='pageBtn' onClick={lastPage}>&gt;&gt;</div>
                 </div>

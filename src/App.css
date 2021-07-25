@@ -16,12 +16,10 @@ div {
 
 .wrap {
   width: 100%;
-  margin: 0 auto;
   display: inline-block;
 }
 
-.container {
-  margin-top: 20px;
+.web-container {
   width: 100%;
   display: flex;
   align-items: center;
@@ -34,9 +32,5 @@ div {
   align-items: center;
   justify-content: center;
   border-top: 1px solid #DEE1E6;
-}
-
-.search-box {
-  padding: 0px 30px;
 }
 

@@ -1,6 +1,5 @@
 .landingPage {
     width: 100%;
-    padding: 0 20px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -8,7 +7,14 @@
     
 }
 
-.landingPage > .addBtn {
+.landingPage > .btn-space {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.landingPage > .btn-space > .makeStudyBtn {
     width: 670px;
     margin: 0 10px;
     border: 3px solid #D7EAA3;
@@ -49,4 +55,24 @@ a:visited { color: black; }
 
 .page{
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pageBtn-box {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pageBtn {
+    margin: 5px 0;
+    width: 40px;
+    background-color: #EFEFF5;
+}
+
+.pageBtn:hover {
+    background-color: #DEDEEA;
 }

@@ -3,6 +3,7 @@ import axios from 'axios'
 axios.defaults.baseURL="http://211.37.147.101:8000"
 
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default{
     //로그인
     login(kakaoToken){
@@ -164,10 +165,40 @@ export default{
     },
 
     //스터디 검색
-    searchStudy(){
+    searchStudy(currPage){
         return axios({
             method: 'get',
-            url: '/study-service/studies?page=0&size=10&offline=true&online=true&',
+            url: '/study-service/studies?page='+(currPage-1)+'&size=16&offline=true&online=true&',
+        })
+        .then(res => {
+            console.log(res.data);
+            return res.data
+        })
+    },
+
+    //스터디 생성
+    makeStudy(formData){
+        return axios({
+            method: 'post',
+            url: '/study-service/studies',
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            },
+            data: formData
+        })
+        .then(res => {
+            console.log(res);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    },
+
+    //스터디 상세조회
+    studyDetail(studyId){
+        return axios({
+            method: 'get',
+            url: '/study-service/studies/'+studyId,
         })
         .then(res => {
             console.log(res.data);

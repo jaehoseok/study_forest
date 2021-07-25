@@ -1,11 +1,19 @@
 .search {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     width: 100%;
     flex-flow: wrap;
     height: 50px;
-    margin-bottom: 0;
+    margin-bottom: 30px;
+    background-color: #D7EAA3;
+}
+
+.search-wrap {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .select-box {
@@ -29,7 +37,7 @@
     height: 38px;
     padding: 8px 12px;
     border-radius: 5px;
-    border: 2px solid #D7EAA3;
+    border: 2px solid black;
 }
 
 input {
@@ -45,6 +53,8 @@ input:focus {
 }
 
 .searchBtn {
+    width: 100px;
+    background-color: white;
     border: 3px solid black;
     border-radius: 5px;
     padding: 5px;
