@@ -26,24 +26,37 @@ function MyPage() {
 
     const infoPush = async (data) => {
 
-        let location_name = await api.location(data.locationId)
-        console.log(location_name);
+        //let location_name = await api.location(data.locationId)
         let tagRes = await api.userTag()
         let tagList = []
+        let info
 
         for(let i=0 ; i<tagRes.length; i++){
             tagList.push(tagRes[i].name)
         }
-
-        let info = {
-            MyName : data.nickName,
-            MyLocation : location_name,
-            MyInterest : tagList,
-            MyProfileImage: data.image.profileImage,
-            MyThumbnailImage: data.image.thumbnailImage,
-            MyNumberOfStudyApply: data.numberOfStudyApply
+        if(data.image){
+            info = {
+                MyName : data.nickName,
+                MyLocation : data.locationId,
+                MyInterest : tagList,
+                MyProfileImage: data.image.profileImage,
+                MyThumbnailImage: data.image.thumbnailImage,
+                MyNumberOfStudyApply: data.numberOfStudyApply
+            }
         }
+        else {
+            info = {
+                MyName : data.nickName,
+                MyLocation : data.locationId,
+                MyInterest : tagList,
+                MyProfileImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-JdoMKl_cBoE-qqWZjn7OH-dvmZK73uVZ9w&usqp=CAU',
+                MyThumbnailImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-JdoMKl_cBoE-qqWZjn7OH-dvmZK73uVZ9w&usqp=CAU',
+                MyNumberOfStudyApply: data.numberOfStudyApply
+            }
+        }
+        
         setMyinfo(info)
+        
     }
 
     const [StudyApply, setStudyApply] = useState([])
@@ -52,7 +65,7 @@ function MyPage() {
     useEffect( async () => {
         let data = await api.profile()
         await infoPush(data)
-    }, [Myinfo])
+    }, [])
 
     
 

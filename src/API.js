@@ -48,7 +48,7 @@ export default{
     location(location_id){
         return axios({
             method: 'get',
-            url: '/location-service/locations/code?code='+location_id,
+            url: '/location-service/locations/'+location_id,
             headers: {
                 Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
             },
@@ -76,6 +76,34 @@ export default{
         })
         .catch(err => {
             console.log(err);
+        })
+    },
+
+    searchLocation(location_id){
+        return axios({
+            method: 'get',
+            url: '/location-service/locations/code?code='+location_id,
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            },
+        })
+        .then(res => {
+            console.log(res.data.id);
+            return res.data.id
+            
+        })
+    },
+
+    searchLocation2(searchName){
+        return axios({
+            method: 'get',
+            url: '/location-service/locations/search?page=0&size=20&searchName='+searchName,
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            }
+        })
+        .then(res => {
+            console.log(res);
         })
     },
 
@@ -168,7 +196,10 @@ export default{
     searchStudy(currPage){
         return axios({
             method: 'get',
-            url: '/study-service/studies?page='+(currPage-1)+'&size=16&offline=true&online=true&',
+            url: '/study-service/studies?page='+(currPage-1)+'&size=16&offline=true&online=true',
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            },
         })
         .then(res => {
             console.log(res.data);
@@ -203,22 +234,6 @@ export default{
         .then(res => {
             console.log(res.data);
             return res.data
-        })
-    },
-
-    searchStudy_options(form, child_id){
-        return axios({
-            method: 'get',
-            url: '/study-service/studies?page=0&size=10&offline='+form.off+'&online='+form.on+'&categoryId='+child_id,
-            headers: {
-                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
-            }
-        })
-        .then(res => {
-            console.log(form);
-            console.log(child_id);
-            console.log(res);
-            //return res.data.content
         })
     },
 

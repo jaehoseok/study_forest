@@ -12,7 +12,8 @@ function LocationUpdate(props) {
     const [updated_location, setupdated_location] = useState()
     var maplist = []
 
-    const btnC = () => {
+    const btnC = async() => {
+        api.searchLocation2(SearchMap)
         maplist=[];
         axios({
             method:'get',
@@ -22,6 +23,7 @@ function LocationUpdate(props) {
             }
         })
         .then(res => {
+            
             console.log(SearchMap);
             console.log(res.data);
             var key_code;
@@ -49,16 +51,16 @@ function LocationUpdate(props) {
                         </a>
                     </div>
                 )
-                console.log(key_code);
             }
-            
             console.log(maplist);
             setMaplist(maplist)
         })
     }
 
-    const updateHandler = () => {
-        api.updateLocation(updated_code)
+    const updateHandler = async () => {
+        let id = await api.searchLocation(updated_code)
+        console.log(id);
+        api.updateLocation(id)
         console.log(updated_code);
         props.history.push('/MyPage')
     }

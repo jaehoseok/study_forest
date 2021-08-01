@@ -9,7 +9,7 @@
 
 .logo {
     margin: 40px;
-    color: white;
+    color: black;
     font-size: 35px;
     text-decoration:none;
     font-weight: bold;
@@ -18,5 +18,24 @@
 .loginBtn {
     margin-right: 20px;
 }
-.logo:link {color: white;}
-.logo:visited { color: white; }
+.logo:link {color: black;}
+.logo:visited { color: black; }
+
+.nav {
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav > .navBtn-Box {
+    display: inline;
+    text-decoration:none;
+}
+
+.nav > .navBtn-Box >.navBtn {
+    font-weight: bold;
+}
+
+a:link { color: black; }
+a:visited { color: black; }

@@ -20,7 +20,13 @@ function InfoUpdate(props) {
     useEffect(async () => {
         let data = await api.profile()
         setName(data.nickName)
-        setImgBase64(data.image.profileImage)
+        if(data.image){
+            setImgBase64(data.image.profileImage)
+        }
+        else{
+            setImgBase64('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-JdoMKl_cBoE-qqWZjn7OH-dvmZK73uVZ9w&usqp=CAU')
+        }
+        
         let tagData = await api.userTag()
         let tempList=[]
         if(tagData != null){
@@ -50,6 +56,7 @@ function InfoUpdate(props) {
         formData.append('image', Img);
         formData.append('request', jsonRequest)
         api.updateProfile(formData)
+        console.log(isImgDelete);
         props.history.push('/MyPage')
     }
 
@@ -112,6 +119,7 @@ function InfoUpdate(props) {
         }
     }
 
+
     return (
         <div>
             <div className="InfoUpdate">
@@ -125,6 +133,10 @@ function InfoUpdate(props) {
                                         handleChangeFile(e)
                                     }}
                                 />
+                                <input type='checkbox' checked={isImgDelete} 
+                                onClick={() => {
+                                    setisImgDelete(!isImgDelete)
+                                }}/>기본이미지
                             </div>
                                 
                         <input type="text" className="inputUpdateName" placeholder="이름" value={Name}
