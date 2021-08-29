@@ -8,7 +8,7 @@ import './FriendsTable.css';
 function FriendsTable(props) {
     return (
         <TableRow className="Row">
-            <TableCell><img className="img" src={props.image} alt="profile"/></TableCell>
+            <TableCell><img className="img" src={props.image} alt="profile" key={props.name}/></TableCell>
             <TableCell>{props.name}</TableCell>
             <TableCell>{props.interest}</TableCell>
         </TableRow>

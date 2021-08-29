@@ -57,18 +57,44 @@
 
 .maplist {
     width: 400px;
-    height: 300px;
+    height: 260px;
     background-color: white;
     margin: 0 auto;
-    overflow-y: scroll;
+    overflow-x: hidden;
+    /* overflow-y: scroll; */
 }
 
 .localName {
+    display: flex;
     color: black;
+    text-align: left;
+    padding-left: 10px;
 }
 
 .localName-box {
     width: 385px;
     height: 25px;
-    border: 1px solid black;
+    border: 0px;
+}
+
+.selectedLocationName {
+    width: 400px;
+    height: 30px;
+    margin: 0 auto;
+    background-color: white;
+    text-align: left;
+    padding-left: 8px;
+}
+
+.mapBox {
+    overflow-y: scroll;
+    width: 400px;
+    background-color: black;
+    overflow-x: hidden;
+}
+
+.scrollRef {
+    width: 400px;
+    height: 4px;
+    background-color: black;
 }

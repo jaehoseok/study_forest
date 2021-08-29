@@ -1,0 +1,8 @@
+.GatheringChat {
+    display: flex;
+    width: 100%;
+}
+
+.GatheringChat > aside {
+    width: 18%;
+}

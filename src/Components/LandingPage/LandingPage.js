@@ -13,13 +13,19 @@ function LandingPage() {
     const [blockNum, setblockNum] = useState(0)
     const [currPage, setcurrPage] = useState(1)
     const [maxPage, setmaxPage] = useState(0)
+    const [filter, setfilter] = useState({
+        online: true,
+        offline: true,
+        searchKeyword: "",
+        categoryId: '',
+    })
 
     useEffect(async () => {
-        let res = await api.searchStudy(currPage)
+        let res = await api.searchStudy(currPage, filter)
         handleContent(res.content)
         setmaxPage(res.totalPages)
+        console.log(filter);
     }, [currPage])
-
 
     const handleContent = (content) => {
         let study = content
@@ -56,17 +62,17 @@ function LandingPage() {
     let pageLimit='10'
 
 
-    const firstPage = () => {
+    const firstPage = (e) => {
         setblockNum(0)
         setcurrPage(1)
     }
 
-    const lastPage = () => {
+    const lastPage = (e) => {
         setblockNum(Math.ceil(maxPage/pageLimit)-1)
         setcurrPage(maxPage)
     }
 
-    const prevPage = () => {
+    const prevPage = (e) => {
         if(currPage <= 1){
             return
         }
@@ -76,7 +82,7 @@ function LandingPage() {
         setcurrPage(n => n-1)
     }
 
-    const nextPage = () => {
+    const nextPage = (e) => {
         if(currPage >= maxPage){
             return
         }
@@ -105,7 +111,7 @@ function LandingPage() {
     
     return (
         <div className='landingPage'>
-            <SearchMenu/>
+            <SearchMenu filter={filter} setfilter={setfilter} handleContent={handleContent} setmaxPage={setmaxPage}/>
     
             <div className='btn-space'>
                 <Link className='makeStudyBtn' to='/MakeStudy'>스터디 만들기</Link>

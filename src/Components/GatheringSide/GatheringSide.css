@@ -1,0 +1,26 @@
+
+.StudyRoom-side {
+    width: 100%;
+    float: left;
+    background-color: #D7EAA3;
+}
+
+.StudyRoom-side > section {
+    display: block;
+    width: 100%;
+    margin-left: 20px;
+    text-align: left;
+    
+}
+
+.StudyRoom-side > section > Link {
+    margin-left: 10px;
+    width: 100%;
+}
+
+.StudyRoom-side > section > .menuTitle {
+    margin-left: 0px;
+    margin-bottom: 5px;
+    font-size: 20px;
+    font-weight: bold;
+}

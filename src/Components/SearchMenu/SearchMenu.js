@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import api from '../../API'
 
-function SearchMenu() {
+function SearchMenu(props) {
 
     const [parentCategory, setparentCategory] = useState([])
     const [childCategory, setchildCategory] = useState([])
@@ -15,6 +15,8 @@ function SearchMenu() {
 
     const [selected_child, setselected_child] = useState()
     const [child_id, setchild_id] = useState()
+
+    const [studyTitle, setstudyTitle] = useState()
 
     const [form, setform] = useState()
     
@@ -49,8 +51,10 @@ function SearchMenu() {
     }, [])
 
     useEffect(async () => {
-
-        let child = await api.childCategory(parent_id)
+        let child = 0
+        if(parent_id){
+            child= await api.childCategory(parent_id)
+        }
         let childList = [];
 
         for(let i=0; i< child.length ; i++){
@@ -71,8 +75,24 @@ function SearchMenu() {
         {label: '온라인&오프라인', value: {on: true, off: true}}
     ]
 
-    const search = async () => {
-        await api.searchStudy_options(form, child_id)
+    const search = async (e) => {
+        let searchOption = props.filter
+        if(child_id){
+            searchOption.categoryId = '&categoryId='+child_id
+        }
+        if(form){
+            searchOption.offline = form.off
+            searchOption.online = form.on
+        }
+        if(studyTitle){
+            searchOption.searchKeyword = '&searchKeyword='+studyTitle
+        }
+        console.log(props.filter);
+        console.log(searchOption);
+        await props.setfilter(searchOption)
+        let res = await api.searchStudy(1, props.filter)
+        await props.handleContent(res.content);
+        await props.setmaxPage(res.totalPages)
     }
 
     return (
@@ -105,7 +125,11 @@ function SearchMenu() {
                 </div>
                 
                 <div className='search-box'>
-                    <input type="text" placeholder="스터디제목" className="study-name"/>
+                    <input type="text" placeholder="스터디제목" className="study-name" onChange={
+                        (e) => {
+                            setstudyTitle(e.target.value)
+                        }
+                    }/>
 
                     <p className="searchBtn" onClick={search}>검색</p>
                 </div>  

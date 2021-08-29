@@ -1,0 +1,8 @@
+.StudyRoom {
+    width: 100%;
+    display: flex;
+}
+
+.StudyRoom > aside {
+    width: 18%;
+}

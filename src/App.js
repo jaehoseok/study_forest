@@ -4,7 +4,6 @@ import {
   BrowserRouter,
   Switch,
   Route,
-  Link,
 } from "react-router-dom";
 
 import './App.css';
@@ -19,6 +18,9 @@ import InfoUpdate from './Components/InfoUpdate/InfoUpdate';
 import LocationUpdate from './Components/LocationUpdate/LocationUpdate';
 import StudyDetail from './Components/StudyDetail/StudyDetail';
 import MyStudy from './Components/MyStudy/MyStudy';
+import GatheringNotice from './Components/GatheringNotice/GatheringNotice';
+import MakeGathering from './Components/MakeGathering/MakeGathering';
+import GatheringChat from './Components/GatheringChat/GatheringChat';
 
 function App() {
 
@@ -45,6 +47,9 @@ function App() {
                 <Route exact path="/LocationUpdate" component={LocationUpdate} />
                 <Route exact path="/StudyDetail/:Id" component={StudyDetail} />
                 <Route exact path="/MyStudy" component={MyStudy} />
+                <Route exact path="/StudyRoom/:Id/GatheringNotice" component={GatheringNotice} />
+                <Route exact path="/StudyRoom/:Id/MakeGathering" component={MakeGathering} />
+                <Route exact path="/StudyRoom/:Id/GatheringChat" component={GatheringChat} />
               </Switch>
             
           </div>

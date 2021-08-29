@@ -4,11 +4,16 @@ div {
 
 .App {
   width: 100%;
-  overflow: hidden;
   min-width: 1190px;
   text-align: center;
   vertical-align: middle;
-} 
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.App::-webkit-scrollbar {
+  display: none;
+}
 
 .header-box {
   width: 100%;

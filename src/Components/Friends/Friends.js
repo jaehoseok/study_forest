@@ -20,33 +20,39 @@ import './Friends.css';
         {
         'image': 'https://placeimg.com/48/48/1',
         'name': '홍길동',
-        'interest' : '주제이름'
+        'interest' : '주제이름',
+        'key' : 1
         },
         {
 
         'image': 'https://placeimg.com/48/48/2',
         'name': '나동빈',
-        'interest' : ['주제이름']
+        'interest' : ['주제이름'],
+        'key' : 2
         },
         {
         'image': 'https://placeimg.com/48/48/3',
         'name': '이순신',
-        'interest' : ['주제1', '주제2', '주제3']
+        'interest' : ['주제1', '주제2', '주제3'],
+        'key' : 3
         },
         {
         'image': 'https://placeimg.com/48/48/1',
         'name': '홍길동',
-        'interest' : ['주제이름']
+        'interest' : ['주제이름'],
+        'key' : 4
         },
         {
         'image': 'https://placeimg.com/48/48/2',
         'name': '나동빈',
-        'interest' : ['주제이름']
+        'interest' : ['주제이름'],
+        'key' : 5
         },
         {
         'image': 'https://placeimg.com/48/48/2',
         'name': '나동빈',
-        'interest' : ['주제이름']
+        'interest' : ['주제이름'],
+        'key' : 6
         },
     ]
 
@@ -64,7 +70,7 @@ function Friends() {
 
                 <TableBody>
                     {customers.map(c => {
-                    return <FriendsTable image={c.image} name={c.name} interest={c.interest}/>
+                    return <FriendsTable image={c.image} name={c.name} interest={c.interest} key={c.key}/>
                     })}
                 </TableBody>
             </Table>

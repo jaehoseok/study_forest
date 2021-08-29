@@ -40,6 +40,7 @@ export default{
             },
         })
         .then(res => {
+            console.log(res.data);
             return res.data
         })
     },
@@ -79,31 +80,23 @@ export default{
         })
     },
 
-    searchLocation(location_id){
+    searchLocation(searchName, currPage){
+        console.log(searchName);
+        console.log(currPage);
+        let Name=''
+        if(searchName){
+            Name ='&searchName='+searchName
+        }
         return axios({
             method: 'get',
-            url: '/location-service/locations/code?code='+location_id,
-            headers: {
-                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
-            },
-        })
-        .then(res => {
-            console.log(res.data.id);
-            return res.data.id
-            
-        })
-    },
-
-    searchLocation2(searchName){
-        return axios({
-            method: 'get',
-            url: '/location-service/locations/search?page=0&size=20&searchName='+searchName,
+            url: '/location-service/locations/search?page='+currPage+'&size=20'+Name,
             headers: {
                 Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
             }
         })
         .then(res => {
-            console.log(res);
+            console.log(res.data.content);
+            return res.data.content
         })
     },
 
@@ -193,10 +186,10 @@ export default{
     },
 
     //스터디 검색
-    searchStudy(currPage){
+    searchStudy(currPage, filter){
         return axios({
             method: 'get',
-            url: '/study-service/studies?page='+(currPage-1)+'&size=16&offline=true&online=true',
+            url: '/study-service/studies?page='+(currPage-1)+'&size=16&offline='+filter.offline+'&online='+filter.online+filter.categoryId+filter.searchKeyword,
             headers: {
                 Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
             },
@@ -230,10 +223,45 @@ export default{
         return axios({
             method: 'get',
             url: '/study-service/studies/'+studyId,
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            },
         })
         .then(res => {
             console.log(res.data);
             return res.data
+        })
+    },
+
+    applyStudy(studyId){
+        return axios({
+            method: 'post',
+            url: '/study-service/studies/'+studyId+'/waitUsers',
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            }
+        })
+        .then(res => {
+            console.log(res);
+        })
+        .catch(err => {
+            console.log(err);
+            if(err.status===400){
+                window.alert('중복지원 입니다.')
+            }
+        })
+    },
+
+    applyCancelStudy(studyId){
+        return axios({
+            method: 'delete',
+            url: '/study-service/studies/'+studyId+'/waitUsers',
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            }
+        })
+        .then(res => {
+            console.log(res);
         })
     },
 
@@ -246,7 +274,28 @@ export default{
             }
         })
         .then(res => {
-            console.log(res);
+            console.log(res.data);
+            return res.data
+        })
+    },
+
+    Gatherings(Id){
+        return axios({
+            method: 'get',
+            url: '/gathering-service/studies/'+Id+'/gatherings',
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            }
+        })
+        .then(res => {
+            console.log(res.data.content);
+        })
+    },
+
+    makeGathering(Id){
+        return axios({
+            method: 'post',
+            url: '/gathering-service/studies'+Id+'/gatherings'
         })
     }
 }

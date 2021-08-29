@@ -1,0 +1,8 @@
+.MakeGathering {
+    display: flex;
+    width: 100%;
+}
+
+.MakeGathering > aside {
+    width: 18%;
+}

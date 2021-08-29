@@ -1,10 +1,12 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect, useMemo} from 'react'
 
 import './MakeStudy.css';
 
 import api from '../../API'
-
+import Select from 'react-select'
 import KakaoMap from '../KakaoMap/KakaoMap'
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function MakeStudy(props) {
 
@@ -12,12 +14,72 @@ function MakeStudy(props) {
     const [studyContent, setstudyContent] = useState()
     const [tagName, settagName] = useState()
     const [tagList, settagList] = useState([])
+    const [seletedLocationCode, setseletedLocationCode] = useState()
 
     const [Max, setMax] = useState(2);
-    const [isOff, setisOff] = useState(false)
 
     const [Img, setImg] = useState(null)
     const [imgBase64, setImgBase64] = useState('');
+
+    const [form, setform] = useState()
+
+    const [parentCategory, setparentCategory] = useState([])
+    const [childCategory, setchildCategory] = useState([])
+
+    const [parentId, setparentId] = useState()
+    const [selectedParent, setselectedParent] = useState()
+
+    const [childId, setchildId] = useState()
+    const [selectedChild, setselectedChild] = useState()
+    
+
+    useEffect( async () => {
+        let parent = await api.parentCategory()
+        let parentList = [];
+
+        for(let i=0 ; i< parent.length ; i++){
+            const item = {
+                label: parent[i].name,
+                value: parent[i].name,
+                id: parent[i].id
+            }
+            parentList.push(item)
+        }
+        setparentCategory(parentList)
+    }, [])
+
+    useEffect(async () => {
+        let child = 0
+        if(parentId){
+            child= await api.childCategory(parentId)
+        }
+        let childList = [];
+
+        for(let i=0; i< child.length ; i++){
+            const item = {
+                label: child[i].name,
+                value: child[i].name,
+                id: child[i].id
+            }
+            childList.push(item)
+        }
+        setchildCategory(childList)
+        
+    }, [parentId])
+
+    const customStyles = useMemo(
+        () => ({
+            option:(provided) => ({
+                ...provided,
+
+            }),
+            control: (provided) => ({
+                ...provided,
+                border: '2px solid black',
+                height: '38px',
+            })
+        })
+    )
 
     const addNum = () => {
         var Num = Max;
@@ -32,20 +94,6 @@ function MakeStudy(props) {
             setMax(Num);
         }
     }
-
-    const mapToggle = () => {
-        var toggle = isOff;
-        if(toggle === false){
-            setisOff(true)
-        }
-        else{
-            setisOff(false)
-        }
-    }
-
-    const Online = (
-        <div className="Online"></div>
-    )
 
     const handleAddTag = () => {
         let list = tagList
@@ -90,10 +138,10 @@ function MakeStudy(props) {
             numberOfPeople:Max,
             content: studyContent,
             tags: reqTagList,
-            online: true,
-            offline: true,
-            locationCode: '1111054000',
-            categoryId: 8,
+            online: form.on,
+            offline: form.off,
+            locationCode: seletedLocationCode.toString(),
+            categoryId: childId,
         }
         const json = JSON.stringify(req)
         const jsonRequest = new Blob([json],{
@@ -108,6 +156,13 @@ function MakeStudy(props) {
         props.history.push('/')
     }
 
+
+    const study_form = [
+        {label: '온라인', value: {on: true, off: false}},
+        {label: '오프라인', value: {on: false, off: true}},
+        {label: '온라인&오프라인', value: {on: true, off: true}}
+    ]
+
     return (
         <div className="makeStudy">
 
@@ -119,6 +174,25 @@ function MakeStudy(props) {
                         onChange={(e) => {
                             setstudyName(e.target.value)
                     }}/>
+                    <hr/>
+                    <div className="categoryBox">
+                        <Select options={parentCategory} className='col-md-4' placeholder='큰카테고리'
+                            value={selectedParent}
+                            onChange={(e) => {
+                                setselectedParent(e.name)
+                                setparentId(e.id)
+                            }}
+                            styles={customStyles}
+                        />
+                        <Select options={childCategory} className='col-md-4' placeholder='작은카테고리'
+                            value={selectedChild}
+                            onChange={(e) => {
+                                setselectedChild(e.name)
+                                setchildId(e.id)
+                            }}
+                            styles={customStyles}
+                        />
+                    </div>
                     <hr/>
                     <div className="hashBox">
                         <input tyep='text' placeholder='해시태그' className='hashtagNameInput' value={tagName}
@@ -162,12 +236,18 @@ function MakeStudy(props) {
             </div>
             
             <div className="mapBox">
-                <a className="toggle" onClick={mapToggle}>스터디 방식 : {isOff ? '오프라인' : '온라인'}</a>
-
-                <div className="map">{isOff ? <KakaoMap className="KakaoMap"/> : Online }</div>
-
+                <Select options={study_form} className='col-md-5' placeholder='스터디형태'
+                    onChange={(e) => {
+                        setform(e.value)
+                    }}
+                    styles={customStyles}
+                />
+                <KakaoMap setseletedLocationCode={setseletedLocationCode}/>
+            </div>
+            <div className='BtnBox'>
                 <a className="finishBtn" onClick={handleAddStudy}>스터디 등록</a>
             </div>
+            
         </div>
     )
 }

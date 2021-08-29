@@ -26,7 +26,7 @@ function MyPage() {
 
     const infoPush = async (data) => {
 
-        //let location_name = await api.location(data.locationId)
+        let location_name = await api.location(data.locationId)
         let tagRes = await api.userTag()
         let tagList = []
         let info
@@ -37,7 +37,7 @@ function MyPage() {
         if(data.image){
             info = {
                 MyName : data.nickName,
-                MyLocation : data.locationId,
+                MyLocation : location_name,
                 MyInterest : tagList,
                 MyProfileImage: data.image.profileImage,
                 MyThumbnailImage: data.image.thumbnailImage,
@@ -47,7 +47,7 @@ function MyPage() {
         else {
             info = {
                 MyName : data.nickName,
-                MyLocation : data.locationId,
+                MyLocation : location_name,
                 MyInterest : tagList,
                 MyProfileImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-JdoMKl_cBoE-qqWZjn7OH-dvmZK73uVZ9w&usqp=CAU',
                 MyThumbnailImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-JdoMKl_cBoE-qqWZjn7OH-dvmZK73uVZ9w&usqp=CAU',
