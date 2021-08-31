@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import {useInView} from 'react-intersection-observer'
 
 import './InfoUpdate.css'
@@ -16,6 +16,9 @@ function InfoUpdate(props) {
     const [list, setlist] = useState([])
     const [imgBase64, setImgBase64] = useState(''); // 파일 base64
 
+    const page = useRef(0);
+    const addlist = useRef([])
+    const [scrollRef, inView] = useInView();
 
     useEffect(async () => {
         let data = await api.profile()
@@ -41,6 +44,18 @@ function InfoUpdate(props) {
         }
         await setlist(tempList)
     }, [])
+
+    useEffect(() => {
+        if(addlist.current != [] && inView && TagName){
+            nextPage()
+            getItems()
+            console.log('scroll end');
+        }
+    }, [inView])
+
+    const nextPage = () => {
+        page.current = page.current+1;
+    }
     
     const updateHandler = () => {
         const req = {
@@ -62,13 +77,14 @@ function InfoUpdate(props) {
 
     const getItems = async () => {
             let list = [];
-            let data = await api.searchTag(TagName)
+            let data = await api.searchTag(TagName, page.current)
             for(let i=0; i<data.length;i++){
                 list.push(
                     <div className='tagName' id={data[i].id} onClick={tagHandler}>{data[i].name}</div>
                 )
             }
-            setItems(list)
+            addlist.current=[...addlist.current, ...list]
+            setItems(addlist.current)
     }
 
     const tagHandler = async (e) => {
@@ -149,8 +165,14 @@ function InfoUpdate(props) {
                                 setTagName(e.target.value)
                         }}/>
                                         
-                    <a onClick={getItems} className='askBtn'>조회</a>
-                    <div className='itemList'>{items}</div>
+                    <a className='askBtn' onClick={
+                        () => {
+                            document.getElementById('itemList').scrollTo({top:0})
+                            addlist.current=[]
+                            page.current=0
+                            getItems()
+                        }} >조회</a>
+                    <div className='itemList' id='itemList'>{items}<div ref={scrollRef}></div></div>
                     <div className="modalTag">{list}</div>                       
                 </div>
                 <a className="Info-updateBtn" onClick={updateHandler}>수정</a>

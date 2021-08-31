@@ -4,12 +4,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #D7EAA3;
+    background-color: #4CAF50;
 }
 
 .logo {
     margin: 40px;
-    color: black;
+    color: #3E2723;
     font-size: 35px;
     text-decoration:none;
     font-weight: bold;
@@ -18,8 +18,8 @@
 .loginBtn {
     margin-right: 20px;
 }
-.logo:link {color: black;}
-.logo:visited { color: black; }
+.logo:link {color: #3E2723;}
+.logo:visited { color: #3E2723; }
 
 .nav {
     width: 200px;
@@ -35,7 +35,8 @@
 
 .nav > .navBtn-Box >.navBtn {
     font-weight: bold;
+    color: #3E2723;
 }
-
-a:link { color: black; }
-a:visited { color: black; }
+a{color: #3E2723;}
+a:link { color: #3E2723; }
+a:visited { color: #3E2723; }

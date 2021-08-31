@@ -29,8 +29,8 @@ function GatheringSide(props) {
                 <section>
                     <div className='menuTitle'>관리</div>
                     <ul>
-                        <li><Link>멤버관리</Link></li>
-                        <li><Link>스터디관리</Link></li>
+                        <li><Link to={`/StudyRoom/${props.Id}/ManagementMember`}>멤버관리</Link></li>
+                        <li><Link to={`/StudyRoom/${props.Id}/ManagementStudy`}>스터디관리</Link></li>
                     </ul>
                 </section>
                 <hr/>

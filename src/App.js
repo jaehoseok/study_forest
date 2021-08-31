@@ -21,6 +21,8 @@ import MyStudy from './Components/MyStudy/MyStudy';
 import GatheringNotice from './Components/GatheringNotice/GatheringNotice';
 import MakeGathering from './Components/MakeGathering/MakeGathering';
 import GatheringChat from './Components/GatheringChat/GatheringChat';
+import ManagementMember from './Components/ManagementMember/ManagementMember';
+import ManagementStudy from './Components/ManagementStudy/ManagementStudy';
 
 function App() {
 
@@ -50,6 +52,8 @@ function App() {
                 <Route exact path="/StudyRoom/:Id/GatheringNotice" component={GatheringNotice} />
                 <Route exact path="/StudyRoom/:Id/MakeGathering" component={MakeGathering} />
                 <Route exact path="/StudyRoom/:Id/GatheringChat" component={GatheringChat} />
+                <Route exact path="/StudyRoom/:Id/ManagementMember" component={ManagementMember} />
+                <Route exact path="/StudyRoom/:Id/ManagementStudy" component={ManagementStudy} />
               </Switch>
             
           </div>

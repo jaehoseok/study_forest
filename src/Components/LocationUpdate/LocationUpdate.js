@@ -1,5 +1,6 @@
-import React, {useState, useEffect, useCallback, useRef} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import axios from 'axios'
+import {useInView} from 'react-intersection-observer'
 
 import './LocationUpdate.css'
 import api from '../../API'
@@ -7,27 +8,32 @@ import api from '../../API'
 function LocationUpdate(props) {
 
     const [SearchMap, setSearchMap] = useState()
-    const [Maplist, setMaplist] = useState([])
+    const [MapList, setMapList] = useState([])
     const [updated_code, setupdated_code] = useState()
     const [updated_location, setupdated_location] = useState()
     const [currPage, setcurrPage] = useState(0)
     const [fetching, setfetching] = useState(false)
     var maplist = []
 
-    const rootRef = useRef();
-    const scrollRef = useRef();
+    const mapList = useRef([])
+    const page = useRef(0);
+
+    const list = useRef([])
+
+    const [scrollRef, inView] = useInView();
+
 
     const btnC = async() => {
         setfetching(true)
-        console.log('currPage=',currPage);
+        console.log('Page=',page.current);
         console.log(SearchMap);
-        const res = await api.searchLocation(SearchMap, currPage)
+        const res = await api.searchLocation(SearchMap, page.current)
         maplist=[]
         for(let i=0 ; i<res.length; i++){
             let location_name =  res[i].city + " " + res[i].gu + " " + res[i].dong
             maplist.push(
                 <div className="localName-box">
-                    <div className="localName" key={res[i].id} onClick={
+                    <div className="localName" key={'loaction'+res[i].code} onClick={
                         (e) => {
                             setupdated_code(res[i].id)
                             setupdated_location(location_name)
@@ -38,126 +44,30 @@ function LocationUpdate(props) {
                 </div>
             )
         }
-        setMaplist((prev) => [...prev, ...maplist])
+        list.current=[...list.current, ...maplist]
+        setMapList(list.current)
         setfetching(false)
     }
 
-    // useEffect(() => {
-    //     document.getElementById('mapList').addEventListener('scroll', _infiniteScroll)
-    //     return () => {
-    //         document.getElementById('mapList').addEventListener('scroll', _infiniteScroll)
-    //     }
-    // }, [])
-    
-    // const _infiniteScroll = () => {
-    //     let scrollHeight = document.getElementById('mapList').scrollHeight
-    //     let scrollTop = document.getElementById('mapList').scrollTop
-    //     let clientHeight = document.getElementById('mapList').clientHeight
-
-    //     if(scrollTop + clientHeight >= scrollHeight && fetching===false) {
-    //         setcurrPage(n => n+1)
-    //         btnC()
-    //     }
-    // }
-
-    const useInfineteScroll= ({
-        root,
-        target,
-        onIntersect,
-        threshold = 0,
-        rootMargin = '0px'
-    }) => {
-        useEffect(() => {
-            const observer = new IntersectionObserver(onIntersect, {
-                root,
-                rootMargin,
-                threshold
-            });
-            if(!root){
-                return
-            }
-            if(!target){
-                return
-            }
-            observer.observe(target);
-            return () => {
-                observer.unobserve(target)
-            }
-        }, [target, root, rootMargin, onIntersect, threshold])
-    }
-
-    useInfineteScroll({
-        rootRef,
-        scrollRef,
-        onIntersect: ([{isIntersecting}]) => {
-            if(isIntersecting){
-                console.log('스크롤끝');
-                //btnC();
-            }
-            console.log('dddd');
+    useEffect(() => {
+        if(list.current != [] && inView && SearchMap){
+            nextPage()
+            btnC()
+            console.log('scroll end');
         }
-    })
+    }, [inView])
 
-    // useEffect(() => {
-    //     const option = {
-    //         root: document.querySelector('scrollArea'),
-    //         rootMargin: '0px',
-    //         threshold: 1.0
-    //     };
-    //     const observer = new IntersectionObserver(btnC, option)
-
-    //     if(!scrollRef){
-    //         return;
-    //     }
-
-    //     observer.observe(scrollRef)
-        
-    //     return () => observer.unobserve(scrollRef)
-    // }, [scrollRef])
-    
-    // const checkIntersect = ([entry], observer) => {
-    //     if(entry.isIntersecting){
-    //         // eslint-disable-next-line no-unused-expressions
-    //         async () => {
-    //             observer.unobserve(entry.target);
-    //             await btnC();
-    //             observer.observe(entry.target);
-    //         }
-    //     }
-    // }
-    // const scrollUpdateContent = useCallback(async() => {
-    //     await nextPage()
-    //     const res = await api.searchLocation(SearchMap, currPage)
-    //     maplist=Maplist;
-    //     for(let i=0 ; i<res.length; i++){
-    //         let location_name =  res[i].city + " " + res[i].gu + " " + res[i].dong
-    //         maplist.push(
-    //             <div className="localName-box">
-    //                 <div className="localName" key={res[i].id} onClick={
-    //                     (e) => {
-    //                         setupdated_code(res[i].id)
-    //                         setupdated_location(location_name)
-    //                     }
-    //                 }>
-    //                     {location_name}
-    //                 </div>
-    //             </div>
-    //         )
-    //     }
-    //     setMaplist(maplist)
-    // }, [currPage, Maplist]);
-
-
-    // useEffect(() => {
-    //     document.getElementById('mapList').addEventListener('scroll', _infiniteScroll, true)
-    //     return () => document.getElementById('mapList').removeEventListener('scroll', _infiniteScroll, true)
-    // }, [_infiniteScroll])
+    const nextPage = () => {
+        page.current = page.current+1
+    }
 
     const updateHandler = async () => {
         api.updateLocation(updated_code)
         console.log(updated_code);
         props.history.push('/MyPage')
     }
+
+
 
     return (
         <div>
@@ -172,14 +82,15 @@ function LocationUpdate(props) {
                         }}/>
                         <div className='LocationSearchBtn' onClick={
                             async () => {
-                                //await setMaplist([])
-                                await setcurrPage(0)
-                                await btnC()
+                                document.getElementById('mapList').scrollTo({top:0})
+                                list.current=[]
+                                page.current=0
+                                btnC()
                         }}>검색</div>
                     </div>
                     <div>
-                        <div className="maplist" id="mapList" ref={rootRef}>
-                            {Maplist}
+                        <div className="maplist" id="mapList" inView={inView}>
+                            {MapList}
                             <div ref={scrollRef} className='scrollRef'/>
                         </div>
                         

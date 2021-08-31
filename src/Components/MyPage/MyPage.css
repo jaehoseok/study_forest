@@ -20,6 +20,17 @@
     text-align: left;
 }
 
+.myMap {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto;
+    margin-top: 4px;
+}
+
+.contentBox {
+    height: 65%;
+}
+
 .requestBtn {
     width: 200px;
     height: 30px;
@@ -61,21 +72,22 @@
 }
 
 .updateBtn {
-    margin-bottom: 50px;
     width: 200px;
-    margin: 10px auto;
+    margin: 0 auto;
     border: 1px solid black;
     border-radius: 5px;
     background-color: white;
+    padding: 3px;
 }
 
 .MyPageTag {
-    display: flex;
+    display: block;
     margin: 0 10px;
     border-radius: 5px;
     background-color: white;
     border: 1px solid black;
     padding: 3px 3px;
+    white-space : nowrap;
 }
 
 .info > div > .tags {

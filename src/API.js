@@ -58,7 +58,7 @@ export default{
             console.log(res);
             let result = res.data.city +" "+ res.data.dong
             console.log(result);
-            return result
+            return res.data
         })
     },
 
@@ -114,10 +114,10 @@ export default{
         })
     },
 
-    searchTag(tagName){
+    searchTag(tagName, page){
         return axios({
             method: 'get',
-            url: '/study-service/tags?page=0&size=10&name='+encodeURIComponent(tagName),
+            url: '/study-service/tags?page='+page+'&size=10&name='+encodeURIComponent(tagName),
         })
         .then(res => {
             console.log(res.data.content);
@@ -134,6 +134,7 @@ export default{
             }
         })
         .then(res => {
+            console.log(res.data);
             return res.data
         })
     },

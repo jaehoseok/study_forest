@@ -4,6 +4,7 @@
     flex-wrap: wrap;
     margin: 0 240px;
     padding: 0 20px;
+    margin-top: 30px;
 }
 .LocationContents {
     margin: 0 auto;
@@ -96,5 +97,4 @@
 .scrollRef {
     width: 400px;
     height: 4px;
-    background-color: black;
 }

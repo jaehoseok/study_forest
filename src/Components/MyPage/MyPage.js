@@ -1,32 +1,35 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import {Link} from 'react-router-dom'
 
 import Friends from '../Friends/Friends'
-import InfoUpdate from '../InfoUpdate/InfoUpdate'
-import LocationUpdate from '../LocationUpdate/LocationUpdate'
 import StudyReq from '../StudyReq/StudyReq'
 
 import api from '../../API'
 
 import "./MyPage.css";
 
+const {kakao} = window;
+
+
 
 
 
 function MyPage() {
-    
+
     const [Myinfo, setMyinfo] = useState({
         MyName : '',
         MyLocation : '',
         MyInterest : [],
         MyProfileImage: '',
         MyThumbnailImage: '',
-        MyNumberOfStudyApply: 0
+        MyNumberOfStudyApply: 0,
+        mapLen: 0,
+        mapLet: 0,
     })
 
     const infoPush = async (data) => {
-
-        let location_name = await api.location(data.locationId)
+        const locationRes = await api.location(data.locationId)
+        let location_name = locationRes.city + " " + locationRes.dong
         let tagRes = await api.userTag()
         let tagList = []
         let info
@@ -41,7 +44,7 @@ function MyPage() {
                 MyInterest : tagList,
                 MyProfileImage: data.image.profileImage,
                 MyThumbnailImage: data.image.thumbnailImage,
-                MyNumberOfStudyApply: data.numberOfStudyApply
+                MyNumberOfStudyApply: data.numberOfStudyApply,
             }
         }
         else {
@@ -51,12 +54,11 @@ function MyPage() {
                 MyInterest : tagList,
                 MyProfileImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-JdoMKl_cBoE-qqWZjn7OH-dvmZK73uVZ9w&usqp=CAU',
                 MyThumbnailImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-JdoMKl_cBoE-qqWZjn7OH-dvmZK73uVZ9w&usqp=CAU',
-                MyNumberOfStudyApply: data.numberOfStudyApply
+                MyNumberOfStudyApply: data.numberOfStudyApply,
             }
         }
         
         setMyinfo(info)
-        
     }
 
     const [StudyApply, setStudyApply] = useState([])
@@ -65,6 +67,14 @@ function MyPage() {
     useEffect( async () => {
         let data = await api.profile()
         await infoPush(data)
+        const locationRes = await api.location(data.locationId)
+        const mapContainer = document.getElementById('myMap')
+        const mapOptions = {
+            center: new kakao.maps.LatLng(locationRes.let, locationRes.len),
+            level: 5,
+            draggable: false,
+        }
+        const map = new kakao.maps.Map(mapContainer, mapOptions)
     }, [])
 
     
@@ -82,7 +92,7 @@ function MyPage() {
     if(data != null){
         for(let i=0 ; i < data.length ; i++){
             list.push(
-                <a className="MyPageTag">{data[i]}</a>
+                <div className="MyPageTag">{data[i]}</div>
             )
         }
     }
@@ -102,23 +112,29 @@ function MyPage() {
 
                 <div className='profile-box'>
                     <div className='box-title'>프로필</div>
-                    <img className="image" src={Myinfo.MyProfileImage}/>
+                    <div className='contentBox'>
+                        <img className="image" src={Myinfo.MyProfileImage}/>
 
-                    <div className="info">
-                        <div>이름 : {Myinfo.MyName}</div>
-                        <div >관심주제 : <div className="tags">{list}</div></div>
+                        <div className="info">
+                            <div>이름 : {Myinfo.MyName}</div>
+                                <div >관심주제 : <div className="tags">{list}</div>
+                            </div>
+                        </div>    
                     </div>
+
                     <Link className="updateBtn" to='/InfoUpdate'>내정보 수정하기</Link>
                 </div>
 
                 <div className='location-box'>
                     <div className='box-title'>지역 설정</div>
-                    <div className='info'>
-                        <div>내 동네 : {Myinfo.MyLocation}</div>
-                        {/* todo: Map 넣기 */}
-                        <Link className="updateBtn" to='/LocationUpdate'>지역 수정하기</Link>
+                    <div className='contentBox'>
+                        <div className='info'>
+                            <div>내 동네 : {Myinfo.MyLocation}</div>
+                            <div className='myMap' id='myMap'>{Map}</div>
+                        </div>
                     </div>
                     
+                    <Link className="updateBtn" to='/LocationUpdate'>지역 수정하기</Link>
                 </div>
             </div>
             <div>
