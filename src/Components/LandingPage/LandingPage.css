@@ -17,7 +17,7 @@
 .landingPage > .btn-space > .makeStudyBtn {
     width: 670px;
     margin: 0 10px;
-    border: 3px solid #D7EAA3;
+    border: 3px solid black;
     border-radius: 5px;
     margin-bottom: 30px;
     text-decoration:none;
@@ -26,21 +26,32 @@
 a:link { color: black; }
 a:visited { color: black; }
 
+.study-content {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
 .study {
     width: 40%;
     height: 80px;
-    border: 2px solid #D7EAA3;
+    border: 2px solid black;
     margin: 0px 5px;
     margin-bottom: 10px;
     text-align: left;
     display: flex;
+    white-space: nowrap;
+    color: black;
 }
 .img-box {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 76px;
-    background-color: wheat;
+    background-color: white;
 }
 
 .study-img {
@@ -51,6 +62,10 @@ a:visited { color: black; }
 
 .title-box {
     margin-left: 50px;
+    color: black
+}
+.title-box > div {
+    color: black
 }
 
 .page{

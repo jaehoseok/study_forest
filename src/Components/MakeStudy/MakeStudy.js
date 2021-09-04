@@ -14,7 +14,7 @@ function MakeStudy(props) {
     const [studyContent, setstudyContent] = useState()
     const [tagName, settagName] = useState()
     const [tagList, settagList] = useState([])
-    const [seletedLocationCode, setseletedLocationCode] = useState()
+    const [selectedLocationCode, setselectedLocationCode] = useState()
 
     const [Max, setMax] = useState(2);
 
@@ -31,6 +31,8 @@ function MakeStudy(props) {
 
     const [childId, setchildId] = useState()
     const [selectedChild, setselectedChild] = useState()
+
+    const [tagCount, settagCount] = useState(0)
     
 
     useEffect( async () => {
@@ -104,9 +106,17 @@ function MakeStudy(props) {
                 return
             }
         }
-        list.push(
-            <div key={tagName}>{tagName}</div>
-        )
+        if(tagCount<6){
+            list.push(
+                <div key={tagName} className='tagName'>{tagName}<div>&times;</div></div>
+            )
+        }
+        else{
+            window.alert('최대 6개까지 가능합니다.')
+            settagName('')
+            return
+        }
+        
         settagName('')
         settagList(list)
     }
@@ -140,7 +150,7 @@ function MakeStudy(props) {
             tags: reqTagList,
             online: form.on,
             offline: form.off,
-            locationCode: seletedLocationCode.toString(),
+            locationCode: selectedLocationCode.toString(),
             categoryId: childId,
         }
         const json = JSON.stringify(req)
@@ -242,7 +252,7 @@ function MakeStudy(props) {
                     }}
                     styles={customStyles}
                 />
-                <KakaoMap setseletedLocationCode={setseletedLocationCode}/>
+                <KakaoMap setselectedLocationCode={setselectedLocationCode}/>
             </div>
             <div className='BtnBox'>
                 <a className="finishBtn" onClick={handleAddStudy}>스터디 등록</a>

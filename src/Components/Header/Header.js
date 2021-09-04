@@ -14,11 +14,11 @@ function Header(props) {
             <a className="logo" href="/">Study Forest</a>
             <div className='nav'>
                 <Link className='navBtn-Box' to='/'>
-                    <FileSearchOutlined style={{fontSize: '25px', color: '#3E2723'}}/>
+                    <FileSearchOutlined style={{fontSize: '25px', color: 'white'}}/>
                     <div className='navBtn'>주변 스터디</div>
                 </Link>
                 <Link className='navBtn-Box'to='/MyStudy'>
-                    <ReadOutlined style={{fontSize: '25px', color: '#3E2723'}}/>
+                    <ReadOutlined style={{fontSize: '25px', color: 'white'}}/>
                     <div className='navBtn'>나의 스터디</div>
                 </Link>
                 

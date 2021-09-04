@@ -29,7 +29,7 @@
     padding: 5px 10px;
 }
 
-.LocationSearch-box {
+.LocationContents > .LocationSearch-box {
     display: flex;
     width: 400px;
     margin: 0 auto;
@@ -38,14 +38,14 @@
 }
 
 .LocationNameInput {
-    width: 300px;
+    width: 80%;
     border: 1px solid black;
     padding: 1px;
     height: 30px;
 }
 
 .LocationSearchBtn {
-    width: 100px;
+    width: 20%;
     height: 30px;
     padding: 1px;
     display: flex;
@@ -56,13 +56,12 @@
     background-color: white;
 }
 
-.maplist {
+.LocationContents > div > .maplist {
     width: 400px;
     height: 260px;
     background-color: white;
     margin: 0 auto;
     overflow-x: hidden;
-    /* overflow-y: scroll; */
 }
 
 .localName {
@@ -85,13 +84,6 @@
     background-color: white;
     text-align: left;
     padding-left: 8px;
-}
-
-.mapBox {
-    overflow-y: scroll;
-    width: 400px;
-    background-color: black;
-    overflow-x: hidden;
 }
 
 .scrollRef {

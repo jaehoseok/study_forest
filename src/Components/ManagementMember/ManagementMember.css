@@ -6,3 +6,52 @@
 .ManagementMember > aside {
     width: 18%;
 }
+
+.ManagementMember > .ManagementMember-content {
+    display: block;
+    width: 82%;
+}
+
+.ManagementMember > .ManagementMember-content > .ManagementMember-title{
+    width: 100%;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.ManagementMember > .ManagementMember-content > .ManagementMember-list {
+    width: 100%;
+    display: flex;
+}
+
+.ManagementMember-list > .left-member {
+    width: 50%;
+    height: 500px;
+    border: 3px solid black;
+    margin: 0 10px;
+    border-radius: 5px;
+}
+
+.left-member > .Member {
+    width: 100%;
+    border: 1px solid black;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.ManagementMember-list > .right-member {
+    width: 50%;
+    height: 500px;
+    border: 3px solid black;
+    margin: 0 10px;
+    border-radius: 5px;
+}
+
+.right-member > .waitUser {
+    width: 100%;
+    border: 1px solid black;
+}
+
+.list-title {
+    font-size: 18px;
+    font-weight: bold;
+}

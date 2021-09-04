@@ -2,7 +2,7 @@
 .StudyRoom-side {
     width: 100%;
     float: left;
-    background-color: #D7EAA3;
+    background-color: black;
 }
 
 .StudyRoom-side > section {
@@ -16,6 +16,8 @@
 .StudyRoom-side > section > Link {
     margin-left: 10px;
     width: 100%;
+    color: white;
+    text-decoration:none;
 }
 
 .StudyRoom-side > section > .menuTitle {
@@ -23,4 +25,9 @@
     margin-bottom: 5px;
     font-size: 20px;
     font-weight: bold;
+    color: white;
+    text-decoration:none;
 }
+.menuBtn{color: white; text-decoration:none;}
+.menuBtn:link { color: white; text-decoration:none;}
+.menuBtn:visited { color: white; text-decoration:none;}

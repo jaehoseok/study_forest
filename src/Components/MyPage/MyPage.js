@@ -92,7 +92,7 @@ function MyPage() {
     if(data != null){
         for(let i=0 ; i < data.length ; i++){
             list.push(
-                <div className="MyPageTag">{data[i]}</div>
+                <div className="MyPageTag" key={data[i]}>{data[i]}</div>
             )
         }
     }
@@ -130,20 +130,20 @@ function MyPage() {
                     <div className='contentBox'>
                         <div className='info'>
                             <div>내 동네 : {Myinfo.MyLocation}</div>
-                            <div className='myMap' id='myMap'>{Map}</div>
+                            <div className='myMap' id='myMap'/>
                         </div>
                     </div>
                     
                     <Link className="updateBtn" to='/LocationUpdate'>지역 수정하기</Link>
                 </div>
             </div>
-            <div>
+            {/* <div>
                 <div className="friendsTitle">
                 <p>친구목록</p>
                 <p className="re">동기화</p>
                 </div>
                 <Friends/>
-            </div>
+            </div> */}
             
 
         </div>

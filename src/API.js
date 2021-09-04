@@ -11,30 +11,38 @@ export default{
             method: 'post',
             url: '/auth-service/auth',
             headers: {
-                'kakaoToken': kakaoToken
+                kakaoToken: kakaoToken
             }
         })
         .then(res => {
-            console.log(res);
             window.sessionStorage.setItem('accessToken', res.headers.accesstoken)
             window.sessionStorage.setItem('refreshToken', res.headers.refreshtoken)
         })
     },
     //로그아웃
     logout(){
+        console.log(window.sessionStorage.getItem('accessToken'));
         return axios({
             method: 'delete',
             url: '/auth-service/auth',
             headers: {
-                Authorization: window.sessionStorage.getItem('accessToken')
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken')
             }
+        })
+        .then(res => {
+            console.log(res);
+            console.log('로그아웃 성공');
+        })
+        .catch(err => {
+            console.log(window.sessionStorage.getItem('accessToken'));
+            console.log(err);
         })
     },
     //프로필 조회
     profile(){
         return axios({
-            method:'get',
-            url:'/user-service/users/profile',
+            method: 'get',
+            url: '/user-service/users/profile',
             headers: {
                 Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken')
             },
@@ -95,6 +103,7 @@ export default{
             }
         })
         .then(res => {
+            console.log(res);
             console.log(res.data.content);
             return res.data.content
         })
@@ -270,6 +279,34 @@ export default{
         return axios({
             method: 'get',
             url: '/study-service/users/studies',
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            }
+        })
+        .then(res => {
+            console.log(res.data);
+            return res.data
+        })
+    },
+
+    StudyMember(Id){
+        return axios({
+            method: 'get',
+            url: '/study-service/studies/'+Id+'/users',
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            }
+        })
+        .then(res => {
+            console.log(res.data);
+            return res.data
+        })
+    },
+
+    StudyWaitUsers(Id){
+        return axios({
+            method: 'get',
+            url: '/study-service/studies/'+Id+'/waitUsers',
             headers: {
                 Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
             }

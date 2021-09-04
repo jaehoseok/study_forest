@@ -6,3 +6,8 @@
 .ManagementStudy > aside {
     width: 18%;
 }
+
+.ManagementStudy > .ManagementStudyContnetsBox {
+    margin: auto;
+
+}

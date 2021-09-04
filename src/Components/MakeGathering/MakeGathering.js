@@ -11,7 +11,7 @@ function MakeGathering(props) {
     return (
         <div className="MakeGathering">
             <aside>
-                <GatheringSide id={props.match.params.Id}/>
+                <GatheringSide Id={props.match.params.Id}/>
             </aside>
 
             <div>

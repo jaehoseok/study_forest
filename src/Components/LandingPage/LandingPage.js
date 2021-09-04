@@ -31,31 +31,56 @@ function LandingPage() {
         let study = content
         let list = [];
 
-        for(let i=0; i<study.length ;i++){
+        // for(let i=0; i<study.length ;i++){
+        //     let img;
+
+        //     if(study[i].image != null){
+        //         img=study[i].image.thumbnailImage
+        //     }
+        //     else{
+        //         img=null
+        //     }
+        //     list.push(
+        //         <Link className='study' key={study[i].id} to={`/StudyDetail/${study[i].id}`}>
+        //             <div className='img-box'>
+        //                 <img className='study-img' src={img}/>
+        //             </div>
+                    
+        //             <div className='title-box'>
+        //                 제목 : {study[i].name}
+        //                 <div>
+        //                     관심태그 : {study[i].studyTags}
+        //                 </div>
+        //             </div>
+                    
+        //         </Link>
+        //     )
+        // }
+        study.map((study, index) => {
             let img;
 
-            if(study[i].image != null){
-                img=study[i].image.thumbnailImage
+            if(study.image != null){
+                img=study.image.thumbnailImage
             }
             else{
                 img=null
             }
             list.push(
-                <Link className='study' key={study[i].id} to={`/StudyDetail/${study[i].id}`}>
+                <Link className='study' key={index} to={`/StudyDetail/${study.id}`} id={study.id}>
                     <div className='img-box'>
                         <img className='study-img' src={img}/>
                     </div>
                     
                     <div className='title-box'>
-                        제목 : {study[i].name}
+                        제목 : {study.name}
                         <div>
-                            관심태그 : {study[i].studyTags}
+                            관심태그 : {study.studyTags}
                         </div>
                     </div>
                     
                 </Link>
-            )
-        }
+            )            
+        })
         setstudyList(list)
     }
 
@@ -102,7 +127,7 @@ function LandingPage() {
 
     const list = [];
     for(let i = pstart ; i <= pcount ; i++){
-        list.push(<div className='pageBtn'onClick={
+        list.push(<div className='pageBtn' key={i} onClick={
             async (e) => {
                 setcurrPage(i)
             }
@@ -116,8 +141,10 @@ function LandingPage() {
             <div className='btn-space'>
                 <Link className='makeStudyBtn' to='/MakeStudy'>스터디 만들기</Link>
             </div>
-
-            {studyList}
+            <div className='study-content'>
+                {studyList}
+            </div>
+            
             <div className='page'>
                 <div className='pageBtn-box'>
                     <div className='pageBtn' onClick={firstPage}>&lt;&lt;</div>
