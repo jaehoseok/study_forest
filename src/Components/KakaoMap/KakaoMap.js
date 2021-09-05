@@ -20,19 +20,9 @@ function KakaoMap (props) {
     
     const [Maplist, setMaplist] = useState([])
 
-    const selectedLen = useRef();
-    const selectedLet = useRef();
-    const selectedLocation = useRef();
-
-    // useEffect(() => {
-    //     if(props.len && props.let && props.selectedLocation){
-    //         selectedLen.current = props.len
-    //         selectedLet.current = props.let
-    //         selectedLocation.current = props.selectedLocation
-            
-    //     }
-    //     console.log(props.len, props.let, props.selectedLocation);
-    // }, [])
+    const selectedLen = useRef(126.633000);
+    const selectedLet = useRef(37.373832);
+    const selectedLocation = useRef('');
 
     const btnC = async() => {
         const res = await api.searchLocation(SearchMap, page.current)
@@ -48,6 +38,8 @@ function KakaoMap (props) {
                             selectedLocation.current=location_name
                             selectedLen.current=res[i].len
                             selectedLet.current=res[i].let
+                            console.log(selectedLen.current);
+                            console.log(selectedLet.current);
                         }
                     }>
                         {location_name}
@@ -105,7 +97,7 @@ function KakaoMap (props) {
                 <div className="selectedLocation">선택된 주소 : {selectedLocation.current}</div>
             </div>
             <div className="rightMap">
-                <div className='selectedMap' id='selectedMap'></div>
+                <div className='selectedMap' id='selectedMap'/>
             </div>
         </div>
     )

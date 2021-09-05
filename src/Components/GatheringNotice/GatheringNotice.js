@@ -10,7 +10,7 @@ function GatheringNotice(props) {
     useEffect(async () => {
     }, [])
     return (
-        <div className="StudyRoom">
+        <div className="StudyNotice">
             <aside>
                 <GatheringSide Id={props.match.params.Id}/>
             </aside>

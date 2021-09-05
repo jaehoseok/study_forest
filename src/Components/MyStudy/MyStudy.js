@@ -13,7 +13,7 @@ function MyStudy() {
     useEffect(async () => {
         res = await api.MyStudy()
         list = res.map((study) =>
-            <Link className='MyStudy-box' key={study.id} to={`/StudyRoom/${study.id}/GatheringNotice`}>제목: {study.name}</Link>
+            <Link className='MyStudy-box' key={study.id} to={`/StudyRoom/${study.id}/GatheringHome`}>제목: {study.name}</Link>
         )
         setmyStudyList(list)
     }, [res])

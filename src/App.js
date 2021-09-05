@@ -23,6 +23,7 @@ import MakeGathering from './Components/MakeGathering/MakeGathering';
 import GatheringChat from './Components/GatheringChat/GatheringChat';
 import ManagementMember from './Components/ManagementMember/ManagementMember';
 import ManagementStudy from './Components/ManagementStudy/ManagementStudy';
+import GatheringHome from './Components/GatheringHome/GatheringHome';
 
 function App() {
 
@@ -49,6 +50,7 @@ function App() {
                 <Route exact path="/LocationUpdate" component={LocationUpdate} />
                 <Route exact path="/StudyDetail/:Id" component={StudyDetail} />
                 <Route exact path="/MyStudy" component={MyStudy} />
+                <Route exact path="/StudyRoom/:Id/GatheringHome" component={GatheringHome} />
                 <Route exact path="/StudyRoom/:Id/GatheringNotice" component={GatheringNotice} />
                 <Route exact path="/StudyRoom/:Id/MakeGathering" component={MakeGathering} />
                 <Route exact path="/StudyRoom/:Id/GatheringChat" component={GatheringChat} />

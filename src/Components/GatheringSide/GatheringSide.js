@@ -13,7 +13,7 @@ function GatheringSide(props) {
     return (
             <div className='StudyRoom-side'>
                 <section>
-                    <Link className='menuTitle'>Home</Link>
+                    <Link className='menuTitle' to={`/StudyRoom/${props.Id}/GatheringHome`}>Home</Link>
                 </section>
                 <hr/>
                 <section>

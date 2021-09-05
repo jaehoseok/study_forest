@@ -15,12 +15,13 @@
 }
 
 .landingPage > .btn-space > .makeStudyBtn {
-    width: 670px;
+    width: 200px;
     margin: 0 10px;
     border: 3px solid black;
     border-radius: 5px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     text-decoration:none;
+    padding: 2px 0;
 }
 
 a:link { color: black; }
@@ -85,9 +86,31 @@ a:visited { color: black; }
 .pageBtn {
     margin: 5px 0;
     width: 40px;
-    background-color: #EFEFF5;
+    background-color: black;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title-box {
+    margin: auto;
+    margin-left: 10px;
 }
 
 .pageBtn:hover {
     background-color: #DEDEEA;
+}
+
+.title-box > div > .Landing-tagName {
+    color: black;
+    border: 2px solid black;
+    margin-left: 3px;
+    border-radius: 5px;
+    padding: 1px 5px;
+}
+
+.title-box > div {
+    display: flex;
+    overflow-x: hidden;
 }

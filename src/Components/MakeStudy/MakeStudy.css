@@ -80,6 +80,7 @@
     align-items: center;
     justify-content: center;
     border: 1px solid black;
+    color: black;
 }
 
 .countBox {
@@ -173,6 +174,14 @@
     display: flex;
     border-radius: 5px;
     justify-content: space-between;
+    align-items: center;
+}
+
+.tagDeleteBtn {
+    color: black;
+    font-size: 20px;
+    margin: auto;
+    margin-right: 5px;
 }
 
 div {

@@ -92,7 +92,7 @@ function StudyDetail(props) {
         <div className='StudyDetail'>
             <div className='StudyDetail-TOP'>
                 <div>제목 : {POST.name}</div>
-                <div>주제 : {POST.parentCategory} &gt; {POST.childCategory}</div>
+                <div>주제 : {POST.parentCategory}/{POST.childCategory}</div>
                 <div>인원 : {POST.currentNumberOfPeople} / {POST.numberOfPeople}</div>
                 <div>위치 : {POST.location}</div>
                 <div>내용 : {POST.content}</div>

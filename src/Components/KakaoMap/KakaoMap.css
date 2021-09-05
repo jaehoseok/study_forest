@@ -67,6 +67,10 @@
     justify-content: center;
 }
 
+.LocationSearch-box > .LocationSearchBtn {
+    color: black;
+}
+
 .rightMap {
     width: 50%;
 }

@@ -33,7 +33,11 @@ function MakeStudy(props) {
     const [selectedChild, setselectedChild] = useState()
 
     const [tagCount, settagCount] = useState(0)
-    
+
+    let list=tagList
+    useEffect(() => {
+        settagList(list)
+    }, [tagCount])
 
     useEffect( async () => {
         let parent = await api.parentCategory()
@@ -98,7 +102,7 @@ function MakeStudy(props) {
     }
 
     const handleAddTag = () => {
-        let list = tagList
+        list = tagList
         for(let i=0 ; i<list.length ; i++){
             if(list[i].key === tagName){
                 window.alert('중복된 태그 이름')
@@ -108,8 +112,13 @@ function MakeStudy(props) {
         }
         if(tagCount<6){
             list.push(
-                <div key={tagName} className='tagName'>{tagName}<div>&times;</div></div>
+                <div key={tagName} className='tagName' id={tagName}>{tagName}<div className='tagDeleteBtn' id={tagName} onClick={
+                    async (e) => {
+                        await handleDeleteTag(e.target.id)
+                    }
+                }>&times;</div></div>
             )
+            settagCount(n => n+1)
         }
         else{
             window.alert('최대 6개까지 가능합니다.')
@@ -118,14 +127,23 @@ function MakeStudy(props) {
         }
         
         settagName('')
-        settagList(list)
+    }
+
+    const handleDeleteTag = (tagName) => {
+        list = tagList
+        for(let i=0 ; i<list.length ; i++ ){
+            if(list[i].key === tagName){
+                list.splice(i, 1)
+                i--;
+            }
+        }
+        settagCount(n => n-1)
     }
 
     const handleChangeFile = (e) => {
         let reader = new FileReader();
 
         reader.onloadend = () => {
-        // 2. 읽기가 완료되면 아래코드가 실행됩니다.
         const base64 = reader.result;
             if (base64) {
             setImgBase64(base64.toString()); // 파일 base64 상태 업데이트
@@ -180,7 +198,7 @@ function MakeStudy(props) {
 
             <div className="top-content">
                 <div className="infoBox">
-                    <input type='text' placeholder='스터디 이름' className='studyNameInput'
+                    <input type='text' placeholder='스터디 이름' className='studyNameInput' value={''}
                         onChange={(e) => {
                             setstudyName(e.target.value)
                     }}/>
@@ -205,7 +223,7 @@ function MakeStudy(props) {
                     </div>
                     <hr/>
                     <div className="hashBox">
-                        <input tyep='text' placeholder='해시태그' className='hashtagNameInput' value={tagName}
+                        <input tyep='text' placeholder='해시태그' className='hashtagNameInput'
                             onChange={(e) => {
                                 settagName(e.target.value)
                         }}/>

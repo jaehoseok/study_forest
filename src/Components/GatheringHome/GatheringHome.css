@@ -1,0 +1,92 @@
+.GatheringHome {
+    width: 100%;
+    display: flex;
+}
+
+.GatheringHome > aside {
+    width: 18%;
+}
+
+.GatheringHome > section {
+    display: flex;
+    width: 82%;
+    align-items: center;
+    justify-content: center;
+}
+
+.GatheringHome > section > img {
+    width: 300px;
+    height: 300px;
+    margin: 0 5px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.GatheringHome > section > .studyContent{
+    display: block;
+    color: black;
+    width: 50%;
+    height: 300px;
+    
+}
+
+.GatheringHome > section > div > .studyTitle {
+    color: black;
+    font-size: 32px;
+    text-align: left;
+    font-weight: 700;
+    letter-spacing: -0.009em;
+}
+
+.GatheringHome > section > .studyContent > div {
+    color : black;
+    width: 100%;
+    text-align: left;
+    display: flex;
+}
+
+.GatheringHome > section > .studyContent > div > div {
+    width: 20%;
+    color: black;
+}
+
+
+
+table {
+    display: table;
+    border-collapse: separate;
+    box-sizing: border-box;
+    text-indent: initial;
+    border-spacing: 2px;
+    border-color: gray;
+    height: 150px;
+}
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+    height: 50px;
+}
+
+td {
+    padding-top: 0.3125rem;
+    padding: 0.25rem 0.5rem;
+    padding: 0.75rem;
+    border-top: 1px solid gray;
+    vertical-align: middle;
+    display: table-cell;
+    color: black;
+    text-align: left;
+}
+
+.t-label {
+    width: 6rem;
+    padding-left: 0.125rem;
+}
