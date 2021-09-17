@@ -4,6 +4,7 @@ import './ManagementMember.css';
 
 import GatheringSide from '../GatheringSide/GatheringSide';
 import api from '../../API';
+import {CloseSquareOutlined, UserAddOutlined} from '@ant-design/icons'
 
 function ManagementMember(props) {
     const [MemberList, setMemberList] = useState([])
@@ -16,6 +17,9 @@ function ManagementMember(props) {
             MemberList.push(
                 <div className='Member' key={index} id={Member.userId}>
                     {Member.nickName}
+                    <div onClick={DeleteMember} key={Member.userId} id={Member.userId}>
+                        <CloseSquareOutlined style={{color: 'red', fontSize: '20px', marginRight: '3px'}}/>강퇴
+                    </div>
                 </div>
             )
         })
@@ -27,12 +31,99 @@ function ManagementMember(props) {
             waitList.push(
                 <div className='waitUser' key={index} id={waitUser.userId}>
                     {waitUser.nickName}
+                    <div>
+                        <div onClick={AddMember}>
+                            <UserAddOutlined style={{color: 'green', fontSize: '20px', marginRight: '3px'}}/>승인
+                        </div>
+                        <div onClick={RejectMember}>
+                            <CloseSquareOutlined style={{color: 'red', fontSize: '20px', marginRight: '3px'}}/>거절
+                        </div>
+                    </div>
                 </div>                
             )
         })
         setWaitUsers(waitList)
 
     }, [])
+
+    const DeleteMember = async(e) => {
+        await api.deleteMember(props.match.params.Id, e.target.id)
+
+        const MemberRes = await api.StudyMember(props.match.params.Id)
+        const MemberList = []
+        MemberRes.map((Member, index) => {
+            MemberList.push(
+                <div className='Member' key={index} id={Member.userId}>
+                    {Member.nickName}
+                    <div onClick={DeleteMember} key={Member.userId} id={Member.userId}>
+                        <CloseSquareOutlined style={{color: 'red', fontSize: '20px', marginRight: '3px'}}/>강퇴
+                    </div>
+                </div>
+            )
+        })
+        setMemberList(MemberList)
+    }
+
+    const AddMember = async(e) => {
+        await api.addMember(props.match.params.Id, e.target.id)
+
+        const WaitUsersRes = await api.StudyWaitUsers(props.match.params.Id)
+        const waitList = []
+        WaitUsersRes.map((waitUser, index) => {
+            waitList.push(
+                <div className='waitUser' key={index} id={waitUser.userId}>
+                    {waitUser.nickName}
+                    <div>
+                        <div onClick={AddMember}>
+                            <UserAddOutlined style={{color: 'green', fontSize: '20px', marginRight: '3px'}}/>승인
+                        </div>
+                        <div onClick={RejectMember}>
+                            <CloseSquareOutlined style={{color: 'red', fontSize: '20px', marginRight: '3px'}}/>거절
+                        </div>
+                    </div>
+                </div>                
+            )
+        })
+        setWaitUsers(waitList)
+
+
+        const MemberRes = await api.StudyMember(props.match.params.Id)
+        const MemberList = []
+        MemberRes.map((Member, index) => {
+            MemberList.push(
+                <div className='Member' key={index} id={Member.userId}>
+                    {Member.nickName}
+                    <div onClick={DeleteMember} key={Member.userId} id={Member.userId}>
+                        <CloseSquareOutlined style={{color: 'red', fontSize: '20px', marginRight: '3px'}}/>강퇴
+                    </div>
+                </div>
+            )
+        })
+        setMemberList(MemberList)
+    }
+
+    const RejectMember = async (e) => {
+        await api.rejectMember(props.match.params.Id, e.target.id)
+        
+        const WaitUsersRes = await api.StudyWaitUsers(props.match.params.Id)
+        const waitList = []
+        WaitUsersRes.map((waitUser, index) => {
+            waitList.push(
+                <div className='waitUser' key={index} id={waitUser.userId}>
+                    {waitUser.nickName}
+                    <div>
+                        <div onClick={AddMember}>
+                            <UserAddOutlined style={{color: 'green', fontSize: '20px', marginRight: '3px'}}/>승인
+                        </div>
+                        <div onClick={RejectMember}>
+                            <CloseSquareOutlined style={{color: 'red', fontSize: '20px', marginRight: '3px'}}/>거절
+                        </div>
+                    </div>
+                </div>                
+            )
+        })
+        setWaitUsers(waitList)
+    }
     
     return (
         <div className='ManagementMember'>
@@ -52,6 +143,17 @@ function ManagementMember(props) {
                     <div className='right-member'>
                         <div className='list-title'>신청 인원</div>
                         {WaitUsers}
+                        <div className='waitUser' key='21312' id='3213'>
+                            ㅇㅇㅇ
+                            <div>
+                                <div>
+                                    <UserAddOutlined style={{color: 'green', fontSize: '20px', marginRight: '3px'}}/>승인
+                                </div>
+                                <div>
+                                    <CloseSquareOutlined style={{color: 'red', fontSize: '20px', marginRight: '3px'}}/>거절
+                                </div>
+                            </div>
+                        </div>
                     </div>                    
                 </div>
 

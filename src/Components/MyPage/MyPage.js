@@ -1,14 +1,13 @@
 import React, {useState, useEffect, useRef} from 'react'
 import {Link} from 'react-router-dom'
 
-import Friends from '../Friends/Friends'
-import StudyReq from '../StudyReq/StudyReq'
-
 import api from '../../API'
 
 import "./MyPage.css";
+import {CheckOutlined, CloseOutlined, PauseOutlined} from '@ant-design/icons'
 
 const {kakao} = window;
+
 
 
 
@@ -37,6 +36,8 @@ function MyPage() {
         for(let i=0 ; i<tagRes.length; i++){
             tagList.push(tagRes[i].name)
         }
+        window.sessionStorage.setItem('userId', data.id)
+        window.sessionStorage.setItem('nickName', data.nickName)
         if(data.image){
             info = {
                 MyName : data.nickName,
@@ -77,15 +78,31 @@ function MyPage() {
         const map = new kakao.maps.Map(mapContainer, mapOptions)
     }, [])
 
+    const statusIcon = (status) => {
+        if(status==='SUCCESS'){
+            return <a className='status-icon'><CheckOutlined style={{color: 'green', marginRight: '10px'}}/>승인</a>
+        }
+        else if(status === 'FAIL'){
+            return <a className='status-icon'><CloseOutlined style={{color: 'red', marginRight: '10px'}}/>거절</a>
+        }
+        else{
+            return <a className='status-icon'><PauseOutlined style={{color: 'yellow', marginRight: '10px'}}/>대기</a>
+        }
+    }
+
+    useEffect(async() => {
+        const res = await api.studyApply()
+        const list = [];
+        res.map((apply, index) =>{
+            list.push(
+                <div key={index} className='apply-info'>
+                    <a>{apply.studyName}</a>  {statusIcon(apply.status)}
+                </div>
+            )
+        })
+        setStudyApply(list)
+    }, [])
     
-
-    const openReq = () => {
-        setisReqOpen(true)
-    }
-
-    const closeReq = () => {
-        setisReqOpen(false)
-    }
 
     let list = [];
     let data = Myinfo.MyInterest;
@@ -99,12 +116,8 @@ function MyPage() {
 
     return (
         <div className ="MyPage">
-            <StudyReq isOpen={isReqOpen} close={closeReq} StudyApply={StudyApply}/>
             <div className='top'>
                 <div className='top-title'>내 정보</div>
-                <div className="requestBtn" onClick={openReq}>
-                    스터디 가입요청 <p>{Myinfo.MyNumberOfStudyApply}</p>
-                </div>
             </div>
             
             
@@ -137,13 +150,13 @@ function MyPage() {
                     <Link className="updateBtn" to='/LocationUpdate'>지역 수정하기</Link>
                 </div>
             </div>
-            {/* <div>
-                <div className="friendsTitle">
-                <p>친구목록</p>
-                <p className="re">동기화</p>
+
+            <div className='apply'>
+                <div className='apply-title'>스터디 가입요청 현황</div>
+                <div className='apply-content'>
+                    {StudyApply}
                 </div>
-                <Friends/>
-            </div> */}
+            </div>
             
 
         </div>

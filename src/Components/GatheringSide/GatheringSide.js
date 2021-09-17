@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {Link} from 'react-router-dom'
 import api from '../../API'
@@ -6,8 +6,26 @@ import api from '../../API'
 import './GatheringSide.css'
 
 function GatheringSide(props) {
+
+    const [ChatList, setChatList] = useState([])
+
     useEffect(async () => {
-        await api.Gatherings(props.Id)
+        const res = await api.chatList(props.Id)
+
+        const list = [];
+
+        res.map((chat, index) => {
+            list.push(
+                <li key={index}>
+                    <Link key={index} className='menuBtn' to={`/StudyRoom/${props.Id}/GatheringChat/${chat.id}`}>
+                        {chat.name}
+                    </Link>
+                </li>
+
+            )
+        })
+        setChatList(list)
+
     }, [])
 
     return (
@@ -17,15 +35,15 @@ function GatheringSide(props) {
                 </section>
                 <hr/>
                 <section>
-                    <div className='menuTitle'>일반</div>
+                    <div className='menuTitle'>채팅</div>
                     <ul>
-                        <li><Link className='menuBtn' to={`/StudyRoom/${props.Id}/GatheringNotice`}>공지사항</Link></li>
-                        <li><Link className='menuBtn' to={`/StudyRoom/${props.Id}/GatheringChat`}>채팅</Link></li>
+                        {ChatList}
                     </ul>
+                    <Link className='menuBtn' to={`/StudyRoom/${props.Id}/MakeChat`}>채팅 추가</Link>
                 </section>
                 <hr/>
                 <section>
-                    <div className='menuTitle'>모임</div>
+                    <div><Link className='menuTitle' to={`/StudyRoom/${props.Id}/GatheringList`}>모임</Link></div>
                     <Link className='menuBtn' to={`/StudyRoom/${props.Id}/MakeGathering`}>모임 추가</Link>
                 </section>
                 <hr/>

@@ -37,16 +37,21 @@ function LandingPage() {
             let tagList = [];
 
             if(study.image != null){
-                img=study.image.thumbnailImage
+                img=study.image.studyImage;
             }
             else{
                 img=null
             }
-            for(let i = 0 ; i<3 ; i++){
-                if(study.studyTags[i]){
-                    tagList.push(
-                        <div className='Landing-tagName' key={study.name +" "+ i}>{study.studyTags[i]}</div>
-                    )                    
+            if(study.studyTags){
+                for(let i=0 ; i<3 ; i++){
+                    if(study.studyTags[i]){
+                        tagList.push(
+                            <div className='Landing-tagName' key={study.name +" "+ i}>{study.studyTags[i]}</div>
+                        )                    
+                    }
+                    else{
+                        continue
+                    }
                 }
             }
 

@@ -3,6 +3,7 @@
     width: 100%;
     float: left;
     background-color: black;
+    height: 85vh;
 }
 
 .StudyRoom-side > section {
@@ -28,6 +29,15 @@
     color: white;
     text-decoration:none;
 }
+.StudyRoom-side > section > div > .menuTitle {
+    margin-left: 0px;
+    margin-bottom: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-decoration:none;
+}
+
 .menuBtn{color: white; text-decoration:none;}
 .menuBtn:link { color: white; text-decoration:none;}
 .menuBtn:visited { color: white; text-decoration:none;}

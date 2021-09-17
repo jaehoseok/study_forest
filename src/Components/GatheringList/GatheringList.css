@@ -1,0 +1,44 @@
+.GatheringList {
+    width: 100%;
+    display: flex;
+}
+
+.GatheringList > aside {
+    width: 18%;
+}
+
+.GatheringList > div {
+    width: 82%;
+    margin: auto;
+}
+
+.gatheringTitle {
+    font-size: 32px;
+    color: black;
+    font-weight: 700;
+}
+
+td > .attendBtn {
+    background-color: black;
+    color: white;
+}
+
+td {
+    padding: 2px 10px;
+}
+
+table {
+    width: 100%;
+}
+
+td > a {
+    padding: 2px 10px;
+}
+
+.gatheringList-content {
+    height: 500px;
+    overflow-y: scroll;
+    border: 3px solid black;
+    width: 70%;
+    margin: auto;
+}

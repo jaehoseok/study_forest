@@ -164,6 +164,11 @@
 
 .col-md-4 {
     margin-right: 10px;
+    color: black;
+}
+
+Select > div{
+    color: black;
 }
 
 .tagName{
@@ -186,6 +191,14 @@
 
 div {
     color: white;
+}
+
+.col-md-4 > div > * {
+    color: black;
+}
+
+.col-md-5 > div > * {
+    color: black;
 }
 
 a{color: black; text-decoration: none;}

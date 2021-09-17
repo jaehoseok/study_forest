@@ -10,7 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function MakeStudy(props) {
 
-    const [studyName, setstudyName] = useState()
+    const [studyName, setstudyName] = useState('')
     const [studyContent, setstudyContent] = useState()
     const [tagName, settagName] = useState()
     const [tagList, settagList] = useState([])
@@ -83,6 +83,7 @@ function MakeStudy(props) {
                 ...provided,
                 border: '2px solid black',
                 height: '38px',
+                color: 'black',
             })
         })
     )
@@ -198,7 +199,7 @@ function MakeStudy(props) {
 
             <div className="top-content">
                 <div className="infoBox">
-                    <input type='text' placeholder='스터디 이름' className='studyNameInput' value={''}
+                    <input type='text' placeholder='스터디 이름' className='studyNameInput'
                         onChange={(e) => {
                             setstudyName(e.target.value)
                     }}/>
@@ -223,7 +224,7 @@ function MakeStudy(props) {
                     </div>
                     <hr/>
                     <div className="hashBox">
-                        <input tyep='text' placeholder='해시태그' className='hashtagNameInput'
+                        <input tyep='text' placeholder='해시태그' className='hashtagNameInput' value={tagName}
                             onChange={(e) => {
                                 settagName(e.target.value)
                         }}/>

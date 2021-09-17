@@ -6,3 +6,47 @@
 .GatheringChat > aside {
     width: 18%;
 }
+
+.GatheringChat > div {
+    width: 82%;
+}
+
+.GatheringChat > div > .chat-messages {
+    border: 3px solid green;
+    width: 100%;
+    height: 75vh;
+    overflow-y: scroll;
+    display: block;
+}
+
+.GatheringChat > div > .chat-input-box {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.GatheringChat > div > .chat-input-box > textarea {
+    resize: none;
+    width: 80%;
+    height: 10vh;
+}
+
+.GatheringChat > div > .chat-input-box > button {
+    width: 20%;
+    height: 10vh;
+}
+
+.right-chat-word {
+    color: black;
+    text-align: right;
+    border: 1px solid black;
+    padding: 2px 5px;
+}
+
+.left-chat-word {
+    color: black;
+    text-align: left;
+    border: 1px solid black;
+    padding: 2px 5px;
+}

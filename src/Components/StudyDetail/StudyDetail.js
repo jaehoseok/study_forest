@@ -102,7 +102,7 @@ function StudyDetail(props) {
             
             <img className='StudyDetail-IMAGE' src={POST.thumbnailImage}/>
 
-            <div>
+            <div className='StudyDetailBtn-box'>
                 {applyBtn()}
             </div>
         </div>

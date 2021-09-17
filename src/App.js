@@ -24,6 +24,9 @@ import GatheringChat from './Components/GatheringChat/GatheringChat';
 import ManagementMember from './Components/ManagementMember/ManagementMember';
 import ManagementStudy from './Components/ManagementStudy/ManagementStudy';
 import GatheringHome from './Components/GatheringHome/GatheringHome';
+import GatheringList from './Components/GatheringList/GatheringList';
+import GatheringDetail from './Components/GatheringDetail/GatheringDetail';
+import MakeChat from './Components/MakeChat/MakeChat';
 
 function App() {
 
@@ -53,9 +56,12 @@ function App() {
                 <Route exact path="/StudyRoom/:Id/GatheringHome" component={GatheringHome} />
                 <Route exact path="/StudyRoom/:Id/GatheringNotice" component={GatheringNotice} />
                 <Route exact path="/StudyRoom/:Id/MakeGathering" component={MakeGathering} />
-                <Route exact path="/StudyRoom/:Id/GatheringChat" component={GatheringChat} />
+                <Route exact path="/StudyRoom/:Id/GatheringChat/:chatId" component={GatheringChat} />
                 <Route exact path="/StudyRoom/:Id/ManagementMember" component={ManagementMember} />
                 <Route exact path="/StudyRoom/:Id/ManagementStudy" component={ManagementStudy} />
+                <Route exact path="/StudyRoom/:Id/GatheringList" component={GatheringList} />
+                <Route exact path="/StudyRoom/:Id/GatheringDetail/:gatheringId" component={GatheringDetail} />
+                <Route exact path="/StudyRoom/:Id/MakeChat" component={MakeChat} />
               </Switch>
             
           </div>

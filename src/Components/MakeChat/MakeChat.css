@@ -1,0 +1,15 @@
+
+.MakeChat {
+    width: 100%;
+    display: flex;
+}
+
+.MakeChat > aside {
+    width: 18%;
+}
+
+.MakeChat > div {
+    width: 82%;
+    margin: auto;
+    color: black;
+}

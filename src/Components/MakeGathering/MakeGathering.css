@@ -6,3 +6,22 @@
 .MakeGathering > aside {
     width: 18%;
 }
+
+.MakeGathering > div {
+    color: black;
+    width: 82%;
+}
+
+.MakeGathering-box {
+    width: 60%;
+    margin: auto;
+    background-color: yellow;
+}
+
+.datePicker {
+    background-color: blue;
+}
+
+.col-md-2 > div > * {
+    color: black;
+}

@@ -53,6 +53,20 @@ export default{
         })
     },
 
+    studyApply(){
+        return axios({
+            method: 'get',
+            url: '/user-service/users/studyApply',
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken')
+            }
+        })
+        .then(res => {
+            console.log(res.data);
+            return res.data
+        })
+    },
+
     //동네이름 조회
     location(location_id){
         return axios({
@@ -327,6 +341,7 @@ export default{
         })
         .then(res => {
             console.log(res.data.content);
+            return res.data.content
         })
     },
 
@@ -335,5 +350,142 @@ export default{
             method: 'post',
             url: '/gathering-service/studies'+Id+'/gatherings'
         })
+    },
+
+    deleteMember(studyId, userId){
+        return axios({
+            method: 'delete',
+            url: '/study-service/studies/'+studyId+'/users/'+userId,
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            }
+        })
+        .then(res => {
+            console.log(res);
+        })
+    },
+
+    addMember(studyId, userId){
+        return axios({
+            method: 'post',
+            url: '/study-service/studies/'+studyId+'/users/'+userId,
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            }
+        })
+        .then(res => {
+            console.log(res);
+        })
+    },
+
+    rejectMember(studyId, userId){
+        return axios({
+            method: 'delete',
+            url: '/study-service/studies/'+studyId+'/waitUsers/'+userId,
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            }
+        })
+        .then(res => {
+            console.log(res);
+        })
+    },
+
+    gatheringDetail(gatheringId){
+        return axios({
+            method: 'get',
+            url: '/gathering-service/gatherings/'+gatheringId,
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            }
+        })
+        .then(res => {
+            console.log(res);
+            return res.data
+        })
+    },
+
+    gatheringJoin(gatheringId){
+        return axios({
+            method: 'post',
+            url: '/gathering-service/gatherings/'+gatheringId+'/users',
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            }
+        })
+        .then(res => {
+            console.log(res);
+        })
+    },
+
+    gatheringJoinCancel(gatheringId){
+        return axios({
+            method: 'delete',
+            url: '/gathering-service/gatherings/'+gatheringId+'/users',
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            }
+        })
+        .then(res => {
+            console.log(res);
+        })
+    },
+
+    gatheringJoinMember(gatheringId){
+        return axios({
+            method: 'get',
+            url: '/gathering-service/gatherings/'+gatheringId+'/users',
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            }
+        })
+        .then(res => {
+            console.log(res.data);
+            return res.data
+        })
+    },
+
+    makeChat(studyId, name){
+        return axios({
+            method: 'post',
+            url: '/chat-service/studies/'+studyId+'/chatRooms',
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            },
+            data: {
+                name: name
+            }           
+        })
+        .then(res => {
+            console.log(res);
+        })
+    },
+
+    chatList(studyId){
+        return axios({
+            method: 'get',
+            url: '/chat-service/studies/'+studyId+'/chatRooms',
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            }
+        })
+        .then(res => {
+            return res.data;
+        })
+    },
+
+    chatMessage(chatId, page){
+        return axios({
+            method: 'get',
+            url: '/chat-service/chatRooms/'+chatId+'/chatMessages?page='+page+'&size=20',
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            }
+        })
+        .then(res => {
+            console.log(res.data);
+            return res.data.content
+        })
     }
+
 }
