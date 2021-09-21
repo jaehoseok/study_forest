@@ -12,7 +12,7 @@
 }
 
 .GatheringChat > div > .chat-messages {
-    border: 3px solid green;
+    border-bottom: 3px solid black;
     width: 100%;
     height: 75vh;
     overflow-y: scroll;
@@ -38,15 +38,29 @@
 }
 
 .right-chat-word {
+    box-sizing: border-box;
+    margin: 10px 0;   
+    margin-left: 60%;
     color: black;
     text-align: right;
     border: 1px solid black;
-    padding: 2px 5px;
+    padding: 10px 5px;
+    word-break:break-all;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 500;
 }
 
 .left-chat-word {
+    box-sizing: border-box;
+    margin: 10px 0;
+    margin-right: 60%;
     color: black;
     text-align: left;
     border: 1px solid black;
-    padding: 2px 5px;
+    padding: 10px 5px;
+    word-break:break-all;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 500;
 }

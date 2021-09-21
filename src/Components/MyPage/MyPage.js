@@ -36,8 +36,6 @@ function MyPage() {
         for(let i=0 ; i<tagRes.length; i++){
             tagList.push(tagRes[i].name)
         }
-        window.sessionStorage.setItem('userId', data.id)
-        window.sessionStorage.setItem('nickName', data.nickName)
         if(data.image){
             info = {
                 MyName : data.nickName,

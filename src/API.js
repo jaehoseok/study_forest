@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+
 axios.defaults.baseURL="http://211.37.147.101:8000"
 
 
@@ -17,6 +18,20 @@ export default{
         .then(res => {
             window.sessionStorage.setItem('accessToken', res.headers.accesstoken)
             window.sessionStorage.setItem('refreshToken', res.headers.refreshtoken)
+            //이름및 유저ID 저장
+            axios({
+                method: 'get',
+                url: '/user-service/users/profile',
+                headers: {
+                    Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken')
+                },
+            })
+            .then(res => {
+                console.log(res.data);            
+                window.sessionStorage.setItem('userId', res.data.id)
+                window.sessionStorage.setItem('nickName', res.data.nickName)
+            })
+
         })
     },
     //로그아웃

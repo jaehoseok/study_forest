@@ -10,9 +10,6 @@ import GatheringSide from '../GatheringSide/GatheringSide'
 
 function GatheringChat(props) {
 
-    // var sock = new SockJS("http://211.37.147.101:8000/chat-service/ws-stomp");
-    // var ws = StompJs.over(sock);
-
     const page = useRef(0);
 
     const client = useRef({});
@@ -22,16 +19,18 @@ function GatheringChat(props) {
     const [chatId, setchatId] = useState()
     const [maxPage, setmaxPage] = useState()
 
-    const [chatRef, inView] = useInView();
+    //const [chatRef, inView] = useInView(null);
+    const chatRef = useRef(null)
+
 
     useEffect(async () => {
-        await connect()
-        return setChatMessages([])
+        pullMessage()
+        setChatMessages([])
+        scrollToBottom()
+        connect()
+        //return 
     }, [props.match.params.chatId])
 
-    useEffect(() => {
-        pullMessage()
-    }, [page])
 
     const pullMessage = async() => {
         const res = await api.chatMessage(props.match.params.chatId, page.current)
@@ -106,8 +105,16 @@ function GatheringChat(props) {
             },    
             body: JSON.stringify({ roomId: props.match.params.chatId, sender: window.sessionStorage.getItem('nickName'), message: message }),
         });
-        document.getElementById('chat-messages').scrollTo({top:0})
+        scrollToBottom()
         setMessage("");
+    };
+
+    const scrollToBottom = () => {
+        // console.log('box: ', box);
+        const { scrollHeight, clientHeight } = chatRef.current;
+        //console.log(scrollHeight, clientHeight);
+    
+        chatRef.current.scrollTop = scrollHeight - clientHeight;
     };
 
     // useEffect(() => {
@@ -121,16 +128,22 @@ function GatheringChat(props) {
     return (
         <div className="GatheringChat">
             <aside>
-                <GatheringSide Id={props.match.params.Id}/>
+                <GatheringSide Id={props.match.params.Id} disconnect={disconnect} prevChatId={props.match.params.chatId}/>
             </aside>
 
             <div>
                 <div className='chat-messages' id='chat-messages' ref={chatRef}>
                     
                     {prevMessage}
-                    {chatMessages.map((_chatMessage, index) => (
-                        <div key={index} className='chat-word'>{_chatMessage.message}</div>
-                    ))}
+                    {chatMessages.map((_chatMessage, index) => {
+                        if(_chatMessage.userId.toString() === window.sessionStorage.getItem('userId')){
+                            return <div key={index} className='right-chat-word'>{_chatMessage.message}</div>
+                        }
+                        else {
+                            return <div key={index} className='left-chat-word'>{_chatMessage.message}</div>
+                        }
+                        
+                    })}
                 </div>
 
                 <div className='chat-input-box'>
