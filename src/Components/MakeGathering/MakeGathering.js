@@ -133,25 +133,35 @@ function MakeGathering(props) {
             
 
             <div>
-                모임 생성
+                <div className='MakeGathering-title'>모임 생성</div>
                 <div className='MakeGathering-box'>
-                    <DatePicker 
-                        selected={gatheringDate}
-                        onChange={date => {
-                            setgatheringDate(date)
-                        }}
-                        locale={ko}
-                        dateFormat='yyyy-MM-dd'
-                        format='yyyy-MM-dd'
-                        className='datePicker'
-                        selected={gatheringDate}
-                        minDate={new Date()}
-                    />
-                    <Select options={meridiem} className='col-md-2'/>
+                    <div className='date-box'>
+                        <p className='date-title'>날짜</p>
+                        <DatePicker 
+                            selected={gatheringDate}
+                            onChange={date => {
+                                setgatheringDate(date)
+                            }}
+                            locale={ko}
+                            dateFormat='yyyy-MM-dd'
+                            format='yyyy-MM-dd'
+                            className='datePicker'
+                            selected={gatheringDate}
+                            minDate={new Date()}
+                        />
+                    </div>
+                    <div className='time-box'>
+                        <p className='date-title'>시간</p> 
+                        <div className='timePicker'>
+                            <Select options={meridiem} className='col-md-2' placeholder='AM/PM'/>
+                        
+                            <Select options={meetHour} className='col-md-2' placeholder='시'/>
 
-                    <Select options={meetHour} className='col-md-2'/>
+                            <Select options={meetMinute} className='col-md-2' placeholder='분'/>
+                        </div>
+                    </div>
+                    
 
-                    <Select options={meetMinute} className='col-md-2'/>
 
                     <button onClick={()=>{
                         console.log(gatheringDate);

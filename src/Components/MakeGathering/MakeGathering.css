@@ -12,14 +12,61 @@
     width: 82%;
 }
 
+.MakeGathering-title {
+    color: black;
+    font-size: 32px;
+    font-weight: 700;
+}
+
 .MakeGathering-box {
-    width: 60%;
+    width: 70%;
     margin: auto;
-    background-color: yellow;
+    border: 2px solid black;
+    box-sizing: border-box;
+    justify-content: left;
+}
+
+.date-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.date-title {
+    color: black;
+    font-size: 24px;
+    text-align: center;
+    margin-left: 5px;
+}
+
+.react-datepicker-wrapper{
+    width: 400px;
+}
+
+.react-datepicker__input-container {
+    width: 100%;
 }
 
 .datePicker {
-    background-color: blue;
+    font-size: 30px;
+    margin-left: 10px;
+    padding-left: 0;
+}
+
+.timePicker {
+    display: flex;
+    width: 600px;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.time-box {
+    display: flex;
+    align-items: center;
+}
+
+.timePicker > section {
+    width: 300px;
 }
 
 .col-md-2 > div > * {

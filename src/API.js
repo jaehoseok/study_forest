@@ -1,4 +1,6 @@
 import axios from 'axios'
+import moment from 'moment'
+import 'moment/locale/ko'
 
 
 axios.defaults.baseURL="http://211.37.147.101:8000"
@@ -488,11 +490,12 @@ export default{
             return res.data;
         })
     },
-
+    //"2021-07-23T10:02:00"
     chatMessage(chatId, page){
+        console.log(moment().format('YYYY-MM-DDTHH:mm:ss'));
         return axios({
             method: 'get',
-            url: '/chat-service/chatRooms/'+chatId+'/chatMessages?page='+page+'&size=20',
+            url: '/chat-service/chatRooms/'+chatId+'/chatMessages?page='+page+'&size=20&lastMessageDate='+moment().format('YYYY-MM-DDTHH:mm:ss'),
             headers: {
                 Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
             }

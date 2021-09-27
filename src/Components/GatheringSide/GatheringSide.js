@@ -17,7 +17,7 @@ function GatheringSide(props) {
         res.map((chat, index) => {
             list.push(
                 <li key={index}>
-                    <Link className='menuBtn' to={`/StudyRoom/${props.Id}/GatheringChat/${chat.id}`} onClick={() => handleDisconnect()}>
+                    <Link className='menuBtn' to={`/StudyRoom/${props.Id}/GatheringChat/${chat.id}`}>
                         {chat.name}
                     </Link>
                 </li>
@@ -27,13 +27,6 @@ function GatheringSide(props) {
         setChatList(list)
 
     }, [])
-
-    const handleDisconnect = (chatId) => {
-        if(props.disconnect){
-            props.disconnect()
-        }
-        //props.disconnect()
-    }
 
     return (
             <div className='StudyRoom-side'>

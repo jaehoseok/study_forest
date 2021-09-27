@@ -14,47 +14,80 @@ function GatheringChat(props) {
 
     const client = useRef({});
     const [chatMessages, setChatMessages] = useState([]);
-    const [message, setMessage] = useState("");
+    const [Message, setMessage] = useState("");
     const [prevMessage, setprevMessage] = useState([])
     const [chatId, setchatId] = useState()
     const [maxPage, setmaxPage] = useState()
+    
 
     //const [chatRef, inView] = useInView(null);
-    const chatRef = useRef(null)
+    const chatRef = useRef()
+    const [infiniteScroll, inView] = useInView()
+    const prev = useRef([])
 
+    var list = []
 
     useEffect(async () => {
+        page.current=0;
         pullMessage()
         setChatMessages([])
-        scrollToBottom()
-        connect()
-        //return 
-    }, [props.match.params.chatId])
+        if(client.current.connected){
+            disconnect()
+        }
+        await connect()
+    }, [])
+
+    useEffect(() => {
+        if (chatRef) {
+            chatRef.current.addEventListener('DOMNodeInserted', event => {
+            const { currentTarget: target } = event;
+            target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
+            });
+        }
+    }, [])
 
 
     const pullMessage = async() => {
         const res = await api.chatMessage(props.match.params.chatId, page.current)
         console.log(res);
-        const list = [];
+        list = [];
         console.log(window.sessionStorage.getItem('userId'));
         res.slice(0).reverse().map((chat, index) => {
                 if(chat.userId.toString() === window.sessionStorage.getItem('userId')){
                     list.push(
-                        <div key={index} className='right-chat-word'>{chat.message}</div>
+                        <div key={page.current+' '+index}>
+                            <div className='right-chat-word'><p>{chat.sender}</p>{chat.message}</div>
+                            <div className='right-createdAt'>{chat.createdAt}</div>
+                        </div>
+                        
                     )
                 }
                 else {
                     list.push(
-                        <div key={index} className='left-chat-word'>{chat.message}</div>
+                        <div key={page.current+' '+index}>
+                            <div className='left-chat-word'><p>{chat.sender}</p>{chat.message}</div>
+                            <div className='left-createdAt'>{chat.createdAt}</div>
+                        </div>
+                        
                     )
                 }
         })
-        setprevMessage(list)
+        prev.current=[ ...list, ...prev.current]
+        setprevMessage(prev.current)
     }
+
+    useEffect(() => {
+        if(client.current.connected && inView){
+            nextPage()
+            pullMessage()
+            console.log('scroll end');
+        }
+    }, [inView])
     
 
     const nextPage = () => {
         page.current = page.current+1
+        console.log(page.current);
     }
 
 
@@ -93,7 +126,7 @@ function GatheringChat(props) {
         },{"token":window.sessionStorage.getItem('accessToken')});
     };
 
-    const publish = () => {
+    const publish = async () => {
         if (!client.current.connected) {
             return;
         }
@@ -103,51 +136,40 @@ function GatheringChat(props) {
             headers:{
                 token: window.sessionStorage.getItem('accessToken'),
             },    
-            body: JSON.stringify({ roomId: props.match.params.chatId, sender: window.sessionStorage.getItem('nickName'), message: message }),
+            body: JSON.stringify({ roomId: props.match.params.chatId, sender: window.sessionStorage.getItem('nickName'), message: Message }),
         });
-        scrollToBottom()
         setMessage("");
     };
-
-    const scrollToBottom = () => {
-        // console.log('box: ', box);
-        const { scrollHeight, clientHeight } = chatRef.current;
-        //console.log(scrollHeight, clientHeight);
-    
-        chatRef.current.scrollTop = scrollHeight - clientHeight;
-    };
-
-    // useEffect(() => {
-    //     if( chatMessages != [] && inView){
-    //         nextPage()
-    //         pullMessage()
-    //         console.log('scroll end');
-    //     }
-    // }, [inView])
 
     return (
         <div className="GatheringChat">
             <aside>
-                <GatheringSide Id={props.match.params.Id} disconnect={disconnect} prevChatId={props.match.params.chatId}/>
+                <GatheringSide Id={props.match.params.Id}/>
             </aside>
 
             <div>
                 <div className='chat-messages' id='chat-messages' ref={chatRef}>
-                    
+                    <div ref={infiniteScroll}/>
                     {prevMessage}
                     {chatMessages.map((_chatMessage, index) => {
                         if(_chatMessage.userId.toString() === window.sessionStorage.getItem('userId')){
-                            return <div key={index} className='right-chat-word'>{_chatMessage.message}</div>
+                            return <div key={index}>
+                                <div className='right-chat-word'><p>{_chatMessage.sender}</p>{_chatMessage.message}</div>
+                                <div className='right-createdAt'>{_chatMessage.createdAt}</div>
+                            </div>
                         }
                         else {
-                            return <div key={index} className='left-chat-word'>{_chatMessage.message}</div>
+                            return <div key={index} >
+                                <div className='left-chat-word'><p>{_chatMessage.sender}</p>{_chatMessage.message}</div>
+                                <div className='left-createdAt'>{_chatMessage.createdAt}</div>
+                            </div>
                         }
-                        
                     })}
+                    
                 </div>
 
                 <div className='chat-input-box'>
-                    <textarea type='text' onChange={(e)=>{setMessage(e.target.value)}} value={message}/>
+                    <textarea type='text' onChange={(e)=>{setMessage(e.target.value)}} value={Message}/>
                     <button onClick={publish}>보내기</button>
                 </div>
                 
