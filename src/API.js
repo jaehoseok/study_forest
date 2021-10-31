@@ -32,6 +32,7 @@ export default{
                 console.log(res.data);            
                 window.sessionStorage.setItem('userId', res.data.id)
                 window.sessionStorage.setItem('nickName', res.data.nickName)
+                window.sessionStorage.setItem('locationId', res.data.locationId)
             })
 
         })
@@ -402,6 +403,20 @@ export default{
             headers: {
                 Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
             }
+        })
+        .then(res => {
+            console.log(res);
+        })
+    },
+
+    makeGathering(studyId, data){
+        return axios({
+            method: 'post',
+            url: '/gathering-service/studies/'+studyId+'/gatherings',
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            },
+            data: data
         })
         .then(res => {
             console.log(res);

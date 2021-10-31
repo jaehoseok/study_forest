@@ -15,50 +15,70 @@
 }
 
 .landingPage > .btn-space > .makeStudyBtn {
-    width: 200px;
+    width: 400px;
     margin: 0 10px;
-    border: 3px solid black;
+    font-size: 20px;
+    font-weight: 300;
     border-radius: 5px;
     margin-bottom: 10px;
     text-decoration:none;
-    padding: 2px 0;
+    padding: 5px 10px;
+    background-color: rgb(201, 228, 197);
 }
 
+.landingPage > .btn-space > .makeStudyBtn:hover {
+    background-color: rgb(181, 205, 163);
+    transform: scale(1.05);
+    transition: 0.4s;
+}
 a:link { color: black; }
 a:visited { color: black; }
 
 .study-content {
-    width: 70%;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0 100px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
 }
 
 .study {
-    width: 40%;
-    height: 80px;
-    border: 2px solid black;
+    width: 47%;
+    height: 100px;
+    border-radius: 90px 0 0 90px;
+    border: 1px solid black;
     margin: 0px 5px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     text-align: left;
     display: flex;
     white-space: nowrap;
     color: black;
+    -webkit-box-shadow: 5px 5px 14px 0px rgba(0,0,0,0.54); 
+    box-shadow: 5px 5px 14px 0px rgba(0,0,0,0.54);
+    margin-right: 30px;
 }
+
+.study:hover {
+    transform: scale(1.08);
+    transition: all 0.4s;
+}
+
 .img-box {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 76px;
-    background-color: white;
+    width: 90px;
+    border-radius: 90px;
+    margin-left: 6px;
 }
 
 .study-img {
-    width: 74px;
-    height: 74px;
+    width: 90px;
+    height: 90px;
     float: left;
+    border-radius: 90px;
+    border: 1px solid rgb(193, 172, 149);
 }
 
 .title-box {
@@ -84,13 +104,23 @@ a:visited { color: black; }
 }
 
 .pageBtn {
-    margin: 5px 0;
+    margin: 5px 5px;
     width: 40px;
-    background-color: black;
-    height: 30px;
+    background-color: rgb(193, 172, 149);
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 50%;
+    font-size: 20px;
+}
+
+.pageBtn:hover {
+    background-color: rgb(250, 235, 224);
+    transform: scale(1.03);
+    transition: 0.2s;
+    color: black;
+    font-weight: 500;
 }
 
 .title-box {
@@ -98,19 +128,47 @@ a:visited { color: black; }
     margin-left: 10px;
 }
 
-.pageBtn:hover {
-    background-color: #DEDEEA;
-}
-
-.title-box > div > .Landing-tagName {
+.Landing-tagName {
     color: black;
-    border: 2px solid black;
     margin-left: 3px;
-    border-radius: 5px;
-    padding: 1px 5px;
+    border-radius: 20px;
+    padding: 2px 8px;
+    background-color: rgb(201, 228, 197);
 }
 
 .title-box > div {
     display: flex;
     overflow-x: hidden;
+}
+
+.taglist-box {
+    overflow-x: scroll;
+    display: flex;
+    width: 200px;
+    border-radius: 10px;
+}
+
+.study-header {
+    width: 100%;
+    color: black;
+    font-size: 30px;
+    margin-bottom: 30px;
+    font-weight: 400;
+}
+
+.title-box-title {
+    font-size: 23px;
+    font-weight: 400;
+    margin-bottom: 8px;
+    margin-top: 4px;
+}
+
+.title-box-tag{
+    display: flex;
+    justify-content: center;
+    font-weight: 300;
+}
+
+.title-box-tag > a {
+    font-size: 20px;
 }

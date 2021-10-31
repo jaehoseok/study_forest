@@ -9,6 +9,7 @@ div {
   vertical-align: middle;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  font-family: 'Jua', sans-serif;
 }
 
 .App::-webkit-scrollbar {
@@ -38,3 +39,5 @@ div {
   justify-content: center;
   border-top: 1px solid #DEE1E6;
 }
+
+

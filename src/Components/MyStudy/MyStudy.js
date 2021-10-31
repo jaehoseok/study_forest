@@ -13,13 +13,14 @@ function MyStudy() {
     useEffect(async () => {
         res = await api.MyStudy()
         list = res.map((study) =>
-            <Link className='MyStudy-box' key={study.id} to={`/StudyRoom/${study.id}/GatheringHome`}>제목: {study.name}</Link>
+            <Link className='MyStudy-box' key={study.id} to={`/StudyRoom/${study.id}/GatheringHome`}>Title: {study.name}</Link>
         )
         setmyStudyList(list)
     }, [res])
 
     return (
         <div className='MyStudy'>
+            <div className='myStudy-header'>&#60;&nbsp;나&nbsp;의&nbsp;&nbsp;&nbsp;스&nbsp;터&nbsp;디&nbsp;&#62;</div>
             {myStudyList}
         </div>
     )

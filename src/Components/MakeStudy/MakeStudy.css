@@ -32,6 +32,7 @@
 
 .studyNameInput {
     width: 100%;
+    border: 3px solid black;
 }
 
 .hashtagNameInput {
@@ -107,6 +108,7 @@
     height: 300px;
     background-color: white;
     border-radius: 5px;
+    border: 3px solid black;
 }
 
 .contentTitle {
@@ -154,6 +156,7 @@
 
 .col-md-5 {
     width: 100%;
+    border: 3px solid black;
 }
 
 .categoryBox {
@@ -165,6 +168,7 @@
 .col-md-4 {
     margin-right: 10px;
     color: black;
+    border: 3px solid black;
 }
 
 Select > div{
@@ -204,3 +208,11 @@ div {
 a{color: black; text-decoration: none;}
 a:visited{color: black; text-decoration: none;}
 a:link{color: black; text-decoration: none;}
+
+textarea {
+    resize: none;
+}
+
+.study_map {
+    border: 3px solid black;
+}

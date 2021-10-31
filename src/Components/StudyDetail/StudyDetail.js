@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react'
 
 import './StudyDetail.css'
 
+import {TeamOutlined} from '@ant-design/icons'
+
 import api from '../../API';
 
 function StudyDetail(props) {
@@ -11,6 +13,8 @@ function StudyDetail(props) {
     useEffect(async () => {
         let res = await api.studyDetail(props.match.params.Id)
         let studyForm;
+        let tagList = [];
+        let resTags = [];
 
         if(res.online===res.offline===true){
             studyForm = '온라인 & 오프라인'
@@ -20,6 +24,20 @@ function StudyDetail(props) {
         }
         else {
             studyForm = '오프라인'
+        }
+
+        if(res.studyTags){
+            resTags = res.studyTags
+            for(let i=0 ; i<resTags.length ; i++){
+                if(res.studyTags[i]){
+                    tagList.push(
+                        <div className='StudyDetail-tagName' key={res.studyTags[i] +" "+ i}>{res.studyTags[i]}</div>
+                    )                    
+                }
+                else{
+                    continue
+                }
+            }
         }
 
         if(res.image){
@@ -32,7 +50,7 @@ function StudyDetail(props) {
                 location: res.location.city +' '+ res.location.gu +' '+ res.location.dong,
                 parentCategory: res.parentCategory.name,
                 childCategory: res.childCategory.name,
-                studyTags: res.studyTags,
+                studyTags: tagList,
                 thumbnailImage: res.image.thumbnailImage,
                 studyForm: studyForm,
                 apply: res.apply,
@@ -50,13 +68,14 @@ function StudyDetail(props) {
                 location: res.location.city +' '+ res.location.gu +' '+ res.location.dong,
                 parentCategory: res.parentCategory.name,
                 childCategory: res.childCategory.name,
-                studyTags: res.studyTags,
+                studyTags: tagList,
                 studyForm: studyForm,
                 apply: res.apply,
                 status: res.status==='OPEN' ? true : false
             }
             setPOST(studyInfo)
         }
+
         
     }, [clickBtn])
 
@@ -90,17 +109,25 @@ function StudyDetail(props) {
 
     return (
         <div className='StudyDetail'>
+            
+                <img className='StudyDetail-IMAGE' src={POST.thumbnailImage}/>
+            
+
             <div className='StudyDetail-TOP'>
-                <div>제목 : {POST.name}</div>
-                <div>주제 : {POST.parentCategory}/{POST.childCategory}</div>
-                <div>인원 : {POST.currentNumberOfPeople} / {POST.numberOfPeople}</div>
-                <div>위치 : {POST.location}</div>
-                <div>내용 : {POST.content}</div>
-                <div>해시태그 : {POST.studyTags}</div>
-                <div>모임 형태 : {POST.studyForm}</div>
+                <div className='StudyDetail-title'>Title : {POST.name}</div>
+                <div>
+                    <div>Subject : {POST.parentCategory}/{POST.childCategory}</div>
+                    <div>Location : {POST.location}</div>
+                    <div>Tags : {POST.studyTags}</div>
+                    <div>Meeting : {POST.studyForm}</div>
+                    <div>Contents : {POST.content}</div>
+                </div>
+                
+                <br/>
+                <div className='StudyDetail-member-num'><TeamOutlined style={{fontSize: '30px'}} /> : {POST.currentNumberOfPeople} / {POST.numberOfPeople}</div>
             </div>
             
-            <img className='StudyDetail-IMAGE' src={POST.thumbnailImage}/>
+            
 
             <div className='StudyDetailBtn-box'>
                 {applyBtn()}

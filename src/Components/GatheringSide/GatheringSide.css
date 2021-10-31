@@ -2,8 +2,8 @@
 .StudyRoom-side {
     width: 100%;
     float: left;
-    background-color: black;
-    height: 85vh;
+    background-color: white;
+    height: 100%;
 }
 
 .StudyRoom-side > section {
@@ -11,13 +11,13 @@
     width: 100%;
     margin-left: 20px;
     text-align: left;
-    
+    margin-top: 20px;
 }
 
 .StudyRoom-side > section > Link {
     margin-left: 10px;
     width: 100%;
-    color: white;
+    color: black;
     text-decoration:none;
 }
 
@@ -25,19 +25,54 @@
     margin-left: 0px;
     margin-bottom: 5px;
     font-size: 20px;
-    font-weight: bold;
-    color: white;
+    font-weight: 400;
+    color: black;
+    text-decoration:none;
+    border-bottom: 1px solid rgb(193, 172, 149);
+    padding-left: 10px;
+}
+.StudyRoom-side > section > .menuTitle-home {
+    margin-left: 0px;
+    margin-bottom: 5px;
+    font-size: 20px;
+    font-weight: 400;
+    color: black;
     text-decoration:none;
 }
+
+.StudyRoom-side > section > .menuTitle-home:hover {
+    transform: scale(1.5);
+    color: rgb(181, 205, 163);
+    
+}
+
 .StudyRoom-side > section > div > .menuTitle {
     margin-left: 0px;
     margin-bottom: 5px;
     font-size: 20px;
-    font-weight: bold;
-    color: white;
+    font-weight: 400;
+    color: black;
     text-decoration:none;
 }
 
-.menuBtn{color: white; text-decoration:none;}
-.menuBtn:link { color: white; text-decoration:none;}
-.menuBtn:visited { color: white; text-decoration:none;}
+.menuTitle-box {
+    border-bottom: 1px solid rgb(193, 172, 149);
+    padding-left: 10px;
+}
+
+ul > li {
+    margin-bottom: 10px;
+}
+
+.menuBtn {
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.menuBtn:hover {
+    background-color: rgb(201, 228, 197);
+}
+
+.menuBtn{ color: black; text-decoration:none;}
+.menuBtn:link { color: black; text-decoration:none;}
+.menuBtn:visited { color: black; text-decoration:none;}

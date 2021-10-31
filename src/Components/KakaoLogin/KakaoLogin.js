@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import {Link, withRouter, useHistory} from 'react-router-dom'
 
+import {UserOutlined} from '@ant-design/icons'
+
 
 import './KakaoLogin.css';
 import api from '../../API'
@@ -66,8 +68,8 @@ function KakaoLogin(props) {
 
     const mainView = (
         <div className="mainView">
-            <Link to="/MyPage">내정보</Link>
-            <Link onClick={Logout} to='/'>로그아웃</Link>
+            <Link to="/MyPage"><UserOutlined style={{fontSize: '25px', color: 'black'}}/></Link>
+            <Link onClick={Logout} to='/' className='logout_Btn'>Logout</Link>
         </div>
     )
 

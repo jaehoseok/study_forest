@@ -16,8 +16,6 @@ function GatheringChat(props) {
     const [chatMessages, setChatMessages] = useState([]);
     const [Message, setMessage] = useState("");
     const [prevMessage, setprevMessage] = useState([])
-    const [chatId, setchatId] = useState()
-    const [maxPage, setmaxPage] = useState()
     
 
     //const [chatRef, inView] = useInView(null);
@@ -27,15 +25,20 @@ function GatheringChat(props) {
 
     var list = []
 
+
+
     useEffect(async () => {
+        // if(client.current.connected){
+        //     disconnect()
+        // }
         page.current=0;
-        pullMessage()
         setChatMessages([])
-        if(client.current.connected){
-            disconnect()
-        }
-        await connect()
+        //pullMessage()
+        return connect()
     }, [])
+
+
+
 
     useEffect(() => {
         if (chatRef) {
@@ -45,6 +48,10 @@ function GatheringChat(props) {
             });
         }
     }, [])
+
+    function refreshPage() {
+        props.history.go(0)
+    }
 
 
     const pullMessage = async() => {
@@ -91,7 +98,7 @@ function GatheringChat(props) {
     }
 
 
-    const connect = () => {
+    const connect = async () => {
         client.current = new StompJs.Client({
             //brokerURL: "http://211.37.147.101:8000/chat-service/ws-stomp", // 웹소켓 서버로 직접 접속
             webSocketFactory: () => new SockJS("http://211.37.147.101:8000/chat-service/ws-stomp"), // proxy를 통한 접속
@@ -99,13 +106,13 @@ function GatheringChat(props) {
                 'token': window.sessionStorage.getItem('accessToken'),
             },
             debug: function (str) {
-                console.log(str);
+                //console.log(str);
             },
             reconnectDelay: 5000,
             heartbeatIncoming: 4000,
             heartbeatOutgoing: 4000,
             onConnect: (frame) => {
-                console.log(frame);
+                //console.log(frame);
                 subscribe();
             },
             onStompError: (frame) => {
@@ -113,10 +120,12 @@ function GatheringChat(props) {
             },
         });
         client.current.activate();
+        await pullMessage()
     };
 
-    const disconnect = () => {
+    const disconnect = async () => {
         client.current.deactivate();
+        await setprevMessage([])
     };
     
     const subscribe = () => {
@@ -170,7 +179,7 @@ function GatheringChat(props) {
 
                 <div className='chat-input-box'>
                     <textarea type='text' onChange={(e)=>{setMessage(e.target.value)}} value={Message}/>
-                    <button onClick={publish}>보내기</button>
+                    <button className='send-btn' onClick={publish}>보내기</button>
                 </div>
                 
             </div>

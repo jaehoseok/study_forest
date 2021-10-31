@@ -3,9 +3,13 @@ import React, {useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
 import api from '../../API'
 
+import {HomeOutlined} from '@ant-design/icons'
+
 import './GatheringSide.css'
 
 function GatheringSide(props) {
+
+    const [selectedChat, setselectedChat] = useState()
 
     const [ChatList, setChatList] = useState([])
 
@@ -17,7 +21,9 @@ function GatheringSide(props) {
         res.map((chat, index) => {
             list.push(
                 <li key={index}>
-                    <Link className='menuBtn' to={`/StudyRoom/${props.Id}/GatheringChat/${chat.id}`}>
+                    <Link className='menuBtn' to={`/StudyRoom/${props.Id}/GatheringChat/${chat.id}`} onClick={() => {
+                        refresh(props.Id, chat.id)
+                    }}>
                         {chat.name}
                     </Link>
                 </li>
@@ -28,10 +34,19 @@ function GatheringSide(props) {
 
     }, [])
 
+    const refresh = (studyId, chatId) => {
+        if(selectedChat != chatId){
+            window.location.href='/StudyRoom/'+studyId+'/GatheringChat/'+chatId
+        }
+        setselectedChat(chatId)
+    }
+
     return (
             <div className='StudyRoom-side'>
                 <section>
-                    <Link className='menuTitle' to={`/StudyRoom/${props.Id}/GatheringHome`}>Home</Link>
+                    <Link className='menuTitle-home' to={`/StudyRoom/${props.Id}/GatheringHome`}>
+                        <HomeOutlined style={{fontSize: '30px'}}/>
+                    </Link>
                 </section>
                 <hr/>
                 <section>
@@ -43,7 +58,7 @@ function GatheringSide(props) {
                 </section>
                 <hr/>
                 <section>
-                    <div><Link className='menuTitle' to={`/StudyRoom/${props.Id}/GatheringList`}>모임</Link></div>
+                    <div className='menuTitle-box'><Link className='menuTitle' to={`/StudyRoom/${props.Id}/GatheringList`}>모임</Link></div>
                     <Link className='menuBtn' to={`/StudyRoom/${props.Id}/MakeGathering`}>모임 추가</Link>
                 </section>
                 <hr/>

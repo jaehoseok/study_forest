@@ -1,14 +1,31 @@
 .mainView {
-    width: 220px;
+    width: 300px;
     display: flex;
-    justify-content: space-between;
+    justify-content: right;
     align-items: center;
 }
 
 .mainView > a {
-    width: 100px;
-    border: 2px solid black;
+    border: 2px solid rgb(250, 235, 224);
     border-radius: 5px;
     text-decoration:none;
-    background-color: white;
+    background-color: rgb(250, 235, 224);
+    color: black;
+    margin-right: 10px;
 }
+
+.mainView > a:hover {
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+.logout_Btn{
+    width: 100px;
+    color: black;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.logout_Btn{color: black; text-decoration: none;}
+.logout_Btn:visited{color: black; text-decoration: none;}
+.logout_Btn:link{color: black; text-decoration: none;}

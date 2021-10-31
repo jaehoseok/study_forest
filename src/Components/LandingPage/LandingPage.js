@@ -62,9 +62,9 @@ function LandingPage() {
                     </div>
                     
                     <div className='title-box'>
-                        제목 : {study.name}
-                        <div>
-                            관심태그 : {tagList}
+                        <div className='title-box-title'>Title : {study.name}</div>
+                        <div className='title-box-tag'>
+                            <a>Tag : </a><div className='taglist-box'>{tagList}</div>
                         </div>
                     </div>
                     
@@ -127,7 +127,7 @@ function LandingPage() {
     return (
         <div className='landingPage'>
             <SearchMenu filter={filter} setfilter={setfilter} handleContent={handleContent} setmaxPage={setmaxPage}/>
-    
+            <div className='study-header'>&#60;&nbsp;목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;록&nbsp;&#62;</div>
             <div className='study-content'>
                 {studyList}
             </div>

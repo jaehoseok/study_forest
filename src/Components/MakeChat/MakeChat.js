@@ -10,9 +10,13 @@ function MakeChat(props) {
     const [ChatName, setChatName] = useState()
 
     const handleMakeChat = async () => {
-        console.log(ChatName);
-        await api.makeChat(props.match.params.Id, ChatName)
-        props.history.push('/StudyRoom/'+props.match.params.Id+'/GatheringHome')
+        if(ChatName){
+            await api.makeChat(props.match.params.Id, ChatName)
+            props.history.push('/StudyRoom/'+props.match.params.Id+'/GatheringHome')
+        }
+        else{
+            document.getElementById('makeChat-name').style.border='2px solid red'
+        }
     }
 
     return (
@@ -22,8 +26,8 @@ function MakeChat(props) {
             </aside>
 
             <div>
-                <input type='text' placeholder='채팅방 이름' onChange={(e) => setChatName(e.target.value)}></input>
-                <button onClick={handleMakeChat}>생성</button>
+                <input type='text' className='makeChat-name' id='makeChat-name' placeholder='채팅방 이름' onChange={(e) => setChatName(e.target.value)}></input>
+                <button className='makeChat-btn' onClick={handleMakeChat}>생성</button>
             </div>
             
         </div>

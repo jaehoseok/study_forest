@@ -4,22 +4,29 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: black;
+    background-color: rgb(250, 235, 224);
+    border-bottom: 2px solid rgba(193, 172, 149, 0.5);
 }
 
 .logo {
+    width: 300px;
     margin: 40px;
-    color: white;
     font-size: 35px;
     text-decoration:none;
     font-weight: bold;
+    font-family: 'Ubuntu', sans-serif;
+    color: black;
 }
 
 .loginBtn {
     margin-right: 20px;
 }
-.logo:link {color: white;}
-.logo:visited { color: white; }
+.logo:link {
+    color: black;
+}
+.logo:visited { 
+    color: black;
+}
 
 .nav {
     width: 200px;
@@ -33,10 +40,15 @@
     text-decoration:none;
 }
 
+.nav > .navBtn-Box:hover {
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+
 .nav > .navBtn-Box >.navBtn {
     font-weight: bold;
-    color: white;
+    color: black;
 }
-a{color: white;}
-a:link { color: white; }
-a:visited { color: white; }
+a{color: black;}
+a:link { color: black; }
+a:visited { color: black; }

@@ -1,4 +1,4 @@
-import react, {useState} from 'react'
+import react, {useState, useEffect} from 'react'
 
 import {
   BrowserRouter,
@@ -28,8 +28,50 @@ import GatheringList from './Components/GatheringList/GatheringList';
 import GatheringDetail from './Components/GatheringDetail/GatheringDetail';
 import MakeChat from './Components/MakeChat/MakeChat';
 
+import firebase from 'firebase'; //firebase모듈을 import해줘야 합니다.
+
+
 function App() {
 
+  useEffect(async() => {
+
+    const config =  { 
+      apiKey: "AIzaSyBK0Rkrkp5tf3PV-7wMUcZ67t5YIAmb_AI",
+      authDomain: "study-forest.firebaseapp.com",
+      projectId: "study-forest",
+      storageBucket: "study-forest.appspot.com",
+      messagingSenderId: "399146202149",
+      appId: "1:399146202149:web:85cbaafdfef2093f137bcc",
+      measurementId: "G-02VVMCPY3F"
+    }; 
+    firebase.initializeApp(config);
+    const messaging = firebase.messaging();
+  
+  await messaging.requestPermission()
+  .then(async () => {
+    console.log('허가!');
+    const FCMToken = await messaging.getToken({ vapidKey: 'BM1PcX3baJoSE8Pxata-43yW6T5JVoW6G0EDxejyoUaH_axKO6wqjfU-hLAVF8cYeCIqZr3-i4PdcTRlX9Feuek' });
+    window.sessionStorage.setItem('FCMToken', FCMToken)
+    //토큰을 받는 함수를 추가!
+  })
+  .catch(function(err) {
+    console.log('fcm에러 : ', err);
+  })
+  messaging.onTokenRefresh(() => {
+    messaging.getToken({ vapidKey: 'BM1PcX3baJoSE8Pxata-43yW6T5JVoW6G0EDxejyoUaH_axKO6wqjfU-hLAVF8cYeCIqZr3-i4PdcTRlX9Feuek' })
+    .then(function(refreshedToken) {
+      window.sessionStorage.setItem('FCMToken', refreshedToken) //토큰이 재 생성될 경우 다시 저장
+      console.log('Token refreshed.');
+    }).catch(function(err) {
+      console.log('Unable to retrieve refreshed token ', err);
+    });
+  });
+  
+  messaging.onMessage((payload) => {
+    console.log(payload);
+    alert(payload.data.title + '\n' + payload.data.message);
+  })
+  }, [])
   const [isLogin, setisLogin] = useState(false)
 
   return (

@@ -10,7 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function MakeStudy(props) {
 
-    const [studyName, setstudyName] = useState('')
+    const [studyName, setstudyName] = useState()
     const [studyContent, setstudyContent] = useState()
     const [tagName, settagName] = useState()
     const [tagList, settagList] = useState([])
@@ -162,6 +162,8 @@ function MakeStudy(props) {
             reqTagList.push(tagList[i].key)
         }
 
+
+
         const req = {
             name: studyName,
             numberOfPeople:Max,
@@ -169,9 +171,13 @@ function MakeStudy(props) {
             tags: reqTagList,
             online: form.on,
             offline: form.off,
-            locationCode: selectedLocationCode.toString(),
+            //locationCode: selectedLocationCode.toString(),
             categoryId: childId,
         }
+        if(selectedLocationCode){
+            req.locationCode = selectedLocationCode.toString()
+        }
+        
         const json = JSON.stringify(req)
         const jsonRequest = new Blob([json],{
             type: 'application/json'
@@ -199,13 +205,13 @@ function MakeStudy(props) {
 
             <div className="top-content">
                 <div className="infoBox">
-                    <input type='text' placeholder='스터디 이름' className='studyNameInput'
+                    <input type='text' placeholder='스터디 이름' className='studyNameInput' id='studyNameInput'
                         onChange={(e) => {
                             setstudyName(e.target.value)
                     }}/>
                     <hr/>
                     <div className="categoryBox">
-                        <Select options={parentCategory} className='col-md-4' placeholder='큰카테고리'
+                        <Select options={parentCategory} className='col-md-4' placeholder='큰카테고리' id='parentCategory'
                             value={selectedParent}
                             onChange={(e) => {
                                 setselectedParent(e.name)
@@ -213,7 +219,7 @@ function MakeStudy(props) {
                             }}
                             styles={customStyles}
                         />
-                        <Select options={childCategory} className='col-md-4' placeholder='작은카테고리'
+                        <Select options={childCategory} className='col-md-4' placeholder='작은카테고리' id='childCategory'
                             value={selectedChild}
                             onChange={(e) => {
                                 setselectedChild(e.name)
@@ -257,7 +263,7 @@ function MakeStudy(props) {
                     }}/>
                 </div>
                 <hr/>
-                <textarea type='text' placeholder='내용' className='content'
+                <textarea type='text' placeholder='내용' className='content' id='content'
                     onChange={(e) => {
                     setstudyContent(e.target.value)
                 }}/>
@@ -265,20 +271,62 @@ function MakeStudy(props) {
             </div>
             
             <div className="mapBox">
-                <Select options={study_form} className='col-md-5' placeholder='스터디형태'
+                <Select options={study_form} className='col-md-5' placeholder='스터디형태' id='study_form'
                     onChange={(e) => {
                         setform(e.value)
                     }}
                     styles={customStyles}
                 />
-                <KakaoMap setselectedLocationCode={setselectedLocationCode}/>
+                <div id='study_map' className='study_map'>
+                    <KakaoMap setselectedLocationCode={setselectedLocationCode} />
+                </div>
+                
             </div>
             <div className='BtnBox'>
-                <a className="finishBtn" onClick={handleAddStudy}>스터디 등록</a>
+                <a className="finishBtn" onClick={()=>{
+
+                    if(!studyName){
+                        document.getElementById('studyNameInput').style.borderColor='red'
+                    }
+                    if(!studyContent){
+                        document.getElementById('content').style.borderColor='red'
+                    }
+                    if(!parentId){
+                        document.getElementById('parentCategory').style.borderColor='red'
+                    }
+                    if(!childId){
+                        document.getElementById('childCategory').style.borderColor='red'
+                    }
+                    if(!form){
+                        document.getElementById('study_form').style.borderColor='red'
+                    }
+                    if(!selectedLocationCode){
+                        document.getElementById('study_map').style.borderColor='red'
+                    }
+
+                    if(studyName&&studyContent&&childId&&form&&selectedLocationCode){
+                        handleAddStudy()
+                    }
+                }
+                    }>스터디 등록</a>
             </div>
             
         </div>
     )
 }
+
+// const req = {
+//     name: studyName,
+//     numberOfPeople:Max,
+//     content: studyContent,
+//     tags: reqTagList,
+//     online: form.on,
+//     offline: form.off,
+//     //locationCode: selectedLocationCode.toString(),
+//     categoryId: childId,
+// }
+// if(selectedLocationCode){
+//     req.locationCode = selectedLocationCode.toString()
+// }
 
 export default MakeStudy

@@ -3,6 +3,8 @@ import './SearchMenu.css';
 import Select from 'react-select'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import {SearchOutlined} from '@ant-design/icons'
+
 import api from '../../API'
 
 function SearchMenu(props) {
@@ -28,9 +30,11 @@ function SearchMenu(props) {
             }),
             control: (provided) => ({
                 ...provided,
-                width: '150px',
-                border: '2px solid black',
-                height: '38px'
+                width: '170px',
+                border: '1px solid rgba(0, 0, 0, 0.5)',
+                height: '38px',
+                borderRadius: '15px',
+                padding: '0px 5px',
             })
         })
     )
@@ -131,12 +135,9 @@ function SearchMenu(props) {
                         }
                     }/>
 
-                    <p className="searchBtn" onClick={search}>검색</p>
+                    <p className="searchBtn" onClick={search}><SearchOutlined style={{fontSize:'25px'}} /></p>
                 </div>  
             </div>
-
-
-
         </div>
     )
 }
