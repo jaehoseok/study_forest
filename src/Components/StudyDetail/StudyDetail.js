@@ -52,6 +52,7 @@ function StudyDetail(props) {
                 childCategory: res.childCategory.name,
                 studyTags: tagList,
                 thumbnailImage: res.image.thumbnailImage,
+                studyImage:res.image.studyImage,
                 studyForm: studyForm,
                 apply: res.apply,
                 status: res.status==='OPEN' ? true : false
@@ -110,7 +111,7 @@ function StudyDetail(props) {
     return (
         <div className='StudyDetail'>
             
-                <img className='StudyDetail-IMAGE' src={POST.thumbnailImage}/>
+                <img className='StudyDetail-IMAGE' src={POST.studyImage}/>
             
 
             <div className='StudyDetail-TOP'>

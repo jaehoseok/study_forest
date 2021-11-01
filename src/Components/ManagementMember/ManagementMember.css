@@ -15,7 +15,8 @@
 .ManagementMember > .ManagementMember-content > .ManagementMember-title{
     width: 100%;
     font-size: 30px;
-    font-weight: bold;
+    font-weight: 400;
+    margin-top: 30px;
 }
 
 .ManagementMember > .ManagementMember-content > .ManagementMember-list {
@@ -26,47 +27,57 @@
 .ManagementMember-list > .left-member {
     width: 50%;
     height: 500px;
-    border: 3px solid black;
+    border: 5px solid rgb(193, 172, 149);
     margin: 0 10px;
-    border-radius: 5px;
+    border-radius: 15px;
 }
 
 .left-member > .Member {
     width: 100%;
-    border-bottom: 1px solid black;
+    border-bottom: 3px solid white;
     border-top: 0px;
     text-align: left;
     padding: 5px 10px;
     color: black;
     display: flex;
     justify-content: space-between;
+    background-color: rgb(250, 235, 224);
+    align-items: center;
 }
 
 .left-member > .Member > div {
-    color: white;
+    color: black;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: black;
-    padding: 2px 5px;
+    background-color: rgb(201, 228, 197);
+    padding: 2px 6px;
     border-radius: 5px;
+    font-weight: 300;
+    margin: 3px 0;
 }
+.left-member > .Member > div:hover {
+    background-color: rgb(181, 205, 163);
+}
+
 
 .ManagementMember-list > .right-member {
     width: 50%;
     height: 500px;
-    border: 3px solid black;
+    border: 5px solid rgb(193, 172, 149);
     margin: 0 10px;
-    border-radius: 5px;
+    border-radius: 15px;
 }
 
 .right-member > .waitUser {
     width: 100%;
-    border-bottom: 1px solid black;
+    border-bottom: 3px solid white;
     display: flex;
     justify-content: space-between;
     padding: 5px 10px;
     color: black;
+    background-color: rgb(250, 235, 224);
+    align-items: center;
 }
 
 .right-member > .waitUser > div {
@@ -74,19 +85,26 @@
 }
 
 .right-member > .waitUser > div > div{
-    color: white;
+    color: black;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: black;
-    padding: 2px 5px;
+    background-color: rgb(201, 228, 197);
+    padding: 2px 6px;
     border-radius: 5px;
+    margin: 3px 0 ;
     margin-left: 10px;
+}
+
+.right-member > .waitUser > div > div:hover {
+    background-color: rgb(181, 205, 163);
 }
 
 .list-title {
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 400;
     color: black;
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid rgb(193, 172, 149);
+    padding: 5px 0;
+    background-color: rgb(193, 172, 149);
 }

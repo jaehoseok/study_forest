@@ -33,16 +33,29 @@ function ManagementStudy(props) {
     const [childId, setchildId] = useState()
     const [selectedChild, setselectedChild] = useState()
     const [formName, setformName] = useState()
+
+    const [tagCount, settagCount] = useState(0)
     
+
+    let list=tagList
+    useEffect(() => {
+        settagList(list)
+    }, [tagCount])
 
     useEffect(async () => {
         const res = await api.studyDetail(props.match.params.Id)
-        const list = []
         console.log(res);
         setstudyName(res.name)
         setstudyContent(res.content)
         res.studyTags.map((studyTag, index) => {
-            list.push(<div key={index} id={studyTag}>{studyTag}</div>)
+            list.push(
+                <div key={studyTag} className='tagName' id={studyTag}>{studyTag}<div className='tagDeleteBtn' id={studyTag} onClick={
+                    async (e) => {
+                        await handleDeleteTag(e.target.id)
+                    }
+                }>&times;</div></div>
+            )
+            settagCount(n => n+1)
         })
         settagList(list)
         setselectedParent(res.parentCategory.name)
@@ -50,6 +63,12 @@ function ManagementStudy(props) {
         setselectedChild(res.childCategory.name)
         setchildId(res.childCategory.id)
         setMax(res.numberOfPeople)
+        setform({on: res.online, off:res.offline})
+        if(res.image){
+            setImgBase64(res.image.studyImage)
+            setImg(res.image.studyImage)
+        }
+        
 
         study_form.map((study_form) =>{
             if(study_form.value.on === res.online && study_form.value.off === res.offline){
@@ -102,8 +121,8 @@ function ManagementStudy(props) {
             }),
             control: (provided) => ({
                 ...provided,
-                border: '2px solid black',
                 height: '38px',
+                color: 'black',
             })
         })
     )
@@ -131,11 +150,38 @@ function ManagementStudy(props) {
                 return
             }
         }
-        list.push(
-            <div key={tagName}>{tagName}</div>
-        )
+        if(tagCount<6 && tagName){
+            list.push(
+                <div key={tagName} className='tagName' id={tagName}>{tagName}<div className='tagDeleteBtn' id={tagName} onClick={
+                    async (e) => {
+                        await handleDeleteTag(e.target.id)
+                    }
+                }>&times;</div></div>
+            )
+            settagCount(n => n+1)
+        }
+        else if(!tagName){
+            window.alert('공백은 불가능합니다.')
+            settagName('')
+            return
+        }
+        else{
+            window.alert('최대 6개까지 가능합니다.')
+            settagName('')
+            return
+        }
         settagName('')
-        settagList(list)
+    }
+
+    const handleDeleteTag = (tagName) => {
+        list = tagList
+        for(let i=0 ; i<list.length ; i++ ){
+            if(list[i].key === tagName){
+                list.splice(i, 1)
+                i--;
+            }
+        }
+        settagCount(n => n-1)
     }
 
     const handleChangeFile = (e) => {
@@ -145,7 +191,7 @@ function ManagementStudy(props) {
         // 2. 읽기가 완료되면 아래코드가 실행됩니다.
         const base64 = reader.result;
             if (base64) {
-            setImgBase64(base64.toString()); // 파일 base64 상태 업데이트
+                setImgBase64(base64.toString()); // 파일 base64 상태 업데이트
             }
         }
         if (e.target.files[0]) {
@@ -154,7 +200,7 @@ function ManagementStudy(props) {
         }
     }
 
-    const handleAddStudy = () => {
+    const handleUpdateStudy = () => {
         const reqTagList = [];
         for(let i=0 ; i<tagList.length ; i++){
             reqTagList.push(tagList[i].key)
@@ -167,9 +213,17 @@ function ManagementStudy(props) {
             tags: reqTagList,
             online: form.on,
             offline: form.off,
-            locationCode: selectedLocationCode.toString(),
             categoryId: childId,
+            close:false,
+            deleteImage:false,
         }
+        if(selectedLocationCode){
+            req.locationCode = selectedLocationCode.toString()
+        }
+
+        console.log(req);
+
+
         const json = JSON.stringify(req)
         const jsonRequest = new Blob([json],{
             type: 'application/json'
@@ -179,8 +233,8 @@ function ManagementStudy(props) {
         console.log(req);
         formData.append('image', Img);
         formData.append('request', jsonRequest)
-        api.makeStudy(formData)
-        props.history.push('/')
+        api.updateStudy(formData, props.match.params.Id)
+        props.history.push('/MyStudy')
     }
 
 
@@ -197,7 +251,7 @@ function ManagementStudy(props) {
             <div className='ManagementStudyContnetsBox'>
                 <div className="makeStudy">
 
-                <div className="title">스터디 수정</div>
+                <div className="makeStudy-title">&#60;&nbsp;스&nbsp;터&nbsp;디&nbsp;&nbsp;수&nbsp;정&nbsp;&#62;</div>
 
                 <div className="top-content">
                     <div className="infoBox">
@@ -253,7 +307,8 @@ function ManagementStudy(props) {
 
                 <div className="contentBox">
                     <div className='imgBox'>
-                        표지사진 <input type="file" className="contentTitle"
+                        <img src={imgBase64}/>
+                        <input type="file" className="contentTitle"
                             onChange={function(e){
                                 handleChangeFile(e)
                         }}/>
@@ -273,10 +328,40 @@ function ManagementStudy(props) {
                         }}
                         styles={customStyles}
                     />
-                    <KakaoMap setselectedLocationCode={setselectedLocationCode}/>
+                    <div id='study_map' className='study_map'>
+                        <KakaoMap setselectedLocationCode={setselectedLocationCode} />
+                    </div>
                 </div>
                 <div className='BtnBox'>
-                    <a className="finishBtn" onClick={handleAddStudy}>스터디 수정</a>
+                    <a className="finishBtn" onClick={()=>{
+
+                            if(!studyName){
+                                document.getElementById('studyNameInput').style.borderColor='red'
+                            }
+                            if(!studyContent){
+                                document.getElementById('content').style.borderColor='red'
+                            }
+                            if(!parentId){
+                                document.getElementById('parentCategory').style.borderColor='red'
+                            }
+                            if(!childId){
+                                document.getElementById('childCategory').style.borderColor='red'
+                            }
+                            if(!form){
+                                document.getElementById('study_form').style.borderColor='red'
+                            }
+                            if(!selectedLocationCode){
+                                document.getElementById('study_map').style.borderColor='red'
+                            }
+
+                            if(studyName&&studyContent&&childId&&form&&selectedLocationCode){
+                                handleUpdateStudy()
+                            }
+                            else{
+                                window.alert('공백이 존재합니다.')
+                            }
+                    }
+                        }>스터디 수정</a>
                 </div>
 
                 </div>

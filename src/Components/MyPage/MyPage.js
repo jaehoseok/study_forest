@@ -78,13 +78,13 @@ function MyPage() {
 
     const statusIcon = (status) => {
         if(status==='SUCCESS'){
-            return <a className='status-icon'><CheckOutlined style={{color: 'green', marginRight: '10px'}}/>승인</a>
+            return <a className='status-icon'><CheckOutlined style={{color: 'green', marginRight: '10px', fontSize: '20px'}}/>승인</a>
         }
         else if(status === 'FAIL'){
-            return <a className='status-icon'><CloseOutlined style={{color: 'red', marginRight: '10px'}}/>거절</a>
+            return <a className='status-icon'><CloseOutlined style={{color: 'red', marginRight: '10px', fontSize: '20px'}}/>거절</a>
         }
         else{
-            return <a className='status-icon'><PauseOutlined style={{color: 'yellow', marginRight: '10px'}}/>대기</a>
+            return <a className='status-icon'><PauseOutlined style={{color: 'yellow', marginRight: '10px', fontSize: '20px'}}/>대기</a>
         }
     }
 
@@ -115,20 +115,20 @@ function MyPage() {
     return (
         <div className ="MyPage">
             <div className='top'>
-                <div className='top-title'>내 정보</div>
+                <div className='top-title'>&#60;&nbsp;내&nbsp;&nbsp;정&nbsp;보&nbsp;&#62;</div>
             </div>
             
             
             <div className='middle'>
 
                 <div className='profile-box'>
-                    <div className='box-title'>프로필</div>
+                    <div className='box-title'>Profile</div>
                     <div className='contentBox'>
                         <img className="image" src={Myinfo.MyProfileImage}/>
 
                         <div className="info">
-                            <div>이름 : {Myinfo.MyName}</div>
-                                <div >관심주제 : <div className="tags">{list}</div>
+                            <div className='info-name'>Name : {Myinfo.MyName}</div>
+                                <div >Interested Tags : <div className="tags">{list}</div>
                             </div>
                         </div>    
                     </div>

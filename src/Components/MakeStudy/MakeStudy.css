@@ -2,19 +2,19 @@
     width: 690px;
     margin: 30px auto;
     padding: 0 20px;
-    background-color: black;
-    border-radius: 5px;
+    background-color: rgb(193, 172, 149);
+    border-radius: 15px;
     padding-top: 30px;
     display: flex;
     flex-wrap: wrap;
 }
 
-.title {
+.makeStudy-title {
     width: 690px;
     text-align: center;
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
+    font-size: 30px;
+    font-weight: 400;
+    color: black;
 }
 
 .top-content {
@@ -32,11 +32,20 @@
 
 .studyNameInput {
     width: 100%;
-    border: 3px solid black;
+    border-radius: 15px;
+    height: 46px;
+    box-sizing: border-box;
+    padding: 3px 10px;
+    border: 3px solid rgb(193, 172, 149);
 }
 
 .hashtagNameInput {
     width: 70%;
+    height: 46px;
+    box-sizing: border-box;
+    padding: 3px 10px;
+    border-radius: 15px 0 0 15px;
+    border: 3px solid rgb(193, 172, 149);
 }
 
 .hashBox {
@@ -48,11 +57,20 @@
 .addBtn {
     width: 30%;
     float: right;
-    border: 2px solid black;
-    border-radius: 5px;
-    background-color: white;
+    border-radius:  0 15px 15px 0;
+    background-color: rgb(201, 228, 197);
     text-align: center;
     color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 46px;
+    box-sizing: border-box;
+    border: 3px solid rgb(193, 172, 149);
+}
+
+.addBtn:hover {
+    background-color: rgb(181, 205, 163);
 }
 
 .hashtagListBox {
@@ -62,7 +80,6 @@
 }
 
 .count {
-    text-align: center;
     width: 200px;
     height: 110px;
     display: flex;
@@ -72,15 +89,22 @@
     
 }
 
+.countBtn {
+    color: black;
+}
+
+.countBtn:hover {
+    transform: scale(1.2);
+    color: rgb(181, 205, 163);
+}
 .maxNumber {
     background-color: white;
     width: 50px;
     height: 50px;
-    border-radius: 90px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid black;
     color: black;
 }
 
@@ -108,17 +132,18 @@
     height: 300px;
     background-color: white;
     border-radius: 5px;
-    border: 3px solid black;
+    border: 3px solid rgb(193, 172, 149);
 }
 
 .contentTitle {
     text-align: left;
+    color: black;
 }
 
 .toggle {
     padding: 10px 20px;
     background-color: white;
-    border: 1px solid black;
+    border: 1px solid rgb(193, 172, 149);
     border-radius: 5px;
     text-align: center;
 }
@@ -137,9 +162,14 @@
 
 .finishBtn {
     padding: 10px 50px;
-    background-color: white;
-    border: 1px solid black;
+    background-color: rgb(201, 228, 197);
     border-radius: 5px;
+    color: black;
+}
+
+.finishBtn:hover {
+    background-color: rgb(181, 205, 163);
+    color: black;
 }
 
 .map {
@@ -156,7 +186,7 @@
 
 .col-md-5 {
     width: 100%;
-    border: 3px solid black;
+    border: 3px solid rgb(193, 172, 149);
 }
 
 .categoryBox {
@@ -168,8 +198,9 @@
 .col-md-4 {
     margin-right: 10px;
     color: black;
-    border: 3px solid black;
+    border: 3px solid rgb(193, 172, 149);
 }
+
 
 Select > div{
     color: black;
@@ -178,7 +209,7 @@ Select > div{
 .tagName{
     color: black;
     background-color: white;
-    border: 1px solid white;
+    border: 1px solid rgb(193, 172, 149);
     white-space: nowrap;
     display: flex;
     border-radius: 5px;
@@ -194,7 +225,7 @@ Select > div{
 }
 
 div {
-    color: white;
+    color: black;
 }
 
 .col-md-4 > div > * {
@@ -214,5 +245,18 @@ textarea {
 }
 
 .study_map {
-    border: 3px solid black;
+    border: 3px solid rgb(193, 172, 149);
+    margin-top: 30px;
+}
+
+.countTitle {
+    color: black;
+}
+
+.imgBox > img {
+    width: 100px;
+    height: 100px;
+    background-color: rgb(250, 235, 224);
+    border-radius: 50%;
+    margin-right: 10px;
 }

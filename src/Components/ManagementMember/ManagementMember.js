@@ -132,7 +132,7 @@ function ManagementMember(props) {
             </aside>
             <div className='ManagementMember-content'>
                 <div className='ManagementMember-title'>
-                    멤버관리
+                    <div className='study-header'>&#60;&nbsp;멤&nbsp;버&nbsp;&nbsp;관&nbsp;리&nbsp;&#62;</div>
                 </div>
                 <div className='ManagementMember-list'>
                     <div className='left-member'>

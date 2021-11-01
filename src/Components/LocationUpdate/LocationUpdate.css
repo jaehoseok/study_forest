@@ -41,7 +41,10 @@
     width: 80%;
     border: 1px solid black;
     padding: 1px;
-    height: 30px;
+    height: 40px;
+    box-sizing: border-box;
+    padding: 3px 10px;
+    border-radius: 15px 0 0 0;
 }
 
 .LocationSearchBtn {
@@ -51,9 +54,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: rgb(201, 228, 197);
     border: 1px solid black;
-    border-radius: 5px;
-    background-color: white;
+}
+
+.LocationSearchBtn:hover {
+    background-color: rgb(181, 205, 163);
 }
 
 .LocationContents > div > .maplist {
@@ -84,6 +90,7 @@
     background-color: white;
     text-align: left;
     padding-left: 8px;
+    color: black;
 }
 
 .scrollRef {

@@ -259,6 +259,23 @@ export default{
             console.log(err);
         })
     },
+    
+    updateStudy(formData, studyId){
+        return axios({
+            method: 'patch',
+            url: '/study-service/studies/'+studyId,
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            },
+            data: formData
+        })
+        .then(res => {
+            console.log(res);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    },
 
     //스터디 상세조회
     studyDetail(studyId){

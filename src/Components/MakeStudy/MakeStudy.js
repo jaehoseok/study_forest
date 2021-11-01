@@ -81,7 +81,6 @@ function MakeStudy(props) {
             }),
             control: (provided) => ({
                 ...provided,
-                border: '2px solid black',
                 height: '38px',
                 color: 'black',
             })
@@ -111,7 +110,7 @@ function MakeStudy(props) {
                 return
             }
         }
-        if(tagCount<6){
+        if(tagCount<6 && tagName){
             list.push(
                 <div key={tagName} className='tagName' id={tagName}>{tagName}<div className='tagDeleteBtn' id={tagName} onClick={
                     async (e) => {
@@ -120,6 +119,11 @@ function MakeStudy(props) {
                 }>&times;</div></div>
             )
             settagCount(n => n+1)
+        }
+        else if(!tagName){
+            window.alert('공백은 불가능합니다.')
+            settagName('')
+            return
         }
         else{
             window.alert('최대 6개까지 가능합니다.')
@@ -177,6 +181,8 @@ function MakeStudy(props) {
         if(selectedLocationCode){
             req.locationCode = selectedLocationCode.toString()
         }
+
+        console.log(req);
         
         const json = JSON.stringify(req)
         const jsonRequest = new Blob([json],{
@@ -187,8 +193,8 @@ function MakeStudy(props) {
         console.log(req);
         formData.append('image', Img);
         formData.append('request', jsonRequest)
-        api.makeStudy(formData)
-        props.history.push('/')
+        //api.makeStudy(formData)
+        //props.history.push('/')
     }
 
 
@@ -201,7 +207,7 @@ function MakeStudy(props) {
     return (
         <div className="makeStudy">
 
-            <div className="title">스터디 등록</div>
+            <div className="makeStudy-title">&#60;&nbsp;스&nbsp;터&nbsp;디&nbsp;&nbsp;생&nbsp;성&nbsp;&#62;</div>
 
             <div className="top-content">
                 <div className="infoBox">
@@ -248,16 +254,17 @@ function MakeStudy(props) {
                 <div className="countBox">
                     <div className="countTitle">참여인원</div>
                     <div className="count">
-                        <div onClick={minusNum}>-</div>
+                        <div onClick={minusNum} className='countBtn'>-</div>
                         <div className="maxNumber">{Max}</div>
-                        <div onClick={addNum}>+</div>
+                        <div onClick={addNum} className='countBtn'>+</div>
                     </div>
                 </div>
             </div>
 
             <div className="contentBox">
                 <div className='imgBox'>
-                    표지사진 <input type="file" className="contentTitle"
+                    <img src={imgBase64}/> 
+                    <input type="file" className="contentTitle"
                         onChange={function(e){
                             handleChangeFile(e)
                     }}/>
@@ -306,6 +313,9 @@ function MakeStudy(props) {
 
                     if(studyName&&studyContent&&childId&&form&&selectedLocationCode){
                         handleAddStudy()
+                    }
+                    else{
+                        window.alert('공백이 존재합니다.')
                     }
                 }
                     }>스터디 등록</a>
