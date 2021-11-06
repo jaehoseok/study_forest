@@ -1,84 +1,99 @@
 import React, {useEffect, useState} from 'react'
 import {Link, withRouter, useHistory} from 'react-router-dom'
 
-import {UserOutlined} from '@ant-design/icons'
-
-
 import './KakaoLogin.css';
 import api from '../../API'
 
+import {useDispatch, useSelector} from 'react-redux'
+import {loginUser, setIsLogin} from '../../_actions/user.action';
+
 import kakao from 'kakaojs'
 import kakaoLoginButton from './kakao_login_medium_narrow.png'
+import { from } from 'form-data';
 
 function KakaoLogin(props) {
-    const history = useHistory();
+
+    const user = useSelector(state => state.user)
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         kakao.init('e8c8772f05d1f53a6041323e0c8f2c9d'); //javascript sdk key
         if(kakao.Auth.getAccessToken() && window.sessionStorage.getItem('accessToken')){
-            console.log("토큰 존재, 세션 유지");
-            props.setisLogin(true)
+            dispatch(setIsLogin(true))
         }
         else{
-            console.log("토큰 없음");
+            dispatch(setIsLogin(false))
         }
     }, [])
 
-
-    const Login = () => {
+    const Login =  () => {
         kakao.Auth.login({
-            success: function(authObj) {
+            success: function (authObj) {
                 const AccessToken = JSON.stringify(authObj["access_token"]);
-                console.log(AccessToken);
-                console.log("로그인 하였습니다.");
-                api.login(kakao.Auth.getAccessToken())
-                props.setisLogin(true);
-                },
+                
+                let body = {
+                    kakaoToken: kakao.Auth.getAccessToken()
+                }
+                dispatch(loginUser(body))
+                .then(response => {
+                    if(response.payload.isLogin){
+                        props.history.push('/')
+                    } else {
+                        alert('로그인 실패')
+                    }
+                })
+            },
+
             fail: function(err) {
-                console.log(JSON.stringify(err));
+
             }
         }); 
     }
 
     const Logout = async () => {
         if(kakao.Auth.getAccessToken() && window.sessionStorage.getItem('accessToken')){
-            kakao.API.request({
+            await kakao.API.request({
                 url: '/v1/user/unlink',
                 success: function (response) {
-                    console.log(response)
-                    console.log("로그아웃 하였습니다.");
-                    props.setisLogin(false);
+
                 },
                 fail: function (error) {
-                    console.log(error)
+
                 },
             })
             await api.logout()
             window.sessionStorage.removeItem('accessToken')
             kakao.Auth.setAccessToken(undefined);
-            history.push('/');
+            dispatch(setIsLogin(false))
         }
     }
 
     const loginView = (
         <div className='mainView'>
-            <img src={kakaoLoginButton} onClick={Login}/>
+            <img src={kakaoLoginButton} onClick={async () => {
+                await Login()
+                }}/>
         </div>
     )
 
     const mainView = (
         <div className="mainView">
-            <Link to="/MyPage"><UserOutlined style={{fontSize: '25px', color: 'black'}}/></Link>
-            <Link onClick={Logout} to='/' className='logout_Btn'>Logout</Link>
+            <Link to="/MyPage" className='MyPage-btn'>
+                <i className="fas fa-user-circle"></i>
+                <div className='navBtn'>내 정보</div>
+            </Link>
+            <Link onClick={async () => {
+                await Logout()
+                }} to='/' className='logout_Btn'>Logout</Link>
         </div>
     )
 
     return (
         <div>
-            {props.isLogin ? mainView : loginView}
-            
+            {user.isLogin ? mainView : loginView}    
         </div>
     )
 }
 
-export default withRouter(KakaoLogin)
+export default KakaoLogin

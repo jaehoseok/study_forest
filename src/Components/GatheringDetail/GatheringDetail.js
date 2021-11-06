@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import {Link, useParams} from 'react-router-dom'
 
 import './GatheringDetail.css';
 
@@ -9,12 +10,14 @@ const {kakao} = window;
 
 function GatheringDetail(props) {
 
+    const {Id, gatheringId} = useParams()
+
     const [gatheringInfo, setgatheringInfo] = useState([])
-    const [join, setjoin] = useState()
+    const [join, setjoin] = useState(null)
     const [memberList, setmemberList] = useState([])
 
     useEffect(async () => {
-        const res = await api.gatheringDetail(props.match.params.gatheringId)
+        const res = await api.gatheringDetail(gatheringId)
         const info = {
             content : res.content,
             gatheringTime : res.gatheringTime,
@@ -33,13 +36,14 @@ function GatheringDetail(props) {
         }
         const map = new kakao.maps.Map(mapContainer, mapOptions)
         }
-        console.log(info);
         setgatheringInfo(info)
-        setjoin(res.apply)
+        if(res.apply){
+            setjoin(res.apply)
+        }
     }, [])
 
     useEffect(async () => {
-        const res = await api.gatheringJoinMember(props.match.params.gatheringId)
+        const res = await api.gatheringJoinMember(gatheringId)
         const list = []
         res.map((member, index) => {
             list.push(
@@ -52,20 +56,26 @@ function GatheringDetail(props) {
         setmemberList(list)
     }, [])
 
+    const deleteGathering = async () => {
+        await api.deleteGathering(gatheringId)
+        window.location.href = '/StudyRoom/'+Id+'/GatheringList'
+    }
+
     return (
         <div className='GatheringDetail'>
             <aside>
-                <GatheringSide Id={props.match.params.Id}/>
+                <GatheringSide Id={Id}/>
             </aside>
 
             <div className='gatheringDetail-body'>
+            <div className='gatheringDetail-header'>모&nbsp;임&nbsp;&nbsp;&nbsp;&nbsp;상&nbsp;세&nbsp;보&nbsp;기</div>
                 <div className='gatheringDetail-box'>
                     <div className='gatheringDetail-content'>
                         <div>모임시간 : {gatheringInfo.gatheringTime}</div>
                         <div>현재인원 : {gatheringInfo.numberOfPeople}</div>
                         <div>모임형태 : {gatheringInfo.shape}</div>
                         {gatheringInfo.place?<div>장소이름 : {gatheringInfo.place}</div>:<div/>}
-                        <textarea type='text' readOnly='true' value={gatheringInfo.content}/>
+                        <textarea type='text' readOnly='true' value={gatheringInfo.content} className='gatheringDetail-contents'/>
                     </div>
                     <div className='gatheringMap' id='gatheringMap'>ONLINE 은 지도를 지원하지 않습니다.</div>    
                 </div>
@@ -75,12 +85,12 @@ function GatheringDetail(props) {
                 </div>
                 <div>
                     {join===null?
-                        <div>
-                            <div className='gatheringJoinBtn'>
+                        <div className='update_delete-btn-box'>
+                            <Link className='gatheringJoinBtn' to={`/StudyRoom/${Id}/UpdateGathering/${gatheringId}`}>
                                 수정
-                            </div>
+                            </Link>
 
-                            <div className='gaatheringJoinBtn'>
+                            <div className='gatheringJoinBtn' onClick={deleteGathering}>
                                 삭제
                             </div>                            
                         </div>
@@ -89,10 +99,10 @@ function GatheringDetail(props) {
                         join?
                             <div className='gatheringJoinBtn' onClick={
                                 async () => {
-                                    await api.gatheringJoinCancel(props.match.params.gatheringId)
-                                    const res = await api.gatheringDetail(props.match.params.gatheringId)
+                                    await api.gatheringJoinCancel(gatheringId)
+                                    const res = await api.gatheringDetail(gatheringId)
                                     setjoin(res.apply)
-                                    const member = await api.gatheringJoinMember(props.match.params.gatheringId)
+                                    const member = await api.gatheringJoinMember(gatheringId)
                                     const list = []
                                     member.map((member, index) => {
                                         list.push(
@@ -105,14 +115,14 @@ function GatheringDetail(props) {
                                     setmemberList(list)                                
 
                                 }
-                            }>참가취소</div>
+                            }>참가 취소</div>
                         :
                             <div className='gatheringJoinBtn' onClick={
                                 async () => {
-                                    await api.gatheringJoin(props.match.params.gatheringId)
-                                    const res = await api.gatheringDetail(props.match.params.gatheringId)
+                                    await api.gatheringJoin(gatheringId)
+                                    const res = await api.gatheringDetail(gatheringId)
                                     setjoin(res.apply)
-                                    const member = await api.gatheringJoinMember(props.match.params.gatheringId)
+                                    const member = await api.gatheringJoinMember(gatheringId)
                                     const list = []
                                     member.map((member, index) => {
                                         list.push(
@@ -124,7 +134,7 @@ function GatheringDetail(props) {
                                     })
                                     setmemberList(list)
                                 }
-                            }>참가하기</div>
+                            }>참가 하기</div>
                     }
                 </div>
                 

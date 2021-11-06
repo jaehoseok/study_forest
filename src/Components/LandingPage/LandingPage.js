@@ -3,13 +3,19 @@ import {Link} from 'react-router-dom'
 
 import './LandingPage.css';
 
+import {useSelector} from 'react-redux'
+
 import SearchMenu from '../SearchMenu/SearchMenu'
 import {VerticalRightOutlined, LeftOutlined, RightOutlined, VerticalLeftOutlined} from '@ant-design/icons'
 
 import api from '../../API'
+import grayIconImage from './gray_icon_image.png';
 
 
 function LandingPage() {
+
+    const user = useSelector(state => state.user)
+
     const [studyList, setstudyList] = useState([])
     const [blockNum, setblockNum] = useState(0)
     const [currPage, setcurrPage] = useState(1)
@@ -25,8 +31,7 @@ function LandingPage() {
         let res = await api.searchStudy(currPage, filter)
         handleContent(res.content)
         setmaxPage(res.totalPages)
-        console.log(filter);
-    }, [currPage])
+    }, [currPage, user.isLogin])
 
     const handleContent = (content) => {
         let study = content
@@ -40,7 +45,7 @@ function LandingPage() {
                 img=study.image.studyImage;
             }
             else{
-                img=null
+                img=grayIconImage;
             }
             if(study.studyTags){
                 for(let i=0 ; i<3 ; i++){
@@ -64,10 +69,9 @@ function LandingPage() {
                     <div className='title-box'>
                         <div className='title-box-title'>Title : {study.name}</div>
                         <div className='title-box-tag'>
-                            <a>Tag : </a><div className='taglist-box'>{tagList}</div>
+                            <p>Tag : </p><div className='taglist-box'>{tagList}</div>
                         </div>
                     </div>
-                    
                 </Link>
             )            
         })
@@ -126,26 +130,31 @@ function LandingPage() {
     
     return (
         <div className='landingPage'>
-            <SearchMenu filter={filter} setfilter={setfilter} handleContent={handleContent} setmaxPage={setmaxPage}/>
-            <div className='study-header'>&#60;&nbsp;목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;록&nbsp;&#62;</div>
-            <div className='study-content'>
-                {studyList}
+            <div className='landingPage-box'>
+                <div className='study-header'>목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;록</div>
+                <SearchMenu filter={filter} setfilter={setfilter} handleContent={handleContent} setmaxPage={setmaxPage}/>
+                <div className='study-content'>
+                    {studyList}
+                </div>
+
+                {/* <div className='btn-space'>
+                    <Link className='makeStudyBtn' to='/MakeStudy'>스터디 만들기</Link>
+                </div> */}
+                
+                <div className='page'>
+                    <div className='pageBtn-box'>
+                        <div className='pageBtn' onClick={firstPage}><VerticalRightOutlined /></div>
+                        <div className='pageBtn' onClick={prevPage}><LeftOutlined /></div>
+                        {list}
+                        <div className='pageBtn' onClick={nextPage}><RightOutlined /></div>
+                        <div className='pageBtn' onClick={lastPage}><VerticalLeftOutlined /></div>
+
+                        
+                    </div>
+                    <Link className='makeStudyBtn' to='/MakeStudy'>스터디 만들기</Link>
+                </div>
             </div>
 
-            <div className='btn-space'>
-                <Link className='makeStudyBtn' to='/MakeStudy'>스터디 만들기</Link>
-            </div>
-            
-            <div className='page'>
-                <div className='pageBtn-box'>
-                    <div className='pageBtn' onClick={firstPage}><VerticalRightOutlined /></div>
-                    <div className='pageBtn' onClick={prevPage}><LeftOutlined /></div>
-                    {list}
-                    <div className='pageBtn' onClick={nextPage}><RightOutlined /></div>
-                    <div className='pageBtn' onClick={lastPage}><VerticalLeftOutlined /></div>
-                </div>
-                
-            </div>
             
             
         </div>

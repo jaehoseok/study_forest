@@ -4,7 +4,11 @@ import {
   BrowserRouter,
   Switch,
   Route,
+  useHistory,
+  withRouter,
 } from "react-router-dom";
+
+import Auth from './hoc/auth';
 
 import './App.css';
 
@@ -18,7 +22,6 @@ import InfoUpdate from './Components/InfoUpdate/InfoUpdate';
 import LocationUpdate from './Components/LocationUpdate/LocationUpdate';
 import StudyDetail from './Components/StudyDetail/StudyDetail';
 import MyStudy from './Components/MyStudy/MyStudy';
-import GatheringNotice from './Components/GatheringNotice/GatheringNotice';
 import MakeGathering from './Components/MakeGathering/MakeGathering';
 import GatheringChat from './Components/GatheringChat/GatheringChat';
 import ManagementMember from './Components/ManagementMember/ManagementMember';
@@ -27,11 +30,13 @@ import GatheringHome from './Components/GatheringHome/GatheringHome';
 import GatheringList from './Components/GatheringList/GatheringList';
 import GatheringDetail from './Components/GatheringDetail/GatheringDetail';
 import MakeChat from './Components/MakeChat/MakeChat';
+import UpdateGathering from './Components/UpdateGathering/UpdateGathering';
 
 import firebase from 'firebase'; //firebase모듈을 import해줘야 합니다.
 
 
 function App() {
+  const history = useHistory();
 
   useEffect(async() => {
 
@@ -49,7 +54,7 @@ function App() {
   
   await messaging.requestPermission()
   .then(async () => {
-    console.log('허가!');
+    console.log('fcm 허가!');
     const FCMToken = await messaging.getToken({ vapidKey: 'BM1PcX3baJoSE8Pxata-43yW6T5JVoW6G0EDxejyoUaH_axKO6wqjfU-hLAVF8cYeCIqZr3-i4PdcTRlX9Feuek' });
     window.sessionStorage.setItem('FCMToken', FCMToken)
     //토큰을 받는 함수를 추가!
@@ -72,7 +77,6 @@ function App() {
     alert(payload.data.title + '\n' + payload.data.message);
   })
   }, [])
-  const [isLogin, setisLogin] = useState(false)
 
   return (
     <BrowserRouter>
@@ -80,30 +84,28 @@ function App() {
         <div className="wrap">
 
           <div className="header-box">
-            <Header isLogin={isLogin} setisLogin={setisLogin}/>
+            <Header/>
           </div>
 
           <div className="web-container">
-            {/* <SideBar isLogin={isLogin}/> */}
-            {/* <NoticeBar/> */}
 
               <Switch>
-                <Route exact path="/" component={LandingPage} />
-                <Route exact path="/MakeStudy" component={MakeStudy} />
-                <Route exact path="/MyPage" component={MyPage} />
-                <Route exact path="/InfoUpdate" component={InfoUpdate} />
-                <Route exact path="/LocationUpdate" component={LocationUpdate} />
-                <Route exact path="/StudyDetail/:Id" component={StudyDetail} />
-                <Route exact path="/MyStudy" component={MyStudy} />
-                <Route exact path="/StudyRoom/:Id/GatheringHome" component={GatheringHome} />
-                <Route exact path="/StudyRoom/:Id/GatheringNotice" component={GatheringNotice} />
-                <Route exact path="/StudyRoom/:Id/MakeGathering" component={MakeGathering} />
-                <Route exact path="/StudyRoom/:Id/GatheringChat/:chatId" component={GatheringChat} />
-                <Route exact path="/StudyRoom/:Id/ManagementMember" component={ManagementMember} />
-                <Route exact path="/StudyRoom/:Id/ManagementStudy" component={ManagementStudy} />
-                <Route exact path="/StudyRoom/:Id/GatheringList" component={GatheringList} />
-                <Route exact path="/StudyRoom/:Id/GatheringDetail/:gatheringId" component={GatheringDetail} />
-                <Route exact path="/StudyRoom/:Id/MakeChat" component={MakeChat} />
+                <Route exact path="/" component={Auth(LandingPage, null)} />
+                <Route exact path="/MakeStudy" component={Auth(MakeStudy, true)} />
+                <Route exact path="/MyPage" component={Auth(MyPage, true)} />
+                <Route exact path="/InfoUpdate" component={Auth(InfoUpdate, true)} />
+                <Route exact path="/LocationUpdate" component={Auth(LocationUpdate, true)} />
+                <Route exact path="/StudyDetail/:Id" component={Auth(StudyDetail, null)} />
+                <Route exact path="/MyStudy" component={Auth(MyStudy, true)} />
+                <Route exact path="/StudyRoom/:Id/GatheringHome" component={Auth(GatheringHome, true)} />
+                <Route exact path="/StudyRoom/:Id/MakeGathering" component={Auth(MakeGathering, true)} />
+                <Route exact path="/StudyRoom/:Id/GatheringChat/:chatId" component={Auth(GatheringChat, true)} />
+                <Route exact path="/StudyRoom/:Id/ManagementMember" component={Auth(ManagementMember, true)} />
+                <Route exact path="/StudyRoom/:Id/ManagementStudy" component={Auth(ManagementStudy, true)} />
+                <Route exact path="/StudyRoom/:Id/GatheringList" component={Auth(GatheringList, true)} />
+                <Route exact path="/StudyRoom/:Id/GatheringDetail/:gatheringId" component={Auth(GatheringDetail, true)} />
+                <Route exact path="/StudyRoom/:Id/MakeChat" component={Auth(MakeChat, true)} />
+                <Route exact path="/StudyRoom/:Id/UpdateGathering/:gatheringId" component={Auth(UpdateGathering, true)} />
               </Switch>
             
           </div>
@@ -116,4 +118,4 @@ function App() {
   );
 }
 
-export default App;
+export default withRouter(App);

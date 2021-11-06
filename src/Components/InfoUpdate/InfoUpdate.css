@@ -6,27 +6,31 @@
     padding: 0 20px;
     align-items: center;
     justify-content: center;
-    background-color: #D7EAA3;
-    border-radius: 5px;
+    background-color: rgb(193, 172, 149);
+    border-radius: 15px;
     margin-top: 100px;
+    padding-top: 30px;
+    -webkit-box-shadow: 7px 7px 9px -3px rgba(0,0,0,0.54); 
+    box-shadow: 7px 7px 9px -3px rgba(0,0,0,0.54);
 }
 .inputUpdateName {
     width: 300px;
     height: 20px;
-    padding: 8px 12px;
+    padding: 13px 10px;
     border-radius: 5px;
     border: 2px solid black;
     margin: 10px;
+    box-sizing: border-box;
 }
 
 .inputUpdateTag {
     width: 400px;
-    height: 20px;
-    padding: 8px 12px;
+    height: 30px;
+    padding: 13px 10px;
     border-radius: 5px;
     border: 2px solid black;
-    margin: 10px;
-    margin-bottom: 0px;
+    margin: 0 10px;
+    box-sizing: border-box;
 }
 
 
@@ -60,10 +64,16 @@ input:focus {
     margin: 20px auto;
     margin-top: 50px;
     margin-bottom: 10px;
-    border: 1px solid black;
-    border-radius: 5px;
-    background-color: white;
+    border-radius: 15px;
+    background-color: rgb(201, 228, 197);
     padding: 5px 10px;
+    color: black;
+    text-decoration: none;
+}
+
+.Info-updateBtn:hover {
+    color: black;
+    background-color: rgb(181, 205, 163);
 }
 
 .img {
@@ -73,10 +83,6 @@ input:focus {
     border: 1px solid black;
     border-radius: 90px;
     background-color: white;
-}
-
-.updateBtn {
-    margin-bottom: 10px;
 }
 
 .itemList {
@@ -103,15 +109,24 @@ input:focus {
 }
 
 .modalTitle {
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 30px;
+    font-weight: 400;
 }
 
 .askBtn {
-    background-color: black;
-    color: white;
-    padding: 8px 12px;
+    background-color: rgb(201, 228, 197);
+    color: black;
+    padding: 7px 15px;
     border-radius: 5px;
+    box-sizing: border-box;
+    height: 30px;
+    text-decoration: none;
+    text-align: center;
+}
+
+.askBtn:hover {
+    background-color: rgb(181, 205, 163);
+    color: black;
 }
 
 .tag {
@@ -125,4 +140,19 @@ input:focus {
 .tag-name {
     width: 60px;
     margin: auto;
+}
+
+.info-checkbox {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.info-checkbox-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    width: 100%;
+    padding-left: 10px;
 }

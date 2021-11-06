@@ -4,11 +4,11 @@
     justify-content: center;
     width: 100%;
     flex-flow: wrap;
-    
     margin-bottom: 30px;
-    background-color: rgb(250, 235, 224);
+    background-color: white;
     padding-bottom: 20px;
     padding-top: 20px;
+    margin-top: 4px;
 }
 
 .search-wrap {
@@ -19,7 +19,7 @@
 }
 
 .select-box {
-    width: 50%;
+    width: 80%;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -27,7 +27,7 @@
 }
 
 .search-box {
-    width: 50%;
+    width: 80%;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -35,7 +35,7 @@
 }
 
 .study-name{
-    width: 400px;
+    width: 380px;
     height: 38px;
     padding: 8px 12px;
     border-radius: 15px;
@@ -56,12 +56,14 @@ input:focus {
 
 .searchBtn {
     width: 100px;
+    height: 38px;
     background-color: white;
     border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 15px;
     padding: 5px;
     margin: 0;
     color: black;
+    box-sizing: border-box;
 }
 
 .searchBtn:hover {

@@ -1,3 +1,4 @@
+import { WindowsOutlined } from '@ant-design/icons'
 import axios from 'axios'
 import moment from 'moment'
 import 'moment/locale/ko'
@@ -14,7 +15,8 @@ export default{
             method: 'post',
             url: '/auth-service/auth',
             headers: {
-                kakaoToken: kakaoToken
+                kakaoToken: kakaoToken,
+                fcmToken: window.sessionStorage.getItem('FCMToken')
             }
         })
         .then(res => {
@@ -28,18 +30,19 @@ export default{
                     Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken')
                 },
             })
-            .then(res => {
-                console.log(res.data);            
+            .then(res => {          
                 window.sessionStorage.setItem('userId', res.data.id)
                 window.sessionStorage.setItem('nickName', res.data.nickName)
                 window.sessionStorage.setItem('locationId', res.data.locationId)
             })
-
+            return {isLogin: true};
+        })
+        .catch((err) => {
+            return {isLogin: false};
         })
     },
     //로그아웃
     logout(){
-        console.log(window.sessionStorage.getItem('accessToken'));
         return axios({
             method: 'delete',
             url: '/auth-service/auth',
@@ -48,12 +51,8 @@ export default{
             }
         })
         .then(res => {
-            console.log(res);
-            console.log('로그아웃 성공');
         })
         .catch(err => {
-            console.log(window.sessionStorage.getItem('accessToken'));
-            console.log(err);
         })
     },
     //프로필 조회
@@ -66,8 +65,10 @@ export default{
             },
         })
         .then(res => {
-            console.log(res.data);
             return res.data
+        })
+        .catch((err) => {
+            return false
         })
     },
 
@@ -80,26 +81,26 @@ export default{
             }
         })
         .then(res => {
-            console.log(res.data);
             return res.data
         })
     },
 
     //동네이름 조회
     location(location_id){
-        return axios({
-            method: 'get',
-            url: '/location-service/locations/'+location_id,
-            headers: {
-                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
-            },
-        })
-        .then(res => {
-            console.log(res);
-            let result = res.data.city +" "+ res.data.dong
-            console.log(result);
-            return res.data
-        })
+        if(location_id != null){
+            return axios({
+                method: 'get',
+                url: '/location-service/locations/'+location_id,
+                headers: {
+                    Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+                },
+            })
+            .then(res => {
+                let result = res.data.city +" "+ res.data.dong
+                return res.data
+            })
+        }
+        return false;
     },
 
     //프로필 수정
@@ -113,16 +114,13 @@ export default{
             data: formData
         })
         .then(res => {
-            console.log(res);
+            return true
         })
         .catch(err => {
-            console.log(err);
         })
     },
 
     searchLocation(searchName, currPage){
-        console.log(searchName);
-        console.log(currPage);
         let Name=''
         if(searchName){
             Name ='&searchName='+searchName
@@ -135,8 +133,6 @@ export default{
             }
         })
         .then(res => {
-            console.log(res);
-            console.log(res.data.content);
             return res.data.content
         })
     },
@@ -151,7 +147,6 @@ export default{
             },
         })
         .then(res => {
-            console.log(res);
         })
     },
 
@@ -161,7 +156,6 @@ export default{
             url: '/study-service/tags?page='+page+'&size=10&name='+encodeURIComponent(tagName),
         })
         .then(res => {
-            console.log(res.data.content);
             return(res.data.content)
         })
     },
@@ -175,7 +169,6 @@ export default{
             }
         })
         .then(res => {
-            console.log(res.data);
             return res.data
         })
     },
@@ -189,7 +182,6 @@ export default{
             }
         })
         .then(res => {
-            console.log(res);
         })
     },
 
@@ -202,7 +194,6 @@ export default{
             }
         })
         .then(res => {
-            console.log(res);
         })
     },
 
@@ -237,7 +228,6 @@ export default{
             },
         })
         .then(res => {
-            console.log(res.data);
             return res.data
         })
     },
@@ -253,10 +243,9 @@ export default{
             data: formData
         })
         .then(res => {
-            console.log(res);
+            return true;
         })
         .catch(err => {
-            console.log(err);
         })
     },
     
@@ -270,10 +259,26 @@ export default{
             data: formData
         })
         .then(res => {
-            console.log(res);
+
         })
         .catch(err => {
-            console.log(err);
+
+        })
+    },
+
+    deleteStudy(studyId){
+        return axios({
+            method: 'delete',
+            url: '/study-service/studies/'+studyId,
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            },
+        })
+        .then(res => {
+
+        })
+        .catch(err => {
+
         })
     },
 
@@ -287,7 +292,6 @@ export default{
             },
         })
         .then(res => {
-            console.log(res.data);
             return res.data
         })
     },
@@ -301,10 +305,8 @@ export default{
             }
         })
         .then(res => {
-            console.log(res);
         })
         .catch(err => {
-            console.log(err);
             if(err.status===400){
                 window.alert('중복지원 입니다.')
             }
@@ -320,7 +322,6 @@ export default{
             }
         })
         .then(res => {
-            console.log(res);
         })
     },
 
@@ -333,7 +334,6 @@ export default{
             }
         })
         .then(res => {
-            console.log(res.data);
             return res.data
         })
     },
@@ -347,7 +347,6 @@ export default{
             }
         })
         .then(res => {
-            console.log(res.data);
             return res.data
         })
     },
@@ -361,7 +360,6 @@ export default{
             }
         })
         .then(res => {
-            console.log(res.data);
             return res.data
         })
     },
@@ -375,7 +373,6 @@ export default{
             }
         })
         .then(res => {
-            console.log(res.data.content);
             return res.data.content
         })
     },
@@ -396,7 +393,6 @@ export default{
             }
         })
         .then(res => {
-            console.log(res);
         })
     },
 
@@ -409,7 +405,7 @@ export default{
             }
         })
         .then(res => {
-            console.log(res);
+
         })
     },
 
@@ -422,7 +418,6 @@ export default{
             }
         })
         .then(res => {
-            console.log(res);
         })
     },
 
@@ -436,7 +431,6 @@ export default{
             data: data
         })
         .then(res => {
-            console.log(res);
         })
     },
 
@@ -449,7 +443,6 @@ export default{
             }
         })
         .then(res => {
-            console.log(res);
             return res.data
         })
     },
@@ -463,7 +456,7 @@ export default{
             }
         })
         .then(res => {
-            console.log(res);
+
         })
     },
 
@@ -476,7 +469,34 @@ export default{
             }
         })
         .then(res => {
-            console.log(res);
+
+        })
+    },
+
+    updateGathering(gatheringId, data){
+        return axios({
+            method: 'patch',
+            url: '/gathering-service/gatherings/'+gatheringId,
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            },
+            data: data
+        })
+        .then(res => {
+
+        })
+    },
+
+    deleteGathering(gatheringId){
+        return axios({
+            method: 'delete',
+            url: '/gathering-service/gatherings/'+gatheringId,
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            }
+        })
+        .then(res => {
+
         })
     },
 
@@ -489,7 +509,7 @@ export default{
             }
         })
         .then(res => {
-            console.log(res.data);
+
             return res.data
         })
     },
@@ -506,7 +526,7 @@ export default{
             }           
         })
         .then(res => {
-            console.log(res);
+
         })
     },
 
@@ -524,7 +544,6 @@ export default{
     },
     //"2021-07-23T10:02:00"
     chatMessage(chatId, page){
-        console.log(moment().format('YYYY-MM-DDTHH:mm:ss'));
         return axios({
             method: 'get',
             url: '/chat-service/chatRooms/'+chatId+'/chatMessages?page='+page+'&size=20&lastMessageDate='+moment().format('YYYY-MM-DDTHH:mm:ss'),
@@ -533,9 +552,24 @@ export default{
             }
         })
         .then(res => {
-            console.log(res.data);
             return res.data.content
         })
-    }
+    },
+
+    resignStudy(Id){
+        return axios({
+            method: 'delete',
+            url: '/study-service/studies/'+Id+'/users',
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem('accessToken'),
+            }
+        })
+        .then(res => {
+            return true;
+        })
+        .catch(err => {
+            window.alert(err.response.data.message)
+        })
+    },
 
 }

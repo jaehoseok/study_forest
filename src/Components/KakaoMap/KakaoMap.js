@@ -26,7 +26,6 @@ function KakaoMap (props) {
 
     const btnC = async() => {
         const res = await api.searchLocation(SearchMap, page.current)
-        console.log(res);
         maplist=[];
         for(let i=0 ; i<res.length; i++){
             let location_name =  res[i].city + " " + res[i].gu + " " + res[i].dong
@@ -38,8 +37,6 @@ function KakaoMap (props) {
                             selectedLocation.current=location_name
                             selectedLen.current=res[i].len
                             selectedLet.current=res[i].let
-                            console.log(selectedLen.current);
-                            console.log(selectedLet.current);
                         }
                     }>
                         {location_name}
@@ -55,7 +52,6 @@ function KakaoMap (props) {
         if(list.current != [] && inView && SearchMap){
             nextPage()
             btnC()
-            console.log('scroll end');
         }
     }, [inView])
 

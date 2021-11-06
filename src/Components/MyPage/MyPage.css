@@ -78,6 +78,8 @@
     border-radius: 50px;
     background-color: rgb(201, 228, 197);
     padding: 10px 80px;
+    color: black;
+    text-decoration: none;
 }
 
 .updateBtn:hover {
@@ -201,6 +203,7 @@
     justify-content: center;
     align-items: center;
     color: black;
+    text-decoration: none;
 }
 
 .status-icon:hover {

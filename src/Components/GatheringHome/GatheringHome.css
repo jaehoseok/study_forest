@@ -148,3 +148,20 @@ td {
 .t-icon {
     width: 50px;
 }
+
+.resign-btn-box {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.resign-btn {
+    padding: 10px;
+    border-radius: 15px;
+    border: 0;
+    background-color: rgb(201, 228, 197);
+}
+
+.resign-btn:hover {
+    background-color: rgb(181, 205, 163);
+}

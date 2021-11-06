@@ -81,10 +81,9 @@
     width: 300px;
 }
 
-.timePicker > .col-md-3 {
+.col-md-3 {
     margin-right: 20px;
     border-radius: 15px;
-    border: 3px solid rgb(193, 172, 149);
 }
 
 .col-md-3 div {
@@ -118,7 +117,6 @@
 }
 .col-md-5 {
     width: 80%;
-    border-radius: 15px;
 }
 
 .MakeGathering-form-box {

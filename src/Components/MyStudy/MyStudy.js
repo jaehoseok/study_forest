@@ -20,7 +20,7 @@ function MyStudy() {
 
     return (
         <div className='MyStudy'>
-            <div className='myStudy-header'>&#60;&nbsp;나&nbsp;의&nbsp;&nbsp;&nbsp;스&nbsp;터&nbsp;디&nbsp;&#62;</div>
+            <div className='myStudy-header'>&nbsp;나&nbsp;의&nbsp;&nbsp;&nbsp;스&nbsp;터&nbsp;디&nbsp;</div>
             {myStudyList}
         </div>
     )

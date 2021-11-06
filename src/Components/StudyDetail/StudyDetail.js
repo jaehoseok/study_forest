@@ -1,17 +1,21 @@
 import React, {useEffect, useState} from 'react'
 
 import './StudyDetail.css'
-
+import {useParams} from 'react-router-dom'
 import {TeamOutlined} from '@ant-design/icons'
 
 import api from '../../API';
+import grayIconImage from '../LandingPage/gray_icon_image.png';
 
-function StudyDetail(props) {
+function StudyDetail() {
+
+    const {Id} = useParams()
+
     const [POST, setPOST] = useState([])
     const [clickBtn, setclickBtn] = useState()
 
     useEffect(async () => {
-        let res = await api.studyDetail(props.match.params.Id)
+        let res = await api.studyDetail(Id)
         let studyForm;
         let tagList = [];
         let resTags = [];
@@ -52,9 +56,9 @@ function StudyDetail(props) {
                 childCategory: res.childCategory.name,
                 studyTags: tagList,
                 thumbnailImage: res.image.thumbnailImage,
-                studyImage:res.image.studyImage,
+                studyImage: res.image.studyImage,
                 studyForm: studyForm,
-                apply: res.apply,
+                apply: res.apply!=null? res.apply : null,
                 status: res.status==='OPEN' ? true : false
             }
             setPOST(studyInfo)
@@ -70,8 +74,10 @@ function StudyDetail(props) {
                 parentCategory: res.parentCategory.name,
                 childCategory: res.childCategory.name,
                 studyTags: tagList,
+                thumbnailImage: grayIconImage,
+                studyImage: grayIconImage,
                 studyForm: studyForm,
-                apply: res.apply,
+                apply:res.apply!=null? res.apply : null,
                 status: res.status==='OPEN' ? true : false
             }
             setPOST(studyInfo)
@@ -91,6 +97,7 @@ function StudyDetail(props) {
                     async (e) => {
                         await api.applyCancelStudy(POST.id)
                         setclickBtn(e.target)
+                        POST.apply = false
                     }
                 }>지원취소</a>
             }
@@ -99,6 +106,7 @@ function StudyDetail(props) {
                     async (e) => {
                         await api.applyStudy(POST.id)
                         setclickBtn(e.target)
+                        POST.apply = true
                     }
                 }>지원가능</a>
             }

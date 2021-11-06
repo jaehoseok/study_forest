@@ -1,23 +1,24 @@
-import React,{useEffect,useState} from 'react'
+import React, {useEffect,useState} from 'react'
 
 import './GatheringHome.css'
-
+import {useParams} from 'react-router-dom'
 import api from '../../API'
 import {EnvironmentOutlined, ApartmentOutlined, CommentOutlined, FileOutlined} from '@ant-design/icons'
 import GatheringSide from '../GatheringSide/GatheringSide'
 
 function GatheringHome(props) {
 
+    const {Id} = useParams()
+
     const [StudyInfo, setStudyInfo] = useState([])
 
     useEffect(async() => {
-        const res = await api.studyDetail(props.match.params.Id)
-        console.log(res);
+        const res = await api.studyDetail(Id)
 
         const Info = {
             StudyName : res.name,
             StudyContent : res.content,
-            StudyLocation : res.location.city + " " + res.location.dong,
+            StudyLocation : res.location.city ? res.location.city + " " + res.location.dong : '지역을 설정해야 합니다.',
             StudyCategory : res.parentCategory.name + "/" + res.childCategory.name,
         }
         if(res.image){
@@ -33,13 +34,19 @@ function GatheringHome(props) {
             Info.StudyForm = 'Offline'
         }
         setStudyInfo(Info)
-        console.log(StudyInfo);
     }, [])
+
+    const resignStudy = async () => {
+        const res = await api.resignStudy(Id)
+        if(res===true){
+            window.location.href='/MyStudy'
+        }
+    }
 
     return (
         <div className='GatheringHome'>
             <aside>
-                <GatheringSide Id={props.match.params.Id}/>
+                <GatheringSide Id={Id}/>
             </aside>
             
             <section>
@@ -70,7 +77,10 @@ function GatheringHome(props) {
                                 </tr>
                                 
                             </tbody>
-                        </table>                        
+                        </table>         
+                        <div className='resign-btn-box'><button className='resign-btn'
+                            onClick={resignStudy}
+                        >스터디 탈퇴</button></div>               
                     </div>
 
                 

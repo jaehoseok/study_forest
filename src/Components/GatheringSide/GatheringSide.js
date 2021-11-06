@@ -41,6 +41,11 @@ function GatheringSide(props) {
         setselectedChat(chatId)
     }
 
+    const deleteStudy = async () => {
+        await api.deleteStudy(props.Id)
+        window.location.href='/MyStudy'
+    }
+
     return (
             <div className='StudyRoom-side'>
                 <section>
@@ -48,28 +53,23 @@ function GatheringSide(props) {
                         <HomeOutlined style={{fontSize: '30px'}}/>
                     </Link>
                 </section>
-                <hr/>
                 <section>
                     <div className='menuTitle'>채팅</div>
                     <ul>
                         {ChatList}
                     </ul>
-                    <Link className='menuBtn' to={`/StudyRoom/${props.Id}/MakeChat`}>채팅 추가</Link>
+                    <div className='menuBtn-box'><Link className='menuBtn' to={`/StudyRoom/${props.Id}/MakeChat`}>채팅 추가</Link></div>
                 </section>
-                <hr/>
                 <section>
-                    <div className='menuTitle-box'><Link className='menuTitle' to={`/StudyRoom/${props.Id}/GatheringList`}>모임</Link></div>
-                    <Link className='menuBtn' to={`/StudyRoom/${props.Id}/MakeGathering`}>모임 추가</Link>
+                    <div className='menuTitle-box'><Link className='menuTitle-gathering' to={`/StudyRoom/${props.Id}/GatheringList`}>모임</Link></div>
+                    <div className='menuBtn-box'><Link className='menuBtn' to={`/StudyRoom/${props.Id}/MakeGathering`}>모임 추가</Link></div>
                 </section>
-                <hr/>
                 <section>
                     <div className='menuTitle'>관리</div>
-                    <ul>
-                        <li><Link className='menuBtn' to={`/StudyRoom/${props.Id}/ManagementMember`}>멤버관리</Link></li>
-                        <li><Link className='menuBtn' to={`/StudyRoom/${props.Id}/ManagementStudy`}>스터디관리</Link></li>
-                    </ul>
+                    <div className='menuBtn-box'><Link className='menuBtn' to={`/StudyRoom/${props.Id}/ManagementMember`}>멤버 관리</Link></div>
+                    <div className='menuBtn-box'><Link className='menuBtn' to={`/StudyRoom/${props.Id}/ManagementStudy`}>스터디 수정</Link></div>
+                    <div className='menuBtn-box'><a className='menuBtn' onClick={deleteStudy}>스터디 삭제</a></div>
                 </section>
-                <hr/>
             </div>
     )
 }

@@ -30,7 +30,7 @@ function SearchMenu(props) {
             }),
             control: (provided) => ({
                 ...provided,
-                width: '170px',
+                width: '160px',
                 border: '1px solid rgba(0, 0, 0, 0.5)',
                 height: '38px',
                 borderRadius: '15px',
@@ -91,8 +91,6 @@ function SearchMenu(props) {
         if(studyTitle){
             searchOption.searchKeyword = '&searchKeyword='+studyTitle
         }
-        console.log(props.filter);
-        console.log(searchOption);
         await props.setfilter(searchOption)
         let res = await api.searchStudy(1, props.filter)
         await props.handleContent(res.content);
@@ -103,7 +101,7 @@ function SearchMenu(props) {
         <div className="search">
             <div className='search-wrap'>
                 <div className='select-box'>
-                    <Select options={parentCategory} className='col-md-3' placeholder='큰카테고리'
+                    <Select options={parentCategory} className='col-md-3' placeholder='큰 카테고리'
                         value={selected_parent}
                         onChange={(e) => {
                             setselected_parent(e.name)
@@ -111,7 +109,7 @@ function SearchMenu(props) {
                         }}
                         styles={customStyles}
                     />
-                    <Select options={childCategory} className='col-md-3' placeholder='작은카테고리'
+                    <Select options={childCategory} className='col-md-3' placeholder='작은 카테고리'
                         value={selected_child}
                         onChange={(e) => {
                             setselected_child(e.name)
@@ -119,7 +117,7 @@ function SearchMenu(props) {
                         }}
                         styles={customStyles}
                     />
-                    <Select options={study_form} className='col-md-3' placeholder='스터디형태'
+                    <Select options={study_form} className='col-md-3' placeholder='스터디 형태'
                         // value={child_id}
                         onChange={(e) => {
                             setform(e.value)
@@ -129,7 +127,7 @@ function SearchMenu(props) {
                 </div>
                 
                 <div className='search-box'>
-                    <input type="text" placeholder="스터디제목" className="study-name" onChange={
+                    <input type="text" placeholder="스터디 제목" className="study-name" onChange={
                         (e) => {
                             setstudyTitle(e.target.value)
                         }

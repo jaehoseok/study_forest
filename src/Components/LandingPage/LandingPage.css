@@ -4,7 +4,15 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    
+    background-color: rgb(250, 235, 224);
+}
+
+.landingPage-box {
+    background-color: white;
+    flex-wrap: wrap;
+    margin: 20px 40px;
+    width: 100%;
+    border-radius: 15px;
 }
 
 .landingPage > .btn-space {
@@ -14,25 +22,33 @@
     justify-content: center;
 }
 
-.landingPage > .btn-space > .makeStudyBtn {
-    width: 400px;
-    margin: 0 10px;
+.makeStudyBtn {
+    width: 200px;
     font-size: 20px;
     font-weight: 300;
-    border-radius: 5px;
-    margin-bottom: 10px;
+    border-radius: 15px;
     text-decoration:none;
-    padding: 5px 10px;
+    padding: 10px 20px;
     background-color: rgb(201, 228, 197);
+    margin-top: 40px;
+    box-sizing: border-box;
+    position: absolute;
+    right: 40px;
+    bottom: 50px;
+    margin-top: 0;
+    margin-right: 20px;
+    align-content: center;
+    justify-self: center;
+    
 }
 
-.landingPage > .btn-space > .makeStudyBtn:hover {
+.makeStudyBtn:hover {
     background-color: rgb(181, 205, 163);
     transform: scale(1.05);
     transition: 0.4s;
 }
-a:link { color: black; }
-a:visited { color: black; }
+/* a:link { color: black; }
+a:visited { color: black; } */
 
 .study-content {
     width: 100%;
@@ -44,9 +60,9 @@ a:visited { color: black; }
 }
 
 .study {
-    width: 47%;
+    width: 42%;
     height: 100px;
-    border-radius: 90px 0 0 90px;
+    border-radius: 90px;
     border: 1px solid black;
     margin: 0px 5px;
     margin-bottom: 20px;
@@ -57,6 +73,7 @@ a:visited { color: black; }
     -webkit-box-shadow: 5px 5px 14px 0px rgba(0,0,0,0.54); 
     box-shadow: 5px 5px 14px 0px rgba(0,0,0,0.54);
     margin-right: 30px;
+    text-decoration: none;
 }
 
 .study:hover {
@@ -97,10 +114,13 @@ a:visited { color: black; }
 }
 
 .pageBtn-box {
-    width: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: rgb(193, 172, 149);
+    border-radius: 15px;
+    margin-bottom: 30px;
+    margin-top: 40px;
 }
 
 .pageBtn {
@@ -154,6 +174,7 @@ a:visited { color: black; }
     font-size: 30px;
     margin-bottom: 30px;
     font-weight: 400;
+    margin-top: 50px;
 }
 
 .title-box-title {

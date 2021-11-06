@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import {useParams} from 'react-router-dom'
 
 import './ManagementMember.css';
 
@@ -7,11 +8,14 @@ import api from '../../API';
 import {CloseSquareOutlined, UserAddOutlined} from '@ant-design/icons'
 
 function ManagementMember(props) {
+
+    const {Id} = useParams()
+
     const [MemberList, setMemberList] = useState([])
     const [WaitUsers, setWaitUsers] = useState([])
 
     useEffect(async() => {
-        const MemberRes = await api.StudyMember(props.match.params.Id)
+        const MemberRes = await api.StudyMember(Id)
         const MemberList = []
         MemberRes.map((Member, index) => {
             MemberList.push(
@@ -25,7 +29,7 @@ function ManagementMember(props) {
         })
         setMemberList(MemberList)
 
-        const WaitUsersRes = await api.StudyWaitUsers(props.match.params.Id)
+        const WaitUsersRes = await api.StudyWaitUsers(Id)
         const waitList = []
         WaitUsersRes.map((waitUser, index) => {
             waitList.push(
@@ -47,9 +51,9 @@ function ManagementMember(props) {
     }, [])
 
     const DeleteMember = async(e) => {
-        await api.deleteMember(props.match.params.Id, e.target.id)
+        await api.deleteMember(Id, e.target.id)
 
-        const MemberRes = await api.StudyMember(props.match.params.Id)
+        const MemberRes = await api.StudyMember(Id)
         const MemberList = []
         MemberRes.map((Member, index) => {
             MemberList.push(
@@ -65,9 +69,9 @@ function ManagementMember(props) {
     }
 
     const AddMember = async(e) => {
-        await api.addMember(props.match.params.Id, e.target.id)
+        await api.addMember(Id, e.target.id)
 
-        const WaitUsersRes = await api.StudyWaitUsers(props.match.params.Id)
+        const WaitUsersRes = await api.StudyWaitUsers(Id)
         const waitList = []
         WaitUsersRes.map((waitUser, index) => {
             waitList.push(
@@ -87,7 +91,7 @@ function ManagementMember(props) {
         setWaitUsers(waitList)
 
 
-        const MemberRes = await api.StudyMember(props.match.params.Id)
+        const MemberRes = await api.StudyMember(Id)
         const MemberList = []
         MemberRes.map((Member, index) => {
             MemberList.push(
@@ -103,9 +107,9 @@ function ManagementMember(props) {
     }
 
     const RejectMember = async (e) => {
-        await api.rejectMember(props.match.params.Id, e.target.id)
+        await api.rejectMember(Id, e.target.id)
         
-        const WaitUsersRes = await api.StudyWaitUsers(props.match.params.Id)
+        const WaitUsersRes = await api.StudyWaitUsers(Id)
         const waitList = []
         WaitUsersRes.map((waitUser, index) => {
             waitList.push(
@@ -128,11 +132,11 @@ function ManagementMember(props) {
     return (
         <div className='ManagementMember'>
             <aside>
-                <GatheringSide Id={props.match.params.Id}/>
+                <GatheringSide Id={Id}/>
             </aside>
             <div className='ManagementMember-content'>
                 <div className='ManagementMember-title'>
-                    <div className='study-header'>&#60;&nbsp;멤&nbsp;버&nbsp;&nbsp;관&nbsp;리&nbsp;&#62;</div>
+                    <div className='study-header'>&nbsp;멤&nbsp;버&nbsp;&nbsp;관&nbsp;리&nbsp;</div>
                 </div>
                 <div className='ManagementMember-list'>
                     <div className='left-member'>

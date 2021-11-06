@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import {useParams} from 'react-router-dom'
 
 import './MakeChat.css'
 
@@ -6,13 +7,14 @@ import api from '../../API';
 import GatheringSide from '../GatheringSide/GatheringSide';
 
 function MakeChat(props) {
+    const {Id} = useParams()
 
     const [ChatName, setChatName] = useState()
 
     const handleMakeChat = async () => {
         if(ChatName){
-            await api.makeChat(props.match.params.Id, ChatName)
-            props.history.push('/StudyRoom/'+props.match.params.Id+'/GatheringHome')
+            await api.makeChat(Id, ChatName)
+            props.history.push('/StudyRoom/'+Id+'/GatheringHome')
         }
         else{
             document.getElementById('makeChat-name').style.border='2px solid red'
@@ -22,7 +24,7 @@ function MakeChat(props) {
     return (
         <div className='MakeChat'>
             <aside>
-                <GatheringSide Id={props.match.params.Id}/>
+                <GatheringSide Id={Id}/>
             </aside>
 
             <div>

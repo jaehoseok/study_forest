@@ -19,12 +19,15 @@
     font-size: 20px;
     padding-left: 20px;
     font-weight: 400;
+    text-decoration: none;
+    color: black;
 }
 
 .MyStudy-box:hover {
     background-color: rgb(181, 205, 163);
     transform: scale(1.05);
     transition: 0.3s;
+    color: black;
 }
 
 .myStudy-header {

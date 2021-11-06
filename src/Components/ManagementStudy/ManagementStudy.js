@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useMemo, useRef} from 'react'
-
+import {useParams} from 'react-router-dom'
 import './ManagementStudy.css'
 import api from '../../API'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,6 +10,8 @@ import KakaoMap from '../KakaoMap/KakaoMap'
 import GatheringSide from '../GatheringSide/GatheringSide';
 
 function ManagementStudy(props) {
+
+    const {Id} = useParams()
 
     const [studyName, setstudyName] = useState('')
     const [studyContent, setstudyContent] = useState('')
@@ -35,6 +37,9 @@ function ManagementStudy(props) {
     const [formName, setformName] = useState()
 
     const [tagCount, settagCount] = useState(0)
+
+    const [checked, setchecked] = useState(false)
+    const [closeChecked, setcloseChecked] = useState(false)
     
 
     let list=tagList
@@ -43,8 +48,7 @@ function ManagementStudy(props) {
     }, [tagCount])
 
     useEffect(async () => {
-        const res = await api.studyDetail(props.match.params.Id)
-        console.log(res);
+        const res = await api.studyDetail(Id)
         setstudyName(res.name)
         setstudyContent(res.content)
         res.studyTags.map((studyTag, index) => {
@@ -67,6 +71,10 @@ function ManagementStudy(props) {
         if(res.image){
             setImgBase64(res.image.studyImage)
             setImg(res.image.studyImage)
+        }
+
+        if(res.status==='CLOSE'){
+            setcloseChecked(true)
         }
         
 
@@ -123,6 +131,7 @@ function ManagementStudy(props) {
                 ...provided,
                 height: '38px',
                 color: 'black',
+                borderRadius: '15px',
             })
         })
     )
@@ -214,14 +223,12 @@ function ManagementStudy(props) {
             online: form.on,
             offline: form.off,
             categoryId: childId,
-            close:false,
-            deleteImage:false,
+            close:closeChecked,
+            deleteImage:checked,
         }
         if(selectedLocationCode){
             req.locationCode = selectedLocationCode.toString()
         }
-
-        console.log(req);
 
 
         const json = JSON.stringify(req)
@@ -230,11 +237,10 @@ function ManagementStudy(props) {
         })
 
         const formData = new FormData();
-        console.log(req);
         formData.append('image', Img);
         formData.append('request', jsonRequest)
-        api.updateStudy(formData, props.match.params.Id)
-        props.history.push('/MyStudy')
+        api.updateStudy(formData, Id)
+        window.location.href='/MyStudy'
     }
 
 
@@ -243,26 +249,36 @@ function ManagementStudy(props) {
         {label: '오프라인', value: {on: false, off: true}},
         {label: '온라인&오프라인', value: {on: true, off: true}}
     ]
+
+
+    const checkHandler = () => {
+        setchecked(!checked)
+    }
+
+    const closeCheckHandler = () => {
+        setcloseChecked(!closeChecked)
+    }
+
     return (
         <div className='ManagementStudy'>
             <aside>
-                <GatheringSide Id={props.match.params.Id}/>
+                <GatheringSide Id={Id}/>
             </aside>
             <div className='ManagementStudyContnetsBox'>
                 <div className="makeStudy">
 
-                <div className="makeStudy-title">&#60;&nbsp;스&nbsp;터&nbsp;디&nbsp;&nbsp;수&nbsp;정&nbsp;&#62;</div>
+                <div className="makeStudy-title">&nbsp;스&nbsp;터&nbsp;디&nbsp;&nbsp;수&nbsp;정&nbsp;</div>
 
                 <div className="top-content">
                     <div className="infoBox">
-                        <input type='text' placeholder='스터디 이름' className='studyNameInput' value={studyName}
+                        <input type='text' placeholder='스터디 이름' className='studyNameInput' value={studyName} id='studyNameInput'
                             onChange={(e) => {
                                 setstudyName(e.target.value)
                         }}/>
                         <hr/>
                         <div className="categoryBox">
                             <Select options={parentCategory} className='col-md-4' placeholder={selectedParent}
-                                value={selectedParent} defaultValue={selectedParent}
+                                value={selectedParent} defaultValue={selectedParent} id='parentCategory'
                                 onChange={(e) => {
                                     setselectedParent(e.name)
                                     setparentId(e.id)
@@ -270,7 +286,7 @@ function ManagementStudy(props) {
                                 styles={customStyles}
                             />
                             <Select options={childCategory} className='col-md-4' placeholder={selectedChild}
-                                value={selectedChild} defaultValue={selectedChild}
+                                value={selectedChild} defaultValue={selectedChild} id='childCategory'
                                 onChange={(e) => {
                                     setselectedChild(e.name)
                                     setchildId(e.id)
@@ -312,9 +328,15 @@ function ManagementStudy(props) {
                             onChange={function(e){
                                 handleChangeFile(e)
                         }}/>
+                        <div className='checkbox-box'><input type='checkbox' className='checkbox' checked={checked}
+                            onChange={ () =>
+                                checkHandler()
+                            }
+                        ></input>이미지 삭제 여부</div>
+                        
                     </div>
                     <hr/>
-                    <textarea type='text' placeholder='내용' className='content' value={studyContent}
+                    <textarea type='text' placeholder='내용' className='content' value={studyContent} id='content'
                         onChange={(e) => {
                         setstudyContent(e.target.value)
                     }}/>
@@ -322,7 +344,7 @@ function ManagementStudy(props) {
                 </div>
 
                 <div className="mapBox">
-                    <Select options={study_form} className='col-md-5' placeholder={formName}
+                    <Select options={study_form} className='col-md-5' placeholder={formName} id='study_form'
                         onChange={(e) => {
                             setform(e.value)
                         }}
@@ -331,6 +353,13 @@ function ManagementStudy(props) {
                     <div id='study_map' className='study_map'>
                         <KakaoMap setselectedLocationCode={setselectedLocationCode} />
                     </div>
+                </div>
+                <div>
+                <div className='checkbox-box'><input type='checkbox' className='close-checkbox' checked={closeChecked}
+                            onChange={ () =>
+                                closeCheckHandler()
+                            }
+                        ></input>스터디 비공개 여부</div>
                 </div>
                 <div className='BtnBox'>
                     <a className="finishBtn" onClick={()=>{

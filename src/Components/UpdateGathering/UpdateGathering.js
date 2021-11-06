@@ -10,7 +10,7 @@ import {ko} from 'date-fns/esm/locale';
 import Select from 'react-select'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './MakeGathering.css';
+import './UpdateGathering.css';
 import api from '../../API.js'
 import KakaoMap from '../KakaoMap/KakaoMap';
 
@@ -18,32 +18,45 @@ const {kakao} = window;
 
 
 
-function MakeGathering(props) {
-    const {Id} = useParams()
+function UpdateGathering(props) {
+    const {Id, gatheringId} = useParams()
 
-    const [gatheringDate, setgatheringDate] = useState(new Date())
+    const [gatheringDate, setgatheringDate] = useState()
     const [gatheringTime, setgatheringTime] = useState()
     const [form, setform] = useState()
     const [Len, setLen] = useState()
     const [Let, setLet] = useState()
-    const [contents, setcontents] = useState()
-    const [placeName, setplaceName] = useState()
+    const [contents, setcontents] = useState('')
+    const [placeName, setplaceName] = useState('')
 
-    const T = useRef();
-    const m = useRef();
-    
+    const T = useRef('00');
+    const m = useRef('00');
 
 
     useEffect(async () => {
-        const locationRes = await api.location(window.sessionStorage.getItem('locationId'))
+        const res = await api.gatheringDetail(gatheringId)
+        //const locationRes = await api.location(window.sessionStorage.getItem('locationId'))
+
+        setcontents(res.content)
+        setform(res.shape)
+        setplaceName(res.place ? res.place.name : '')
+        setgatheringDate(new Date(res.gatheringTime))
+
+        const time = ('0' + new Date(res.gatheringTime).getHours()).slice(-2)
+        T.current=time
+        const minute = ('0' + new Date(res.gatheringTime).getMinutes()).slice(-2)
+        m.current=minute
+
+        const temp_len = res.place ? res.place.len : 0//locationRes.len
+        const temp_let = res.place ? res.place.let : 0//locationRes.let
         const mapContainer = document.getElementById('gathering-map')
         const mapOptions = {
-            center: new kakao.maps.LatLng(locationRes.let, locationRes.len),
+            center: new kakao.maps.LatLng(temp_let, temp_len),
             level: 3,
         }
         const map = new kakao.maps.Map(mapContainer, mapOptions)
-        setLen(locationRes.len)
-        setLet(locationRes.let)
+        setLen(temp_len)
+        setLet(temp_let)
 
         var marker = new kakao.maps.Marker({ 
             // 지도 중심좌표에 마커를 생성합니다 
@@ -156,7 +169,6 @@ function MakeGathering(props) {
         {label: '60 분', value: '60'},
     ]
 
-
     const customStyles = useMemo(
         () => ({
             option:(provided) => ({
@@ -170,8 +182,6 @@ function MakeGathering(props) {
                 color: 'black',
                 borderRadius: '15px',
                 height: '45px',
-                margin: '0px',
-                padding: '0px',
             })
         })
     )
@@ -181,7 +191,7 @@ function MakeGathering(props) {
         {label: '오프라인', value: 'OFFLINE'},
     ]
 
-    const handleMakeGathering = async () => {
+    const handleUpdateGathering = async () => {
         const gatheringTime=gatheringDate.getFullYear().toString()+'-'+(gatheringDate.getMonth()+1).toString().padStart(2, '0')+'-'+gatheringDate.getDate().toString().padStart(2, '0')+'T'+T.current+":"+m.current+":00"
         
         const ReqBody = {
@@ -193,7 +203,7 @@ function MakeGathering(props) {
             len: Len,
         }
 
-        await api.makeGathering(Id, ReqBody)
+        await api.updateGathering(gatheringId, ReqBody)
         window.location.href='/StudyRoom/'+Id+'/GatheringList'
     }
 
@@ -223,24 +233,23 @@ function MakeGathering(props) {
                             minDate={new Date()}
                         />
                         <div className='timePicker'>
-                            <Select options={meetHour} className='col-md-3' placeholder='시' id='Time'
+                            <Select options={meetHour} className='col-md-3' placeholder={T.current+' 시'}
                             onChange={(e) => T.current=e.value}
                             styles={customStyles}/>
-
-                            <Select options={meetMinute} className='col-md-3' placeholder='분' id='minute'
+                            <Select options={meetMinute} className='col-md-3' placeholder={m.current+' 분'}
                             onChange={(e) => m.current=e.value}
                             styles={customStyles}/>
                         </div>
                     </div>
 
                     <div className='MakeGathering-form-box'>
-                        <Select options={study_form} className='col-md-5' placeholder='공부형태' id='form'
+                        <Select options={study_form} className='col-md-5' placeholder={form} id='form'
                         onChange={(e) => {setform(e.value)}}
                         styles={customStyles}/>
                     </div>
                     
                     <div className='MakeGathering-form-box'>
-                        <textarea type='text' className='make-gathering-contents' id='contents' placeholder='설명'
+                        <textarea type='text' className='make-gathering-contents' value={contents} id='contents' placeholder='설명'
                         onChange={(e) => setcontents(e.target.value)}/>
                     </div>
 
@@ -250,7 +259,7 @@ function MakeGathering(props) {
                     </div>
                     
                     <div className='place-input'>
-                        <input type='text' placeholder='상세 장소 이름' id='placeName'
+                        <input type='text' placeholder='상세 장소 이름' value={placeName} id='placeName'
                         onChange={(e) => setplaceName(e.target.value)}/>
                     </div>
                     
@@ -266,19 +275,13 @@ function MakeGathering(props) {
                         if(!placeName){
                             document.getElementById('placeName').style.borderColor='red';
                         }
-                        if(!T.current){
-                            document.getElementById('Time').style.borderColor='red';
-                        }
-                        if(!m.current){
-                            document.getElementById('minute').style.borderColor='red';
-                        }
-                        if(form&&contents&&placeName&&T.current&&m.current){
-                            handleMakeGathering()
+                        if(form&&contents&&placeName){
+                            handleUpdateGathering()
                         }
                         else{
                             window.alert('공백이 존재합니다.')
                         }
-                        }}>모임 생성</button>     
+                        }}>모임 수정</button>     
                 </div>
             </div>
         </div>
@@ -287,4 +290,4 @@ function MakeGathering(props) {
     )
 }
 
-export default MakeGathering
+export default UpdateGathering

@@ -11,3 +11,23 @@
     margin: auto;
 
 }
+
+.checkbox-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.checkbox {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    
+}
+
+.close-checkbox {
+    margin-right: 20px;
+    width: 30px;
+    height: 30px;
+}

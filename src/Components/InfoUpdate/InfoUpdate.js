@@ -9,7 +9,7 @@ import api from '../../API'
 function InfoUpdate(props) {
     
     const [Img, setImg] = useState(null)
-    const [Name, setName] = useState()
+    const [Name, setName] = useState('')
     const [TagName, setTagName] = useState('')
     const [isImgDelete, setisImgDelete] = useState(false)
     const [items, setItems] = useState([])
@@ -49,7 +49,6 @@ function InfoUpdate(props) {
         if(addlist.current != [] && inView && TagName){
             nextPage()
             getItems()
-            console.log('scroll end');
         }
     }, [inView])
 
@@ -57,7 +56,7 @@ function InfoUpdate(props) {
         page.current = page.current+1;
     }
     
-    const updateHandler = () => {
+    const updateHandler = async () => {
         const req = {
             deleteImage: isImgDelete,
             nickName: Name
@@ -70,9 +69,10 @@ function InfoUpdate(props) {
         const formData = new FormData();
         formData.append('image', Img);
         formData.append('request', jsonRequest)
-        api.updateProfile(formData)
-        console.log(isImgDelete);
-        props.history.push('/MyPage')
+        const res = await api.updateProfile(formData)
+        if(res){
+            window.location.href='/MyPage'
+        }
     }
 
     const getItems = async () => {
@@ -142,17 +142,21 @@ function InfoUpdate(props) {
                     <div className='modalTitle'>내 정보 수정</div>
 
                         <div className='innerContent'>
-                            <div>
+                            <div className='innerContent-top'>
                                 <img className='img' src={imgBase64}/>
                                 프로필 사진 : <input type="file" className="fileUpdate"
                                     onChange={function(e){
                                         handleChangeFile(e)
                                     }}
                                 />
-                                <input type='checkbox' checked={isImgDelete} 
-                                onClick={() => {
-                                    setisImgDelete(!isImgDelete)
-                                }}/>기본이미지
+
+                                <div className='info-checkbox-box'>
+                                    <input type='checkbox' checked={isImgDelete}  className='info-checkbox'
+                                    onChange={() => {
+                                        setisImgDelete(!isImgDelete)
+                                    }}/>기본 이미지
+                                </div>
+
                             </div>
                                 
                         <input type="text" className="inputUpdateName" placeholder="이름" value={Name}
@@ -175,7 +179,14 @@ function InfoUpdate(props) {
                     <div className='itemList' id='itemList'>{items}<div ref={scrollRef}></div></div>
                     <div className="modalTag">{list}</div>                       
                 </div>
-                <a className="Info-updateBtn" onClick={updateHandler}>수정</a>
+                <a className="Info-updateBtn" onClick={() =>{
+                    if(Name!=''){
+                        updateHandler()
+                    }
+                    else{
+                        window.alert('이름은 공백일 수 없습니다.')
+                    }
+                }}>수정</a>
             </div>
         </div>
     )

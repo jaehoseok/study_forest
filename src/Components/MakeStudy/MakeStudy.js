@@ -83,6 +83,7 @@ function MakeStudy(props) {
                 ...provided,
                 height: '38px',
                 color: 'black',
+                borderRadius: '15px',
             })
         })
     )
@@ -160,7 +161,7 @@ function MakeStudy(props) {
         }
     }
 
-    const handleAddStudy = () => {
+    const handleAddStudy = async () => {
         const reqTagList = [];
         for(let i=0 ; i<tagList.length ; i++){
             reqTagList.push(tagList[i].key)
@@ -182,7 +183,6 @@ function MakeStudy(props) {
             req.locationCode = selectedLocationCode.toString()
         }
 
-        console.log(req);
         
         const json = JSON.stringify(req)
         const jsonRequest = new Blob([json],{
@@ -190,11 +190,12 @@ function MakeStudy(props) {
         })
 
         const formData = new FormData();
-        console.log(req);
         formData.append('image', Img);
         formData.append('request', jsonRequest)
-        //api.makeStudy(formData)
-        //props.history.push('/')
+        const res = await api.makeStudy(formData)
+        if(res){
+            window.location.href='/'
+        }
     }
 
 

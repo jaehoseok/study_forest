@@ -28,7 +28,7 @@ function MyPage() {
 
     const infoPush = async (data) => {
         const locationRes = await api.location(data.locationId)
-        let location_name = locationRes.city + " " + locationRes.dong
+        let location_name = locationRes ? locationRes.city + " " + locationRes.dong : '지역을 설정해야 합니다.'
         let tagRes = await api.userTag()
         let tagList = []
         let info
@@ -78,13 +78,16 @@ function MyPage() {
 
     const statusIcon = (status) => {
         if(status==='SUCCESS'){
-            return <a className='status-icon'><CheckOutlined style={{color: 'green', marginRight: '10px', fontSize: '20px'}}/>승인</a>
+            return <a className='status-icon'>
+                <i className="fas fa-check-circle" style={{color: 'green', marginRight: '10px', fontSize: '20px'}}></i>승인</a>
         }
         else if(status === 'FAIL'){
-            return <a className='status-icon'><CloseOutlined style={{color: 'red', marginRight: '10px', fontSize: '20px'}}/>거절</a>
+            return <a className='status-icon'>
+                <i class="fas fa-times-circle" style={{color: 'red', marginRight: '10px', fontSize: '20px'}}></i>거절</a>
         }
         else{
-            return <a className='status-icon'><PauseOutlined style={{color: 'yellow', marginRight: '10px', fontSize: '20px'}}/>대기</a>
+            return <a className='status-icon'>
+                <i className="fas fa-pause-circle" style={{color: 'yellow', marginRight: '10px', fontSize: '20px'}}></i>대기</a>
         }
     }
 
@@ -115,7 +118,7 @@ function MyPage() {
     return (
         <div className ="MyPage">
             <div className='top'>
-                <div className='top-title'>&#60;&nbsp;내&nbsp;&nbsp;정&nbsp;보&nbsp;&#62;</div>
+                <div className='top-title'>&nbsp;내&nbsp;&nbsp;정&nbsp;보&nbsp;</div>
             </div>
             
             

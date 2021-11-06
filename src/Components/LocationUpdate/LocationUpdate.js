@@ -25,8 +25,6 @@ function LocationUpdate(props) {
 
     const btnC = async() => {
         setfetching(true)
-        console.log('Page=',page.current);
-        console.log(SearchMap);
         const res = await api.searchLocation(SearchMap, page.current)
         maplist=[]
         for(let i=0 ; i<res.length; i++){
@@ -53,7 +51,6 @@ function LocationUpdate(props) {
         if(list.current != [] && inView && SearchMap){
             nextPage()
             btnC()
-            console.log('scroll end');
         }
     }, [inView])
 
@@ -63,7 +60,6 @@ function LocationUpdate(props) {
 
     const updateHandler = async () => {
         api.updateLocation(updated_code)
-        console.log(updated_code);
         props.history.push('/MyPage')
     }
 
@@ -73,7 +69,7 @@ function LocationUpdate(props) {
         <div>
             <div className="LocationUpdate">
                 <div className="LocationContents">
-                    <div className='modalTitle' >지역 수정</div>
+                    <div className='location-modalTitle' >지역 수정</div>
                     <div className='LocationSearch-box'>
                         <input type="text" className="LocationNameInput" placeholder="주소" onChange={
                             async (e) => {

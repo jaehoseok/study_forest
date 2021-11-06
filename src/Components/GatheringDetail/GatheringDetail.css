@@ -43,24 +43,32 @@ textarea:focus {
 
 .gatheringDetail-content {
     text-align: left;
-    font-weight: 500;
+    font-weight: 300;
+    font-size: 20px;
 }
 
-.gatheringDetail-body > div > .gatheringJoinBtn {
-    color: white;
+.gatheringJoinBtn {
+    color: black;
     padding: 2px 5px;
-    background-color: black;
+    background-color: rgb(201, 228, 197);
     margin: auto;
     font-size: 25px;
     margin-top: 20px;
     width: 150px;
     border-radius: 5px;
+    text-decoration: none;
+}
+
+.gatheringJoinBtn:hover {
+    background-color: rgb(181, 205, 163);
+    color: black;
 }
 
 .gatheringMap {
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    height: 330px;
     display: flex;
+    border-radius: 15px;
 }
 
 .gatheringDetail-box {
@@ -74,8 +82,9 @@ textarea:focus {
     display: flex;
     justify-content: left;
     align-items: center;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid rgb(250, 235, 224);
     color: black;
+    padding: 10px;
 }
 
 .gatheringMember > img {
@@ -87,15 +96,40 @@ textarea:focus {
 
 .gatheringMemberList {
     display: block;
-    border: 3px solid black;
     width: 100%;
-    height: 200px;
+    height: 500px;
     overflow-y: scroll;
+    background-color: rgb(193, 172, 149);
+    border-radius: 15px;
 }
 
 .gatheringMemberList > .gatheringMemberList-title {
     width: 100%;
     font-size: 20px;
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid rgb(250, 235, 224);
     color: black;
+}
+
+.gatheringDetail-contents {
+    border: 0;
+    padding: 10px;
+    background-color: rgb(193, 172, 149);
+    border-radius: 15px;
+}
+
+.gatheringDetail-header {
+    width: 100%;
+    color: black;
+    font-size: 30px;
+    margin-bottom: 30px;
+    font-weight: 400;
+    margin-top: 30px;
+}
+
+.update_delete-btn-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 60%;
+    margin:auto;
 }

@@ -3,12 +3,14 @@ import * as StompJs from "@stomp/stompjs";
 import * as SockJS from "sockjs-client";
 import {useInView} from 'react-intersection-observer'
 import './GatheringChat.css'
+import {useParams} from 'react-router-dom'
 
 import api from '../../API';
 
 import GatheringSide from '../GatheringSide/GatheringSide'
 
 function GatheringChat(props) {
+    const {Id, chatId} = useParams()
 
     const page = useRef(0);
 
@@ -49,16 +51,10 @@ function GatheringChat(props) {
         }
     }, [])
 
-    function refreshPage() {
-        props.history.go(0)
-    }
-
 
     const pullMessage = async() => {
-        const res = await api.chatMessage(props.match.params.chatId, page.current)
-        console.log(res);
+        const res = await api.chatMessage(chatId, page.current)
         list = [];
-        console.log(window.sessionStorage.getItem('userId'));
         res.slice(0).reverse().map((chat, index) => {
                 if(chat.userId.toString() === window.sessionStorage.getItem('userId')){
                     list.push(
@@ -87,14 +83,12 @@ function GatheringChat(props) {
         if(client.current.connected && inView){
             nextPage()
             pullMessage()
-            console.log('scroll end');
         }
     }, [inView])
     
 
     const nextPage = () => {
         page.current = page.current+1
-        console.log(page.current);
     }
 
 
@@ -106,13 +100,13 @@ function GatheringChat(props) {
                 'token': window.sessionStorage.getItem('accessToken'),
             },
             debug: function (str) {
-                //console.log(str);
+
             },
             reconnectDelay: 5000,
             heartbeatIncoming: 4000,
             heartbeatOutgoing: 4000,
             onConnect: (frame) => {
-                //console.log(frame);
+
                 subscribe();
             },
             onStompError: (frame) => {
@@ -129,8 +123,7 @@ function GatheringChat(props) {
     };
     
     const subscribe = () => {
-        client.current.subscribe(`/sub/chat/room/${props.match.params.chatId}`, ({ body }) => {
-            console.log(body);
+        client.current.subscribe(`/sub/chat/room/${chatId}`, ({ body }) => {
             setChatMessages((_chatMessages) => [..._chatMessages, JSON.parse(body)]);
         },{"token":window.sessionStorage.getItem('accessToken')});
     };
@@ -145,7 +138,7 @@ function GatheringChat(props) {
             headers:{
                 token: window.sessionStorage.getItem('accessToken'),
             },    
-            body: JSON.stringify({ roomId: props.match.params.chatId, sender: window.sessionStorage.getItem('nickName'), message: Message }),
+            body: JSON.stringify({ roomId: chatId, sender: window.sessionStorage.getItem('nickName'), message: Message }),
         });
         setMessage("");
     };
@@ -153,7 +146,7 @@ function GatheringChat(props) {
     return (
         <div className="GatheringChat">
             <aside>
-                <GatheringSide Id={props.match.params.Id}/>
+                <GatheringSide Id={Id}/>
             </aside>
 
             <div>
@@ -179,7 +172,15 @@ function GatheringChat(props) {
 
                 <div className='chat-input-box'>
                     <textarea type='text' onChange={(e)=>{setMessage(e.target.value)}} value={Message}/>
-                    <button className='send-btn' onClick={publish}>보내기</button>
+                    <button className='send-btn' onClick={() =>{
+                            if(Message!=''){
+                                publish()
+                            }
+                            else{
+                                window.alert('공백은 보낼 수 없습니다.')
+                            }
+                        
+                    }}>보내기</button>
                 </div>
                 
             </div>
