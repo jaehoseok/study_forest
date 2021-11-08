@@ -38,7 +38,7 @@ function KakaoLogin(props) {
                 dispatch(loginUser(body))
                 .then(response => {
                     if(response.payload.isLogin){
-                        props.history.push('/')
+                        window.location.href='/'
                     } else {
                         alert('로그인 실패')
                     }

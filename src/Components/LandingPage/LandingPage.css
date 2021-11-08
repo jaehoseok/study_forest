@@ -39,13 +39,14 @@
     margin-right: 20px;
     align-content: center;
     justify-self: center;
-    
+    color: black;
 }
 
 .makeStudyBtn:hover {
     background-color: rgb(181, 205, 163);
     transform: scale(1.05);
     transition: 0.4s;
+    color: black;
 }
 /* a:link { color: black; }
 a:visited { color: black; } */
