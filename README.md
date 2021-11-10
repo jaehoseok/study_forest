@@ -16,12 +16,15 @@
 
 - ### Web - 석재호
     - React
+    - <a> https://github.com/jaehoseok/study_forest
 
 - ### App - 한다빈
     - Kotlin
+    - <a> https://github.com/daisy6365/GraduatedProject
 
 - ### Server - 황주환
     - Spring
+    - <a> https://github.com/juhwan0815/study-server
 
 
 <br>
@@ -87,3 +90,171 @@
 
 - 채팅방 만들기
 ![screencapture-localhost-3000-StudyRoom-207-MakeChat-2021-11-08-14_03_17](https://user-images.githubusercontent.com/62582301/140686992-3fdb4220-d6e2-453a-aab5-c2a18e0241b9.png)
+
+
+## 주요 기능 설명 📄
+- **kakao auth**
+
+```javascript
+    const Login =  () => {
+        kakao.Auth.login({
+            success: function (authObj) {
+                const AccessToken = JSON.stringify(authObj["access_token"]);
+                
+                let body = {
+                    kakaoToken: kakao.Auth.getAccessToken()
+                }
+                dispatch(loginUser(body))
+                .then(response => {
+                    if(response.payload.isLogin){
+                        window.location.href='/'
+                    } else {
+                        alert('로그인 실패')
+                    }
+                })
+            },
+
+            fail: function(err) {
+
+            }
+        }); 
+    }
+```
+ 카카오 auth api 에서 kakaoToken을 받아온 뒤 토큰을 헤더에 담아 서버에 로그인 요청을 보내면 서버 토큰을 받고 Session Storage 에 저장하여 요청을 보낼 때 사용한다.
+
+- **kakao 위치 api**
+
+```javascript
+    useEffect(() => {
+        const mapContainer = document.getElementById('selectedMap')
+        const mapOptions = {
+            center: new kakao.maps.LatLng(selectedLet.current, selectedLen.current),
+            level: 5,
+            draggable: false,
+        }
+        const map = new kakao.maps.Map(mapContainer, mapOptions)
+    }, [selectedLet.current, selectedLen.current])
+```
+ 지역이 선택되면 해당 지역의 좌표값을 가지고 맵을 보여준다.
+
+ - **FCM 알림**
+ 
+ ```javascript
+    useEffect(async() => {
+
+    const config =  { 
+      apiKey: "apiKey",
+      authDomain: "study-forest.firebaseapp.com",
+      projectId: "study-forest",
+      storageBucket: "study-forest.appspot.com",
+      messagingSenderId: "messagingSenderId",
+      appId: "appId",
+      measurementId: "measurementId"
+    }; 
+    firebase.initializeApp(config);
+    const messaging = firebase.messaging();
+  
+  await messaging.requestPermission()
+  .then(async () => {
+    console.log('fcm 허가!');
+    const FCMToken = await messaging.getToken({ vapidKey: 'vapiKey' });
+    window.sessionStorage.setItem('FCMToken', FCMToken)
+    //토큰을 받는 함수를 추가!
+  })
+  .catch(function(err) {
+    console.log('fcm에러 : ', err);
+  })
+ ```
+  App.js 가 렌더링 되면서 FCM 토큰을 받고 로그인을 하며 FCM 토큰을 보내, 알림이 울리도록 설정함.
+
+  ```javascript
+  importScripts('https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/4.8.1/firebase-messaging.js');
+const config =  { 
+    apiKey: "apiKey",
+    authDomain: "study-forest.firebaseapp.com",
+    projectId: "study-forest",
+    storageBucket: "study-forest.appspot.com",
+    messagingSenderId: "messagingSenderId",
+    appId: "appId",
+    measurementId: "measurementId"
+}; 
+firebase.initializeApp(config);
+
+const messaging = firebase.messaging();
+
+messaging.setBackgroundMessageHandler((payload) => {
+	const title  =  payload.data.title;
+	const options  = {
+		body: payload.data.message,
+	};
+    console.log(payload);
+	return self.registration.showNotification(title, options);
+})
+  ```
+ background에서 알림을 받을 수 있도록 public 폴더 안에 서비스 워커를 등록
+
+- **채팅***
+
+```javascript
+    const connect = async () => {
+        client.current = new StompJs.Client({
+            webSocketFactory: () => new SockJS("http://211.37.147.101:8000/chat-service/ws-stomp"), // proxy를 통한 접속
+            connectHeaders: {
+                'token': window.sessionStorage.getItem('accessToken'),
+            },
+            debug: function (str) {
+
+            },
+            reconnectDelay: 5000,
+            heartbeatIncoming: 4000,
+            heartbeatOutgoing: 4000,
+            onConnect: (frame) => {
+
+                subscribe();
+            },
+            onStompError: (frame) => {
+                console.error(frame);
+            },
+        });
+        client.current.activate();
+        await pullMessage()
+    };
+
+    const disconnect = async () => {
+        client.current.deactivate();
+        await setprevMessage([])
+    };
+    
+    const subscribe = () => {
+        client.current.subscribe(`/sub/chat/room/${chatId}`, ({ body }) => {
+            setChatMessages((_chatMessages) => [..._chatMessages, JSON.parse(body)]);
+        },{"token":window.sessionStorage.getItem('accessToken')});
+    };
+
+    const publish = async () => {
+        if (!client.current.connected) {
+            return;
+        }
+    
+        client.current.publish({
+            destination: "/pub/chat/message",
+            headers:{
+                token: window.sessionStorage.getItem('accessToken'),
+            },    
+            body: JSON.stringify({ roomId: chatId, sender: window.sessionStorage.getItem('nickName'), message: Message }),
+        });
+        setMessage("");
+    };
+```
+ 서버와 Stomp로 메세지를 주고 받고 하며, publish로 메세지를 보내고  subscribe로 들어간 채팅의 알림을 받아올 수 있도록 하였다.
+
+## 아쉬운 점 ⚠️
+
+- 깃허브를 개인마다 만들어 branch를 활용해보지 못함
+- className을 camelCase와 snake-case를 둘다 사용하여 가독성에 문제가 있고 같은 className을 사용하여 예상치 못한 디자인이 나옴
+- 파일들의 정리가 잘 안되어 있어, 협업이였다면 문제가 될 소지가 있음
+- Redux의 활용이 매우 적어 State의 관리가 제대로 이루어 지지 않음
+- API.js 또한 각 카테고리 별로 나누어 만들면 좋았을거 같음
+- 서버에 https로 요청하면 ssl에러가 터짐, 배포시에 문제가 됨
+- css에 media 쿼리를 사용하지 못함
