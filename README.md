@@ -256,7 +256,9 @@ messaging.setBackgroundMessageHandler((payload) => {
 
 
 - **배포**
- 배포는 헤로쿠를 통해 하였다.
+ 배포는 헤로쿠를 통해 하였으나 https로 요청되어 에러가 난다.
+ ![screencapture-dashboard-heroku-apps-study-forest-2021-11-17-16_30_29](https://user-images.githubusercontent.com/62582301/142155634-2568d926-953a-4530-b65a-b673db23287d.png)
+
 ## 보완 사항 ⚠️
 
 - 깃허브를 개인마다 만들어 branch를 활용해보지 못함
