@@ -39,7 +39,8 @@
 <img src="https://img.shields.io/badge/kakao-FFCD00?style=for-the-badge&logo=kakao&logoColor=black">
 <img src="https://img.shields.io/badge/firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black">
 <img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=black">
-<img src="https://img.shields.io/badge/socket.io-010101?style=for-the-badge&logo=socket.io&logoColor=white">
+<img src="https://img.shields.io/badge/sockjs-010101?style=for-the-badge&logo=sockjs&logoColor=white">
+<img src="https://img.shields.io/badge/stomp-010101?style=for-the-badge&logo=stomp&logoColor=white">
 <img src="https://img.shields.io/badge/webpack-8DD6F9?style=for-the-badge&logo=webpack&logoColor=black">
 <img src="https://img.shields.io/badge/babel-F9DC3E?style=for-the-badge&logo=babel&logoColor=black">
 <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=black">
@@ -90,6 +91,9 @@
 
 - 채팅방 만들기
 ![screencapture-localhost-3000-StudyRoom-207-MakeChat-2021-11-08-14_03_17](https://user-images.githubusercontent.com/62582301/140686992-3fdb4220-d6e2-453a-aab5-c2a18e0241b9.png)
+
+- 채팅방
+![screencapture-localhost-3000-StudyRoom-3-GatheringChat-3-2021-11-17-14_47_27](https://user-images.githubusercontent.com/62582301/142142173-7c09491c-8b25-4a91-979b-85abbe57aeab.png)
 
 
 ## 주요 기능 설명 📄
@@ -249,7 +253,7 @@ messaging.setBackgroundMessageHandler((payload) => {
 ```
  서버와 Stomp로 메세지를 주고 받고 하며, publish로 메세지를 보내고  subscribe로 들어간 채팅의 알림을 받아올 수 있도록 하였다.
 
-## 아쉬운 점 ⚠️
+## 보완 사항 ⚠️
 
 - 깃허브를 개인마다 만들어 branch를 활용해보지 못함
 - className을 camelCase와 snake-case를 둘다 사용하여 가독성에 문제가 있고 같은 className을 사용하여 예상치 못한 디자인이 나옴

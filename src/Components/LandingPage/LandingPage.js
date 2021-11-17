@@ -24,7 +24,7 @@ function LandingPage() {
         online: true,
         offline: true,
         searchKeyword: "",
-        categoryId: '',
+        categoryId: "&categoryId=0",
     })
 
     useEffect(async () => {

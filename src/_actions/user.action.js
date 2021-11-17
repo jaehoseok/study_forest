@@ -37,6 +37,6 @@ export async function auth(){
 
     return {
         type: AUTH_USER,
-        payload: request
+        payload: request,
     }
 }

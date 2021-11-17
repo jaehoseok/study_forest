@@ -5,7 +5,7 @@ import './KakaoLogin.css';
 import api from '../../API'
 
 import {useDispatch, useSelector} from 'react-redux'
-import {loginUser, setIsLogin} from '../../_actions/user.action';
+import {loginUser, setIsLogin, auth} from '../../_actions/user.action';
 
 import kakao from 'kakaojs'
 import kakaoLoginButton from './kakao_login_medium_narrow.png'
@@ -53,15 +53,15 @@ function KakaoLogin(props) {
 
     const Logout = async () => {
         if(kakao.Auth.getAccessToken() && window.sessionStorage.getItem('accessToken')){
-            await kakao.API.request({
-                url: '/v1/user/unlink',
-                success: function (response) {
+            // await kakao.API.request({
+            //     url: '/v1/user/unlink',
+            //     success: function (response) {
 
-                },
-                fail: function (error) {
+            //     },
+            //     fail: function (error) {
 
-                },
-            })
+            //     },
+            // })
             await api.logout()
             window.sessionStorage.removeItem('accessToken')
             kakao.Auth.setAccessToken(undefined);

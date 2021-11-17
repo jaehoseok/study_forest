@@ -8,6 +8,7 @@ import {useParams} from 'react-router-dom'
 import api from '../../API';
 
 import GatheringSide from '../GatheringSide/GatheringSide'
+import moment from 'moment';
 
 function GatheringChat(props) {
     const {Id, chatId} = useParams()
@@ -56,11 +57,12 @@ function GatheringChat(props) {
         const res = await api.chatMessage(chatId, page.current)
         list = [];
         res.slice(0).reverse().map((chat, index) => {
+                const temp = moment(chat.createdAt).format('YYYY년 MM월 DD일 HH시 mm분');
                 if(chat.userId.toString() === window.sessionStorage.getItem('userId')){
                     list.push(
                         <div key={page.current+' '+index}>
                             <div className='right-chat-word'><p>{chat.sender}</p>{chat.message}</div>
-                            <div className='right-createdAt'>{chat.createdAt}</div>
+                            <div className='right-createdAt'>{temp}</div>
                         </div>
                         
                     )
@@ -69,7 +71,7 @@ function GatheringChat(props) {
                     list.push(
                         <div key={page.current+' '+index}>
                             <div className='left-chat-word'><p>{chat.sender}</p>{chat.message}</div>
-                            <div className='left-createdAt'>{chat.createdAt}</div>
+                            <div className='left-createdAt'>{temp}</div>
                         </div>
                         
                     )
@@ -95,7 +97,7 @@ function GatheringChat(props) {
     const connect = async () => {
         client.current = new StompJs.Client({
             //brokerURL: "http://211.37.147.101:8000/chat-service/ws-stomp", // 웹소켓 서버로 직접 접속
-            webSocketFactory: () => new SockJS("http://211.37.147.101:8000/chat-service/ws-stomp"), // proxy를 통한 접속
+            webSocketFactory: () => new SockJS("http://54.180.75.139:8000/chat-service/ws-stomp"), // proxy를 통한 접속
             connectHeaders: {
                 'token': window.sessionStorage.getItem('accessToken'),
             },

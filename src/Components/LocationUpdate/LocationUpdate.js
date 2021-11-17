@@ -25,15 +25,16 @@ function LocationUpdate(props) {
 
     const btnC = async() => {
         setfetching(true)
+        console.log(SearchMap);
         const res = await api.searchLocation(SearchMap, page.current)
         maplist=[]
-        for(let i=0 ; i<res.length; i++){
-            let location_name =  res[i].city + " " + res[i].gu + " " + res[i].dong
+        res.map((res, index)=> {
+            let location_name =  res.city + " " + res.gu + " " + res.dong
             maplist.push(
-                <div className="localName-box">
-                    <div className="localName" key={'loaction'+res[i].code} onClick={
+                <div className="localName-box" key={'loaction'+res.code}>
+                    <div className="localName" key={'loaction'+res.code} onClick={
                         (e) => {
-                            setupdated_code(res[i].id)
+                            setupdated_code(res.id)
                             setupdated_location(location_name)
                         }
                     }>
@@ -41,7 +42,7 @@ function LocationUpdate(props) {
                     </div>
                 </div>
             )
-        }
+        })
         list.current=[...list.current, ...maplist]
         setMapList(list.current)
         setfetching(false)
@@ -60,7 +61,7 @@ function LocationUpdate(props) {
 
     const updateHandler = async () => {
         api.updateLocation(updated_code)
-        props.history.push('/MyPage')
+        window.location.href='/MyPage'
     }
 
 

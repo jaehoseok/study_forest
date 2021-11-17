@@ -84,6 +84,7 @@
 .col-md-3 {
     margin-right: 20px;
     border-radius: 15px;
+    z-index: 4;
 }
 
 .col-md-3 div {
