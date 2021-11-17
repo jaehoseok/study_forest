@@ -254,6 +254,9 @@ messaging.setBackgroundMessageHandler((payload) => {
 ```
  서버와 Stomp로 메세지를 주고 받고 하며, publish로 메세지를 보내고  subscribe로 들어간 채팅의 알림을 받아올 수 있도록 하였다.
 
+
+- **배포**
+ 배포는 헤로쿠를 통해 하였다.
 ## 보완 사항 ⚠️
 
 - 깃허브를 개인마다 만들어 branch를 활용해보지 못함
