@@ -44,6 +44,7 @@
 <img src="https://img.shields.io/badge/webpack-8DD6F9?style=for-the-badge&logo=webpack&logoColor=black">
 <img src="https://img.shields.io/badge/babel-F9DC3E?style=for-the-badge&logo=babel&logoColor=black">
 <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=black">
+<img src="https://img.shields.io/badge/heroku-430098?style=for-the-badge&logo=heroku&logoColor=black">
 
 <br>
 <br>
