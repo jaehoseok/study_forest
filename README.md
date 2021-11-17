@@ -90,7 +90,7 @@
 ![screencapture-localhost-3000-StudyRoom-207-GatheringDetail-7-2021-11-08-14_02_33](https://user-images.githubusercontent.com/62582301/140686940-b0b3a4ed-4651-42eb-ae53-a1a59da4bb6d.png)
 
 - 채팅방 만들기
-![screencapture-localhost-3000-StudyRoom-207-MakeChat-2021-11-08-14_03_17](https://user-images.githubusercontent.com/62582301/140686992-3fdb4220-d6e2-453a-aab5-c2a18e0241b9.png)
+![screencapture-localhost-3000-StudyRoom-3-MakeChat-2021-11-17-14_52_49](https://user-images.githubusercontent.com/62582301/142142690-f1e5cbf4-8236-41eb-8d05-b76e957818b4.png)
 
 - 채팅방
 ![screencapture-localhost-3000-StudyRoom-3-GatheringChat-3-2021-11-17-14_47_27](https://user-images.githubusercontent.com/62582301/142142173-7c09491c-8b25-4a91-979b-85abbe57aeab.png)
