@@ -67,6 +67,14 @@
 ![screencapture-localhost-3000-MyPage-2021-11-08-13_55_02](https://user-images.githubusercontent.com/62582301/140686354-dc962045-986d-4671-a8dd-d4da8b3c0d62.png)
 
 
+- 내 정보 수정하기
+![screencapture-localhost-3000-InfoUpdate-2021-11-22-01_40_27](https://user-images.githubusercontent.com/62582301/142770903-63345660-0a18-439f-b43e-8fac7ed32e99.png)
+
+
+- 내 동네 수정하기
+![screencapture-localhost-3000-LocationUpdate-2021-11-22-01_41_27](https://user-images.githubusercontent.com/62582301/142770927-8afee7ba-ba0a-4d7e-b924-1caeabf2c486.png)
+
+
 
 - 나의 스터디 (가입한 스터디)
 <img width="1440" alt="MyStudy" src="https://user-images.githubusercontent.com/62582301/140685785-80a1a014-e356-4a69-8af6-0975fb289802.png">

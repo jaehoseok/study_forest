@@ -3,7 +3,7 @@ import moment from 'moment'
 import 'moment/locale/ko'
 
 
-axios.defaults.baseURL="http://54.180.75.139:8000"
+axios.defaults.baseURL="http://3.34.19.111:8000"
 
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -396,6 +396,9 @@ export default{
             }
         })
         .then(res => {
+        })
+        .catch(err => {
+            window.alert(err.response.data.message)
         })
     },
 

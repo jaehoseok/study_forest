@@ -97,7 +97,7 @@ function GatheringChat(props) {
     const connect = async () => {
         client.current = new StompJs.Client({
             //brokerURL: "http://211.37.147.101:8000/chat-service/ws-stomp", // 웹소켓 서버로 직접 접속
-            webSocketFactory: () => new SockJS("http://54.180.75.139:8000/chat-service/ws-stomp"), // proxy를 통한 접속
+            webSocketFactory: () => new SockJS("http://3.34.19.111:8000/chat-service/ws-stomp"), // proxy를 통한 접속
             connectHeaders: {
                 'token': window.sessionStorage.getItem('accessToken'),
             },

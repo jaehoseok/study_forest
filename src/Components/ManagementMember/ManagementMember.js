@@ -147,17 +147,6 @@ function ManagementMember(props) {
                     <div className='right-member'>
                         <div className='list-title'>신청 인원</div>
                         {WaitUsers}
-                        <div className='waitUser' key='21312' id='3213'>
-                            ㅇㅇㅇ
-                            <div>
-                                <div>
-                                    <UserAddOutlined style={{color: 'green', fontSize: '20px', marginRight: '3px'}}/>승인
-                                </div>
-                                <div>
-                                    <CloseSquareOutlined style={{color: 'red', fontSize: '20px', marginRight: '3px'}}/>거절
-                                </div>
-                            </div>
-                        </div>
                     </div>                    
                 </div>
 

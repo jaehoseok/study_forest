@@ -308,7 +308,7 @@ function MakeStudy(props) {
                     if(!form){
                         document.getElementById('study_form').style.borderColor='red'
                     }
-                    if(!selectedLocationCode){
+                    if(!selectedLocationCode && form.off===true){
                         document.getElementById('study_map').style.borderColor='red'
                     }
 
